@@ -7,94 +7,67 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const login = async (email, password, remember) => {
-    const res = await API.post("/auth/login", {
-      email,
-      password,
-    });
+  // Load user when app starts
+  useEffect(() => {
+    const loadUser = async () => {
+      const token = localStorage.getItem("token");
 
-    const token = res.data.token;
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
-    if (remember) {
-      localStorage.setItem("token", token);
-    } else {
-      sessionStorage.setItem("token", token);
-    }
+      try {
+        const res = await API.get("/auth/profile");
+        setUser(res.data.user);
+      } catch (error) {
+        console.error(error);
+        localStorage.removeItem("token");
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    loadUser();
+  }, []);
 
-    const profile = await API.get("/auth/profile");
+  // Register
+  const register = async (formData) => {
+    const res = await API.post("/auth/register", formData);
 
-    const loggedInUser = profile.data.user;
+    localStorage.setItem("token", res.data.token);
 
-setUser(loggedInUser);
+    setUser(res.data.user);
 
-// Save user for later
-if (remember) {
-  localStorage.setItem("user", JSON.stringify(loggedInUser));
-} else {
-  sessionStorage.setItem("user", JSON.stringify(loggedInUser));
-}
-
-return loggedInUser;
+    return res.data;
   };
 
- const logout = () => {
-  localStorage.removeItem("token");
-  sessionStorage.removeItem("token");
+  // Login
+  const login = async (formData) => {
+    const res = await API.post("/auth/login", formData);
 
-  localStorage.removeItem("user");
-  sessionStorage.removeItem("user");
+    localStorage.setItem("token", res.data.token);
 
-  delete API.defaults.headers.common["Authorization"];
+    setUser(res.data.user);
 
-  setUser(null);
+    return res.data;
+  };
 
-  window.location.href = "/login";
-};
-
-  useEffect(() => {
-    const token =
-      localStorage.getItem("token") ||
-      sessionStorage.getItem("token");
-
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-
-    API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-    API.get("/auth/profile")
-     .then((res) => {
-  setUser(res.data.user);
-
-  const storage =
-    localStorage.getItem("token")
-      ? localStorage
-      : sessionStorage;
-
-  storage.setItem(
-    "user",
-    JSON.stringify(res.data.user)
-  );
-})
-      .catch(() => {
-        logout();
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  // Logout
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
 
   return (
     <AuthContext.Provider
       value={{
         user,
         loading,
+        register,
         login,
         logout,
-        isAuthenticated: !!user,
       }}
     >
       {children}

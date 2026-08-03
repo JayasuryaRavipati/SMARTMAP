@@ -1,44 +1,30 @@
-import { useState, useEffect } from "react";
+import { createDelivery } from "../services/api";
+import { toast,ToastContainer } from "react-toastify";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../services/api";
-import { toast, ToastContainer } from "react-toastify";
+import {
+  FaUser,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaFlag,
+  FaSave,
+} from "react-icons/fa";
 
-import { MapContainer, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import LocationPicker from "../components/LocationPicker";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import { geocodeAddress } from "../utils/geocoding";
+
+import "../styles/AddDelivery.css";
 
 function AddDelivery() {
   const navigate = useNavigate();
-
-  const [drivers, setDrivers] = useState([]);
 
   const [form, setForm] = useState({
     customerName: "",
     phone: "",
     address: "",
-    latitude: "",
-    longitude: "",
-    assignedDriver: "",
+    priority: "Normal",
   });
-
-  // Fetch all drivers
-  useEffect(() => {
-    const fetchDrivers = async () => {
-      try {
-        const res = await API.get("/users/drivers");
-
-        console.log("Drivers API Response:", res.data);
-
-        setDrivers(res.data.drivers || []);
-      } catch (error) {
-        console.error("Driver API Error:", error);
-
-        toast.error("Unable to load drivers");
-      }
-    };
-
-    fetchDrivers();
-  }, []);
 
   const handleChange = (e) => {
     setForm({
@@ -47,156 +33,181 @@ function AddDelivery() {
     });
   };
 
-  const handleLocationSelect = (lat, lng) => {
-    setForm((prev) => ({
-      ...prev,
-      latitude: lat.toFixed(6),
-      longitude: lng.toFixed(6),
-    }));
-  };
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+//     console.log(form);
 
-    if (!form.latitude || !form.longitude) {
-      toast.error("Please select a location on the map.");
-      return;
-    }
+//     alert("Delivery Saved Successfully");
 
-    try {
-      const deliveryData = {
-        customerName: form.customerName,
-        phone: form.phone,
-        address: form.address,
-        latitude: Number(form.latitude),
-        longitude: Number(form.longitude),
-      };
+//     navigate("/deliveries");
+//   };
 
-      if (form.assignedDriver !== "") {
-        deliveryData.assignedDriver = form.assignedDriver;
-      }
 
-      console.log("Sending Delivery:", deliveryData);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const coordinates = await geocodeAddress(form.address);
 
-      const res = await API.post("/deliveries", deliveryData);
+if (!coordinates) {
+  alert("Unable to locate this address.");
+  return;
+}
 
-      console.log(res.data);
 
-      toast.success("Delivery Added Successfully!");
+  try {
+    await createDelivery(form);
 
-      setTimeout(() => {
-        navigate("/deliveries");
-      }, 1200);
-    } catch (err) {
-      console.error(err);
+setForm({
+  customerName: "",
+  phone: "",
+  address: "",
+  priority: "Normal",
+});
 
-      toast.error(
-        err.response?.data?.message || "Failed to add delivery"
-      );
-    }
-  };
+toast.success("Delivery Added Successfully");
 
+    setTimeout(() => {
+      navigate("/deliveries");
+    }, 1000);
+
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || "Failed to add delivery"
+    );
+  }
+};
   return (
     <>
-      <ToastContainer />
+     <ToastContainer />
+    <div className="dashboard">
 
-      <div className="login-page">
-        <div className="login-card">
-          <h2>Add Delivery</h2>
+      <Sidebar />
 
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="customerName"
-              placeholder="Customer Name"
-              value={form.customerName}
-              onChange={handleChange}
-              required
-            />
+      <div className="dashboard-main">
 
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone Number"
-              value={form.phone}
-              onChange={handleChange}
-              required
-            />
+        <Navbar />
 
-            <input
-              type="text"
-              name="address"
-              placeholder="Delivery Address"
-              value={form.address}
-              onChange={handleChange}
-              required
-            />
+        <div className="add-delivery-page">
 
-            <input
-              type="text"
-              name="latitude"
-              value={form.latitude}
-              placeholder="Latitude"
-              readOnly
-            />
+          <div className="delivery-card">
 
-            <input
-              type="text"
-              name="longitude"
-              value={form.longitude}
-              placeholder="Longitude"
-              readOnly
-            />
+            <h1>Add New Delivery</h1>
 
-            <h3>Select Delivery Location</h3>
+            <p>
+              Enter customer delivery details below.
+            </p>
 
-            <MapContainer
-              center={[17.385, 78.486]}
-              zoom={13}
-              style={{
-                height: "300px",
-                width: "100%",
-                marginBottom: "20px",
-              }}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution="&copy; OpenStreetMap contributors"
-              />
+            <form onSubmit={handleSubmit}>
 
-              <LocationPicker
-                onLocationSelect={handleLocationSelect}
-              />
-            </MapContainer>
+              <div className="input-group">
 
-            <label>Assign Driver</label>
+                <FaUser />
 
-            <select
-              name="assignedDriver"
-              value={form.assignedDriver}
-              onChange={handleChange}
-            >
-              <option value="">Select Driver</option>
+                <input
+                  type="text"
+                  placeholder="Customer Name"
+                  name="customerName"
+                  value={form.customerName}
+                  onChange={handleChange}
+                  required
+                />
 
-              {drivers.map((driver) => (
-                <option
-                  key={driver._id}
-                  value={driver._id}
-                >
-                  {driver.name}
-                </option>
-              ))}
-            </select>
+              </div>
+              
 
-            <button
-              type="submit"
-              className="login-btn"
-            >
-              Save Delivery
-            </button>
-          </form>
+              <div className="input-group">
+
+                <FaPhone />
+
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  required
+                />
+
+              </div>
+
+              <div className="input-group">
+
+                <FaMapMarkerAlt />
+
+                <textarea
+                  placeholder="Complete Delivery Address"
+                  rows="4"
+                  name="address"
+                  value={form.address}
+                  onChange={handleChange}
+                  required
+                />
+
+              </div>
+
+              <div className="priority-box">
+
+                <label>
+
+                  <input
+                    type="radio"
+                    value="Normal"
+                    name="priority"
+                    checked={form.priority === "Normal"}
+                    onChange={handleChange}
+                  />
+
+                  Normal
+
+                </label>
+
+                <label>
+
+                  <input
+                    type="radio"
+                    value="High"
+                    name="priority"
+                    checked={form.priority === "High"}
+                    onChange={handleChange}
+                  />
+
+                  High
+
+                </label>
+
+                <label>
+
+                  <input
+                    type="radio"
+                    value="Super"
+                    name="priority"
+                    checked={form.priority === "Super"}
+                    onChange={handleChange}
+                  />
+
+                  Super (5 Min)
+
+                </label>
+
+              </div>
+
+              <button className="save-btn">
+
+                <FaSave />
+
+                Save Delivery
+
+              </button>
+
+            </form>
+
+          </div>
+
         </div>
+
       </div>
+
+    </div>
     </>
   );
 }

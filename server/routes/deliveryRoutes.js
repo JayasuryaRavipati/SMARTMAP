@@ -7,36 +7,26 @@ const {
   getDelivery,
   updateDelivery,
   deleteDelivery,
-  updateDeliveryStatus,
-  getMyDeliveries,
 } = require("../controllers/deliveryController");
 
 const protect = require("../middleware/authMiddleware");
 
+// Protect all delivery routes
+router.use(protect);
+
 // Create Delivery
-router.post("/", protect, createDelivery);
+router.post("/", createDelivery);
 
 // Get All Deliveries
-router.get("/", protect, getDeliveries);
+router.get("/", getDeliveries);
 
 // Get Single Delivery
-// router.get("/:id", protect, getDelivery);
+router.get("/:id", getDelivery);
 
 // Update Delivery
-router.put(
-  "/status/:id",
-  protect,
-  updateDeliveryStatus
-);
-router.put("/:id", protect, updateDelivery);
-
+router.put("/:id", updateDelivery);
 
 // Delete Delivery
-router.delete("/:id", protect, deleteDelivery);
-router.get(
-  "/my-deliveries",
-  protect,
-  getMyDeliveries
-);
+router.delete("/:id", deleteDelivery);
 
 module.exports = router;

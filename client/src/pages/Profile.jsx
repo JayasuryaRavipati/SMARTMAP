@@ -1,53 +1,134 @@
-import { useEffect, useState } from "react";
-import API from "../services/api";
-import "./Profile.css";
+import { useState } from "react";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import "../styles/Profile.css";
 
 function Profile() {
-  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
+  const [profile, setProfile] = useState({
+    name: "Surya",
+    email: "surya@example.com",
+    phone: "9876543210",
+    vehicleNumber: "",
+    vehicleType: "",
+  });
 
-  const fetchProfile = async () => {
-    try {
-      const res = await API.get("/auth/profile");
-
-      setUser(res.data.user);
-
-    } catch (error) {
-      console.log(error);
-    }
+  const handleChange = (e) => {
+    setProfile({
+      ...profile,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  if (!user) {
-    return <h2>Loading...</h2>;
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    alert("Profile Updated Successfully");
+  };
 
   return (
-    <div className="profile-container">
+    <div className="dashboard">
 
-      <div className="profile-card">
+      <Sidebar />
 
-        <img
-          src="https://ui-avatars.com/api/?name=RouteIQ"
-          alt="profile"
-        />
+      <div className="dashboard-main">
 
-        <h2>{user.name}</h2>
+        <Navbar />
 
-        <p>{user.role}</p>
+        <div className="profile-page">
 
-        <hr />
+          <div className="profile-card">
 
-        <h4>Email</h4>
-        <p>{user.email}</p>
+            <div className="profile-header">
 
-        <h4>Mobile</h4>
-        <p>{user.mobile}</p>
+              <div className="profile-avatar">
+                {profile.name.charAt(0)}
+              </div>
 
-        <h4>Driver ID</h4>
-        <p>{user.driverId || "Not Assigned"}</p>
+              <div>
+                <h2>Driver Profile</h2>
+                <p>Manage your account information</p>
+              </div>
+
+            </div>
+
+            <form onSubmit={handleSubmit}>
+
+              <div className="profile-grid">
+
+                <div className="input-box">
+                  <label>Full Name</label>
+
+                  <input
+                    type="text"
+                    name="name"
+                    value={profile.name}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="input-box">
+                  <label>Email</label>
+
+                  <input
+                    type="email"
+                    name="email"
+                    value={profile.email}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="input-box">
+                  <label>Phone Number</label>
+
+                  <input
+                    type="text"
+                    name="phone"
+                    value={profile.phone}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="input-box">
+                  <label>Vehicle Number</label>
+
+                  <input
+                    type="text"
+                    name="vehicleNumber"
+                    value={profile.vehicleNumber}
+                    onChange={handleChange}
+                    placeholder="AP39AB1234"
+                  />
+                </div>
+
+                <div className="input-box">
+                  <label>Vehicle Type</label>
+
+                  <select
+                    name="vehicleType"
+                    value={profile.vehicleType}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Vehicle</option>
+                    <option>Bike</option>
+                    <option>Scooter</option>
+                    <option>Van</option>
+                    <option>Truck</option>
+                  </select>
+
+                </div>
+
+              </div>
+
+              <button className="update-btn">
+                Update Profile
+              </button>
+
+            </form>
+
+          </div>
+
+        </div>
 
       </div>
 

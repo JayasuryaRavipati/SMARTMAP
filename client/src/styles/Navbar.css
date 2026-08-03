@@ -1,0 +1,82 @@
+.navbar{
+    height:75px;
+    background:#ffffff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 35px;
+    border-bottom:1px solid #e5e7eb;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.navbar-left h2{
+    margin:0;
+    color:#1e3a8a;
+    font-size:28px;
+}
+
+.navbar-left p{
+    margin-top:5px;
+    color:#64748b;
+    font-size:14px;
+}
+
+.navbar-right{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.notification-btn{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:#f1f5f9;
+    cursor:pointer;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+    transition:.3s;
+}
+
+.notification-btn:hover{
+    background:#e2e8f0;
+}
+
+.notification-dot{
+    width:10px;
+    height:10px;
+    background:#ef4444;
+    border-radius:50%;
+    position:absolute;
+    top:10px;
+    right:10px;
+}
+
+.driver-profile{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.driver-info{
+    text-align:right;
+}
+
+.driver-info h4{
+    margin:0;
+    color:#0f172a;
+}
+
+.driver-info span{
+    color:#64748b;
+    font-size:14px;
+}
+
+.profile-icon{
+    font-size:45px;
+    color:#2563eb;
+}

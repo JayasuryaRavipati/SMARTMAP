@@ -1,102 +1,172 @@
 import { useEffect, useState } from "react";
-import API from "../services/api";
-import { toast } from "react-toastify";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import { getDeliveries, deleteDelivery } from "../services/api";
+import "../styles/MyDeliveries.css";
+import { Link } from "react-router-dom";
+function MyDeliveries() {
 
-function Deliveries() {
   const [deliveries, setDeliveries] = useState([]);
+  const [search, setSearch] = useState("");
+  const [priority, setPriority] = useState("All");
+  const [status, setStatus] = useState("All");
 
   useEffect(() => {
-    fetchDeliveries();
+    loadDeliveries();
   }, []);
 
-  const fetchDeliveries = async () => {
+  const loadDeliveries = async () => {
     try {
-      const res = await API.get("/deliveries");
-      setDeliveries(res.data.deliveries);
+      const data = await getDeliveries();
+      setDeliveries(data.deliveries);
     } catch (err) {
-      toast.error("Failed to load deliveries");
+      console.log(err);
     }
   };
 
-  const deleteDelivery = async (id) => {
+  const handleDelete = async (id) => {
     if (!window.confirm("Delete this delivery?")) return;
 
-    try {
-      await API.delete(`/deliveries/${id}`);
+    await deleteDelivery(id);
 
-      toast.success("Delivery Deleted");
-
-      fetchDeliveries();
-
-    } catch (err) {
-      toast.error("Delete Failed");
-    }
+    loadDeliveries();
   };
 
+  const filtered = deliveries.filter((d) => {
+
+    const searchMatch =
+      d.customerName.toLowerCase().includes(search.toLowerCase());
+
+    const priorityMatch =
+      priority === "All" || d.priority === priority;
+
+    const statusMatch =
+      status === "All" || d.status === status;
+
+    return searchMatch && priorityMatch && statusMatch;
+  });
+
   return (
-    <div className="page">
+    <div className="dashboard">
 
-      <h2>Delivery Management</h2>
+      <Sidebar />
 
-      <table className="delivery-table">
+      <div className="dashboard-main">
 
-        <thead>
-          <tr>
-            <th>Customer</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Status</th>
-            <th>Driver</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+        <Navbar />
 
-        <tbody>
+        <div className="deliveries-page">
 
-          {deliveries.map((delivery) => (
+          <div className="deliveries-header">
 
-            <tr key={delivery._id}>
+            <h1>My Deliveries</h1>
 
-              <td>{delivery.customerName}</td>
+            <div className="filters">
 
-              <td>{delivery.phone}</td>
+              <input
+                type="text"
+                placeholder="Search customer..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
 
-              <td>{delivery.address}</td>
+              <select
+                value={priority}
+                onChange={(e) => setPriority(e.target.value)}
+              >
+                <option>All</option>
+                <option>Super</option>
+                <option>High</option>
+                <option>Normal</option>
+              </select>
 
-              <td>{delivery.status}</td>
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option>All</option>
+                <option>Pending</option>
+                <option>On Route</option>
+                <option>Delivered</option>
+              </select>
 
-              <td>
-                {delivery.assignedDriver
-                  ? delivery.assignedDriver.name
-                  : "Not Assigned"}
-              </td>
+            </div>
 
-              <td>
+          </div>
 
-                <button>
-                  Edit
-                </button>
+          <table className="delivery-table">
 
-                <button
-                  onClick={() =>
-                    deleteDelivery(delivery._id)
-                  }
-                >
-                  Delete
-                </button>
+            <thead>
 
-              </td>
+              <tr>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
 
-            </tr>
+            </thead>
 
-          ))}
+            <tbody>
 
-        </tbody>
+              {filtered.map((delivery) => (
 
-      </table>
+                <tr key={delivery._id}>
+
+                  <td>{delivery.customerName}</td>
+
+                  <td>{delivery.phone}</td>
+
+                  <td>
+                    <span className={`priority ${delivery.priority.toLowerCase()}`}>
+                      {delivery.priority}
+                    </span>
+                  </td>
+
+                  <td>
+                    <span className={`status ${delivery.status.toLowerCase().replace(" ","-")}`}>
+                      {delivery.status}
+                    </span>
+                  </td>
+
+                  <td>
+
+                    <Link
+    to={`/deliveries/${delivery._id}`}
+    className="action-btn"
+>
+    <FaEye />
+</Link>
+
+                    <button className="action-btn">
+                      <FaEdit />
+                    </button>
+
+                    <button
+                      className="action-btn delete"
+                      onClick={() => handleDelete(delivery._id)}
+                    >
+                      <FaTrash />
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
 
     </div>
   );
 }
 
-export default Deliveries;
+export default MyDeliveries;

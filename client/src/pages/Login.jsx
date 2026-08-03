@@ -1,54 +1,44 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash, FaTruck } from "react-icons/fa";
-import { toast, ToastContainer } from "react-toastify";
-import { motion } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
 
-import "./Login.css";
+import "../styles/Login.css";
 
 function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const onSubmit = async (data) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      setLoading(true);
+      await login(form);
 
-     const user = await login(
-  data.email,
-  data.password,
-  data.remember
-);
+      toast.success("Login Successful");
 
-toast.success("Login Successful!");
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
 
-setTimeout(() => {
-  if (user.role === "Driver") {
-    navigate("/driver-dashboard");
-  } else {
-    navigate("/dashboard");
-  }
-}, 1200);
-    } catch (err) {
+    } catch (error) {
       toast.error(
-        err.response?.data?.message || "Login Failed"
+        error.response?.data?.message || "Login Failed"
       );
-    } finally {
-      setLoading(false);
     }
   };
- 
 
   return (
     <>
@@ -56,103 +46,44 @@ setTimeout(() => {
 
       <div className="login-page">
 
-        <motion.div
-          className="login-card"
-          initial={{ opacity: 0, y: 80 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="login-card">
 
-          <div className="logo">
-            <FaTruck />
-          </div>
+          <h1>SMARTMAP</h1>
 
-          <h1>RouteIQ</h1>
+          <p>Sign in to your account</p>
 
-          <p>Smart Delivery Route Optimization</p>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-
-            <label>Email</label>
+          <form onSubmit={handleSubmit}>
 
             <input
               type="email"
-              placeholder="Enter email"
-              {...register("email", {
-                required: "Email is required",
-              })}
+              name="email"
+              placeholder="Email Address"
+              value={form.email}
+              onChange={handleChange}
+              required
             />
 
-            <span>{errors.email?.message}</span>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
 
-            <label>Password</label>
-
-            <div className="password-box">
-
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter password"
-                {...register("password", {
-                  required: "Password is required",
-                })}
-              />
-
-              <button
-                type="button"
-                onClick={() =>
-                  setShowPassword(!showPassword)
-                }
-              >
-                {showPassword ? (
-                  <FaEyeSlash />
-                ) : (
-                  <FaEye />
-                )}
-              </button>
-
-            </div>
-
-            <span>{errors.password?.message}</span>
-
-            <div className="options">
-
-              <label>
-
-                <input
-                  type="checkbox"
-                  {...register("remember")}
-                />
-
-                Remember Me
-
-              </label>
-
-              <Link to="/forgot-password">
-                Forgot Password?
-              </Link>
-
-            </div>
-
-            <button
-              className="login-btn"
-              disabled={loading}
-            >
-              {loading ? "Logging In..." : "Login"}
+            <button type="submit">
+              Login
             </button>
 
           </form>
 
-          <div className="signup-link">
-
+          <p className="register-link">
             Don't have an account?
+            <Link to="/register"> Register</Link>
+          </p>
 
-            <Link to="/signup">
-              Create Account
-            </Link>
-
-          </div>
-
-        </motion.div>
+        </div>
 
       </div>
     </>

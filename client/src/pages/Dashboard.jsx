@@ -1,16 +1,11 @@
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-import DashboardCard from "../components/DashboardCard";
-import MapView from "../components/MapView";
+import StatsCards from "../components/StatsCards";
+import QuickActions from "../components/QuickActions";
 import DeliveryTable from "../components/DeliveryTable";
-import {
-    FaTruck,
-    FaUsers,
-    FaClock,
-    FaCheckCircle
-} from "react-icons/fa";
+import MapView from "../components/MapView";
 
-import "./Dashboard.css";
+import "../styles/Dashboard.css";
 
 function Dashboard() {
   return (
@@ -18,50 +13,26 @@ function Dashboard() {
 
       <Sidebar />
 
-      <div className="main">
+      <div className="dashboard-main">
 
         <Navbar />
 
-        <div className="content">
+        <div className="dashboard-content">
 
-          <h1>Welcome to RouteIQ</h1>
+          <div className="dashboard-header">
+            <h1>Driver Dashboard</h1>
+            <p>
+              Welcome back! Manage your deliveries and optimize today's route.
+            </p>
+          </div>
 
-          <div className="cards">
+          <StatsCards />
 
-    <DashboardCard
-        title="Total Deliveries"
-        value="125"
-        icon={<FaTruck />}
-        color="#2563EB"
-    />
+          <QuickActions />
 
-    <DashboardCard
-        title="Drivers Online"
-        value="18"
-        icon={<FaUsers />}
-        color="#10B981"
-    />
-
-    <DashboardCard
-        title="Pending Orders"
-        value="20"
-        icon={<FaClock />}
-        color="#F59E0B"
-    />
-
-    <DashboardCard
-        title="Completed"
-        value="105"
-        icon={<FaCheckCircle />}
-        color="#8B5CF6"
-    />
-    
-
-</div>
-
-         <div className="map-section">
-  <MapView />
-</div>
+          <div className="dashboard-map">
+            <MapView />
+          </div>
 
           <DeliveryTable />
 

@@ -1,0 +1,69 @@
+.deliveries-page{
+    padding:30px;
+}
+
+.deliveries-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.filters{
+    display:flex;
+    gap:15px;
+}
+
+.filters input,
+.filters select{
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    min-width:170px;
+}
+
+.delivery-table{
+    width:100%;
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    border-collapse:collapse;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+
+.delivery-table th{
+    background:#f8fafc;
+    padding:16px;
+    text-align:left;
+}
+
+.delivery-table td{
+    padding:16px;
+    border-top:1px solid #e5e7eb;
+}
+
+.action-btn{
+    border:none;
+    padding:10px;
+    margin-right:8px;
+    border-radius:8px;
+    cursor:pointer;
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.action-btn:hover{
+    background:#2563eb;
+    color:white;
+}
+
+.delete{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.delete:hover{
+    background:#dc2626;
+    color:white;
+}

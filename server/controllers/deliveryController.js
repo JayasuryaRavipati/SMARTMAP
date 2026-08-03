@@ -1,53 +1,34 @@
 const Delivery = require("../models/Delivery");
 
+// =========================
 // Create Delivery
-exports.createDelivery = async (req, res) => {
+// =========================
+const createDelivery = async (req, res) => {
   try {
     const {
-      customerName,
-      phone,
-      address,
-      latitude,
-      longitude,
-      assignedDriver,
-    } = req.body;
+  customerName,
+  phone,
+  address,
+  priority,
+  latitude,
+  longitude,
+} = req.body;
 
     const delivery = await Delivery.create({
-      customerName,
-      phone,
-      address,
-      latitude,
-      longitude,
-      assignedDriver,
-    });
+  customerName,
+  phone,
+  address,
+  priority,
+  latitude,
+  longitude,
+  driver: req.user.id,
+});
 
     res.status(201).json({
       success: true,
-      message: "Delivery Created Successfully",
+      message: "Delivery Created",
       delivery,
     });
-
-  } catch (error) {
-  console.error(error);
-
-  res.status(500).json({
-    success: false,
-    message: error.message,
-  });
-}
-};
-
-// Get All Deliveries
-exports.getDeliveries = async (req, res) => {
-  try {
-    const deliveries = await Delivery.find()
-      .populate("assignedDriver", "name email");
-
-    res.status(200).json({
-      success: true,
-      deliveries,
-    });
-
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -56,10 +37,36 @@ exports.getDeliveries = async (req, res) => {
   }
 };
 
-// Get Single Delivery
-exports.getDelivery = async (req, res) => {
+// =========================
+// Get Deliveries
+// =========================
+const getDeliveries = async (req, res) => {
   try {
-    const delivery = await Delivery.findById(req.params.id);
+    const deliveries = await Delivery.find({
+      driver: req.user._id,
+    }).sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      deliveries,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// =========================
+// Get Single Delivery
+// =========================
+const getDelivery = async (req, res) => {
+  try {
+    const delivery = await Delivery.findOne({
+      _id: req.params.id,
+      driver: req.user._id,
+    });
 
     if (!delivery) {
       return res.status(404).json({
@@ -68,11 +75,10 @@ exports.getDelivery = async (req, res) => {
       });
     }
 
-    res.status(200).json({
+    res.json({
       success: true,
       delivery,
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -81,23 +87,34 @@ exports.getDelivery = async (req, res) => {
   }
 };
 
+// =========================
 // Update Delivery
-exports.updateDelivery = async (req, res) => {
+// =========================
+const updateDelivery = async (req, res) => {
   try {
-    const delivery = await Delivery.findByIdAndUpdate(
-      req.params.id,
+    const delivery = await Delivery.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        driver: req.user._id,
+      },
       req.body,
       {
         new: true,
       }
     );
 
-    res.status(200).json({
+    if (!delivery) {
+      return res.status(404).json({
+        success: false,
+        message: "Delivery not found",
+      });
+    }
+
+    res.json({
       success: true,
       message: "Delivery Updated",
       delivery,
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -106,16 +123,29 @@ exports.updateDelivery = async (req, res) => {
   }
 };
 
+// =========================
 // Delete Delivery
-exports.deleteDelivery = async (req, res) => {
+// =========================
+const deleteDelivery = async (req, res) => {
   try {
-    await Delivery.findByIdAndDelete(req.params.id);
+    const delivery = await Delivery.findOne({
+      _id: req.params.id,
+      driver: req.user._id,
+    });
 
-    res.status(200).json({
+    if (!delivery) {
+      return res.status(404).json({
+        success: false,
+        message: "Delivery not found",
+      });
+    }
+
+    await delivery.deleteOne();
+
+    res.json({
       success: true,
       message: "Delivery Deleted",
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -124,73 +154,10 @@ exports.deleteDelivery = async (req, res) => {
   }
 };
 
-exports.getMyDeliveries = async (req, res) => {
-  try {
-    const deliveries = await Delivery.find({
-      assignedDriver: req.user.id,
-    });
-
-    res.json({
-      success: true,
-      deliveries,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
-exports.getDelivery = async (req, res) => {
-  try {
-    const delivery = await Delivery.findById(req.params.id);
-
-    if (!delivery) {
-      return res.status(404).json({
-        success: false,
-        message: "Delivery not found",
-      });
-    }
-
-    res.json({
-      success: true,
-      delivery,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
-
-exports.updateDeliveryStatus = async (req, res) => {
-  try {
-    const { status } = req.body;
-
-    const delivery = await Delivery.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
-
-    if (!delivery) {
-      return res.status(404).json({
-        success: false,
-        message: "Delivery not found",
-      });
-    }
-
-    res.json({
-      success: true,
-      message: "Status Updated",
-      delivery,
-    });
-
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
+module.exports = {
+  createDelivery,
+  getDeliveries,
+  getDelivery,
+  updateDelivery,
+  deleteDelivery,
 };

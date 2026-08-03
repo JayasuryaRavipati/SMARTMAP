@@ -1,39 +1,36 @@
-import { FaBell, FaSearch, FaUserCircle } from "react-icons/fa";
-import { useAuth } from "../context/AuthContext";
-import "./Navbar.css";
+import { FaBell, FaUserCircle } from "react-icons/fa";
+import "../styles/Navbar.css";
 
 function Navbar() {
-  const { user } = useAuth();
-
   return (
-    <div className="navbar">
+    <header className="navbar">
 
-      <div className="search-box">
-        <FaSearch />
-        <input
-          type="text"
-          placeholder="Search deliveries, drivers..."
-        />
+      <div className="navbar-left">
+        <h2>SMARTMAP</h2>
+        <p>Driver Route Optimization System</p>
       </div>
 
-      <div className="nav-right">
+      <div className="navbar-right">
 
-        <div className="notification">
+        <button className="notification-btn">
           <FaBell />
-        </div>
+          <span className="notification-dot"></span>
+        </button>
 
-        <div className="profile">
-          <FaUserCircle className="profile-icon" />
+        <div className="driver-profile">
 
-          <div>
-            <h4>{user?.name || "Guest"}</h4>
-            <p>{user?.role || "User"}</p>
+          <div className="driver-info">
+            <h4>Surya</h4>
+            <span>Delivery Driver</span>
           </div>
+
+          <FaUserCircle className="profile-icon"/>
+
         </div>
 
       </div>
 
-    </div>
+    </header>
   );
 }
 

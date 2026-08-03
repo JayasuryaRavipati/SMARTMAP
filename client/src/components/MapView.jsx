@@ -1,121 +1,84 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+} from "react-leaflet";
+
 import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
-import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
-import Routing from "./Routing";
-import API from "../services/api";
+import { getDeliveries } from "../services/api";
 
+import "../styles/MapView.css";
+
+// Fix Leaflet marker icons
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: markerIcon2x,
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  shadowUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
-function ChangeView({ center }) {
-  const map = useMap();
+function MapView() {
+  const [deliveries, setDeliveries] = useState([]);
 
   useEffect(() => {
-    map.setView(center, 15);
-  }, [center, map]);
+    loadDeliveries();
+  }, []);
 
-  return null;
-}
-
-function MapView() {
-  const [position, setPosition] = useState([17.385, 78.4867]);
-
- useEffect(() => {
-  navigator.geolocation.getCurrentPosition(
-    (location) => {
-      setPosition([
-        location.coords.latitude,
-        location.coords.longitude,
-      ]);
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
-
-  const fetchDeliveries = async () => {
+  const loadDeliveries = async () => {
     try {
-      const res = await API.get("/deliveries");
-
-      console.log("Deliveries:", res.data.deliveries);
-      console.log(res.data.deliveries);
-
-      setDeliveries(res.data.deliveries);
+      const data = await getDeliveries();
+      setDeliveries(data.deliveries);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
-  fetchDeliveries();
-}, []);
-const [deliveries, setDeliveries] = useState([]);
-const validDeliveries = deliveries.filter(
-  (delivery) =>
-    !isNaN(Number(delivery.latitude)) &&
-    !isNaN(Number(delivery.longitude))
-);
   return (
-    
     <MapContainer
-      center={position}
-      zoom={15}
-      style={{
-        height: "100%",
-        width: "100%",
-      }}
+      center={[17.385, 78.4867]}
+      zoom={11}
+      style={{ height: "100%", width: "100%" }}
     >
-      <ChangeView center={position} />
-
       <TileLayer
+        attribution="© OpenStreetMap contributors"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution="&copy; OpenStreetMap contributors"
       />
 
-      <Marker position={position}>
-        <Popup>
-          🚚 You are here
-        </Popup>
-      </Marker>
-     <Routing
-  driverPosition={position}
-  deliveries={validDeliveries}
-/>
-     {deliveries
-  .filter(
-    (delivery) =>
-      delivery.latitude != null &&
-      delivery.longitude != null
-  )
-  .map((delivery) => (
-    <Marker
-      key={delivery._id}
-      position={[
-        Number(delivery.latitude),
-        Number(delivery.longitude),
-      ]}
-    >
-      <Popup>
-        <strong>{delivery.customerName}</strong>
+      {deliveries.map((delivery) => {
+        if (!delivery.latitude || !delivery.longitude) return null;
 
-        <br />
+        return (
+          <Marker
+            key={delivery._id}
+            position={[
+              delivery.latitude,
+              delivery.longitude,
+            ]}
+          >
+            <Popup>
+              <strong>{delivery.customerName}</strong>
 
-        📍 {delivery.address}
+              <br />
 
-        <br />
+              {delivery.address}
 
-        📦 {delivery.status}
-      </Popup>
-    </Marker>
-))}
+              <br />
+
+              Priority:
+              {" "}
+              {delivery.priority}
+            </Popup>
+          </Marker>
+        );
+      })}
     </MapContainer>
   );
 }

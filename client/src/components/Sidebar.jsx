@@ -1,188 +1,99 @@
-// import {
-//   FaHome,
-//   FaRoute,
-//   FaBox,
-//   FaTruck,
-//   FaChartBar,
-//   FaCog,
-//   FaUser,
-//   FaSignOutAlt,
-// } from "react-icons/fa";
-
-// import { NavLink, useNavigate } from "react-router-dom";
-// import { useAuth } from "../context/AuthContext";
-
-// import "./Sidebar.css";
-
-// function Sidebar() {
-//     const { logout } = useAuth();
-//   const navigate = useNavigate();
-
-//   const handleLogout = () => {
-//     logout();
-//     navigate("/login");
-//   };
-//   return (
-//     <div className="sidebar">
-//       <div className="logo">
-//         🚚 <span>RouteIQ</span>
-//       </div>
-
-//       <ul className="menu">
-//        <NavLink to="/dashboard" className="menu-link">
-//   <li>
-//     <FaHome />
-//     <span>Dashboard</span>
-//   </li>
-// </NavLink>
-// <NavLink to="/profile" className="menu-link">
-//   <li>
-//     <FaUser />
-//     <span>Profile</span>
-//   </li>
-// </NavLink>
-
-//         <li>
-//           <FaRoute />
-//           <span>Routes</span>
-//         </li>
-
-//         <li>
-//   <NavLink to="/deliveries" className="menu-link">
-//   <li>
-//     <FaBox />
-//     <span>Deliveries</span>
-//   </li>
-// </NavLink>
-
-// <NavLink to="/deliveries/add" className="menu-link">
-//   <li>
-//     <FaBox />
-//     <span>Add Delivery</span>
-//   </li>
-// </NavLink>
-
-//         <li>
-//           <FaTruck />
-//           <span>Drivers</span>
-//         </li>
-
-//         <li>
-//           <FaChartBar />
-//           <span>Analytics</span>
-//         </li>
-
-//         <li>
-//           <FaCog />
-//           <span>Settings</span>
-//         </li>
-        
-
-//         <li className="logout" onClick={handleLogout}>
-//       <FaSignOutAlt />
-//       <span>Logout</span>
-//     </li>
-//       </ul>
-//     </div>
-//   );
-// }
-
-// export default Sidebar;
 import {
   FaHome,
-  FaRoute,
   FaBox,
-  FaTruck,
-  FaChartBar,
-  FaCog,
+  FaPlusCircle,
+  FaRoute,
   FaUser,
+  FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
-import "./Sidebar.css";
+// import Profile from "./pages/Profile";
+import "../styles/Sidebar.css";
 
 function Sidebar() {
-    const { logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
+
+  const menuItems = [
+    {
+      name: "Dashboard",
+      icon: <FaHome />,
+      path: "/dashboard",
+    },
+   {
+  name: "My Deliveries",
+  path: "/deliveries",
+},
+    {
+      name: "Add Delivery",
+      icon: <FaPlusCircle />,
+      path: "/deliveries/add",
+    },
+    {
+      name: "Optimize Route",
+      icon: <FaRoute />,
+      path: "/optimize",
+    },
+    {
+      name: "Profile",
+      icon: <FaUser />,
+      path: "/profile",
+    },
+    {
+      name: "Settings",
+      icon: <FaCog />,
+      path: "/settings",
+    },
+  ];
+
   return (
-    <div className="sidebar">
-      <div className="logo">
-        🚚 <span>RouteIQ</span>
+    <aside className="sidebar">
+
+      <div className="sidebar-logo">
+        <div className="logo-circle">
+          🚚
+        </div>
+
+        <div>
+          <h2>SMARTMAP</h2>
+          <p>Driver Panel</p>
+        </div>
       </div>
 
-     <ul className="menu">
+      <nav className="sidebar-menu">
 
-  <li>
-    <NavLink to="/dashboard" className="menu-link">
-      <FaHome />
-      <span>Dashboard</span>
-    </NavLink>
-  </li>
+        {menuItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            className={({ isActive }) =>
+              isActive ? "menu-item active" : "menu-item"
+            }
+          >
+            {item.icon}
+            <span>{item.name}</span>
+          </NavLink>
+        ))}
 
-  <li>
-    <NavLink to="/profile" className="menu-link">
-      <FaUser />
-      <span>Profile</span>
-    </NavLink>
-  </li>
+      </nav>
 
-  <li>
-    <NavLink to="/routes" className="menu-link">
-      <FaRoute />
-      <span>Routes</span>
-    </NavLink>
-  </li>
+      <button
+        className="logout-btn"
+        onClick={handleLogout}
+      >
+        <FaSignOutAlt />
+        Logout
+      </button>
 
-  <li>
-    <NavLink to="/deliveries" className="menu-link">
-      <FaBox />
-      <span>Deliveries</span>
-    </NavLink>
-  </li>
-
-  <li>
-    <NavLink to="/deliveries/add" className="menu-link">
-      <FaBox />
-      <span>Add Delivery</span>
-    </NavLink>
-  </li>
-
-  <li>
-    <NavLink to="/drivers" className="menu-link">
-      <FaTruck />
-      <span>Drivers</span>
-    </NavLink>
-  </li>
-
-  <li>
-    <NavLink to="/analytics" className="menu-link">
-      <FaChartBar />
-      <span>Analytics</span>
-    </NavLink>
-  </li>
-
-  <li>
-    <NavLink to="/settings" className="menu-link">
-      <FaCog />
-      <span>Settings</span>
-    </NavLink>
-  </li>
-
-  <li className="logout" onClick={handleLogout}>
-    <FaSignOutAlt />
-    <span>Logout</span>
-  </li>
-
-</ul>
-    </div>
+    </aside>
   );
 }
 

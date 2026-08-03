@@ -17,24 +17,27 @@ const deliverySchema = new mongoose.Schema(
       required: true,
     },
 
-    latitude: Number,
-
-    longitude: Number,
+    priority: {
+      type: String,
+      enum: ["Normal", "High", "Super"],
+      default: "Normal",
+    },
 
     status: {
       type: String,
+      enum: ["Pending", "On Route", "Delivered"],
       default: "Pending",
-      enum: [
-        "Pending",
-        "Out for Delivery",
-        "Delivered",
-      ],
     },
 
-    assignedDriver: {
+    driver: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
+
+    latitude: Number,
+
+    longitude: Number,
   },
   {
     timestamps: true,

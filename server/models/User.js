@@ -4,37 +4,28 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Name is required"],
       trim: true,
     },
 
     email: {
       type: String,
-      required: true,
+      required: [true, "Email is required"],
       unique: true,
       lowercase: true,
       trim: true,
     },
 
-    mobile: {
+    phone: {
       type: String,
-      required: true,
+      required: [true, "Phone number is required"],
+      trim: true,
     },
 
     password: {
       type: String,
-      required: true,
-    },
-
-    role: {
-      type: String,
-      enum: ["Admin", "Driver", "Manager"],
-      default: "Driver",
-    },
-
-    driverId: {
-      type: String,
-      default: "",
+      required: [true, "Password is required"],
+      minlength: 6,
     },
   },
   {

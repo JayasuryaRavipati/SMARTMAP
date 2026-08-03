@@ -1,0 +1,55 @@
+.details-page{
+    padding:30px;
+}
+
+.details-card{
+    max-width:700px;
+    margin:auto;
+    background:#fff;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+
+.details-card h1{
+    margin-bottom:30px;
+}
+
+.detail-item{
+    margin-bottom:22px;
+}
+
+.detail-item strong{
+    color:#334155;
+}
+
+.detail-item p{
+    margin-top:6px;
+    color:#64748b;
+    line-height:1.6;
+}
+
+.button-group{
+    margin-top:40px;
+    display:flex;
+    gap:20px;
+}
+
+.start-btn,
+.complete-btn{
+    flex:1;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.start-btn{
+    background:#2563eb;
+}
+
+.complete-btn{
+    background:#16a34a;
+}
