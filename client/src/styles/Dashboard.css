@@ -9,10 +9,11 @@
 
 .dashboard-main {
     flex: 1;
-    margin-left: 270px;          /* Sidebar width */
+    margin-left: 270px;
     display: flex;
     flex-direction: column;
     height: 100vh;
+    transition: margin-left .3s ease;
 }
 
 /* Scrollable area */
@@ -20,7 +21,7 @@
 .dashboard-content {
     flex: 1;
     overflow-y: auto;
-    padding: 100px 30px 30px;    /* 100px because navbar is fixed */
+    padding: 85px 30px 30px;
     background: #f5f7fb;
 }
 
@@ -62,4 +63,123 @@
     overflow: hidden;
     background: white;
     box-shadow: 0 8px 20px rgba(0,0,0,.06);
+}
+
+/* ==========================
+   Large Laptop (≤1200px)
+========================== */
+
+@media (max-width:1200px){
+
+    .dashboard-content{
+        padding:85px 25px 25px;
+    }
+
+    .dashboard-map{
+        height:450px;
+    }
+
+}
+
+/* ==========================
+   Tablet (≤992px)
+========================== */
+
+@media (max-width:992px){
+
+    .dashboard-main{
+        margin-left:0;
+    }
+
+    .dashboard-content{
+        padding:80px 20px 20px;
+    }
+
+    .dashboard-header h1{
+        font-size:30px;
+    }
+
+    .dashboard-map{
+        height:420px;
+    }
+
+}
+
+/* ==========================
+   Mobile Landscape / Small Tablet
+========================== */
+
+@media (max-width:768px){
+
+    .dashboard-content{
+        padding:75px 15px 15px;
+    }
+
+    .dashboard-header{
+        margin-bottom:20px;
+    }
+
+    .dashboard-header h1{
+        font-size:26px;
+    }
+
+    .dashboard-header p{
+        font-size:14px;
+    }
+
+    .dashboard-map{
+        height:350px;
+        border-radius:14px;
+    }
+
+}
+
+/* ==========================
+   Mobile (≤576px)
+========================== */
+
+@media (max-width:576px){
+
+    .dashboard-content{
+        padding:70px 12px 12px;
+    }
+
+    .dashboard-header h1{
+        font-size:22px;
+    }
+
+    .dashboard-header p{
+        font-size:13px;
+    }
+
+    .dashboard-map{
+        margin-top:18px;
+        height:280px;
+        border-radius:12px;
+    }
+
+}
+
+/* ==========================
+   Small Phones (≤400px)
+========================== */
+
+@media (max-width:400px){
+
+    .dashboard-content{
+        padding:68px 10px 10px;
+    }
+
+    .dashboard-header h1{
+        font-size:20px;
+    }
+
+    .dashboard-header p{
+        font-size:12px;
+    }
+
+    .dashboard-map{
+        height:240px;
+    }
+
 }

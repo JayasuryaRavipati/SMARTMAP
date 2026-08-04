@@ -25,7 +25,7 @@ function QuickActions() {
         {/* Optimize Route */}
         <button
           className="action-btn optimize-btn"
-          onClick={() => navigate("/optimize-route")}
+          onClick={() => navigate("/optimize")}
         >
           <FaRoute className="action-icon" />
           <span>Optimize Route</span>

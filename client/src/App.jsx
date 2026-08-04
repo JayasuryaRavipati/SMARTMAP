@@ -13,6 +13,7 @@ import DeliveryDetails from "./pages/DeliveryDetails";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import EditDelivery from "./pages/EditDelivery";
+import OptimizeRoute from "./pages/RouteOptimizer";
 
 function App() {
   return (
@@ -66,9 +67,9 @@ function App() {
 
       {/* Catch All */}
       <Route path="*" element={<Navigate to="/" replace />} />
-      <Route path="/profile" element={<Profile />} />
+      {/* <Route path="/profile" element={<Profile />} /> */}
 
-      <Route path="/deliveries" element={<Deliveries />} />
+      {/* <Route path="/deliveries" element={<Deliveries />} /> */}
       <Route
     path="/deliveries/:id"
     element={<DeliveryDetails />}
@@ -77,6 +78,8 @@ function App() {
     path="/deliveries/edit/:id"
     element={<EditDelivery />}
 />
+<Route path="/optimize" element={<OptimizeRoute />} />
+
     </Routes>
   );
 }

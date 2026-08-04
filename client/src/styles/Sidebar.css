@@ -1,125 +1,487 @@
+/* ================= SIDEBAR ================= */
+
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
 
-    width: 270px;
-    height: 100vh;
+    position:fixed;
 
-    background: #0f172a;
-    color: #fff;
+    top:0;
 
-    display: flex;
-    flex-direction: column;
+    left:0;
 
-    padding: 25px 18px;
 
-    box-sizing: border-box;
+    width:270px;
 
-    box-shadow: 3px 0 12px rgba(0,0,0,.08);
+    height:100vh;
 
-    z-index: 1000;
+
+    background:#0f172a;
+
+    color:#fff;
+
+
+    display:flex;
+
+    flex-direction:column;
+
+
+    padding:25px 18px;
+
+
+    box-sizing:border-box;
+
+
+    box-shadow:3px 0 12px rgba(0,0,0,.08);
+
+
+    z-index:1000;
+
 }
+
+
 
 /* ================= LOGO ================= */
 
-.sidebar-logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
 
-    margin-bottom: 40px;
+.sidebar-logo {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+
+    margin-bottom:40px;
+
 }
+
 
 .logo-circle {
-    width: 60px;
-    height: 60px;
 
-    background: linear-gradient(135deg,#2563eb,#3b82f6);
+    width:60px;
 
-    border-radius: 16px;
+    height:60px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    font-size: 28px;
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+
+    border-radius:16px;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    font-size:28px;
+
+    flex-shrink:0;
+
 }
+
 
 .sidebar-logo h2 {
-    margin: 0;
-    font-size: 22px;
-    color: #fff;
+
+    margin:0;
+
+    font-size:22px;
+
+    color:#fff;
+
 }
 
+
 .sidebar-logo p {
-    margin-top: 5px;
-    color: #94a3b8;
-    font-size: 14px;
+
+    margin-top:5px;
+
+    color:#94a3b8;
+
+    font-size:14px;
+
 }
+
+
 
 /* ================= MENU ================= */
 
+
 .sidebar-menu {
-    flex: 1;
 
-    display: flex;
-    flex-direction: column;
+    flex:1;
 
-    gap: 10px;
 
-    overflow-y: auto;
+    display:flex;
+
+    flex-direction:column;
+
+
+    gap:10px;
+
+
+    overflow-y:auto;
+
 }
+
+
 
 .sidebar-menu::-webkit-scrollbar {
-    width: 5px;
+
+    width:5px;
+
 }
+
 
 .sidebar-menu::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 10px;
+
+    background:#334155;
+
+    border-radius:10px;
+
 }
+
+
 
 .menu-item {
-    display: flex;
-    align-items: center;
 
-    gap: 15px;
+    display:flex;
 
-    padding: 14px 18px;
+    align-items:center;
 
-    border-radius: 12px;
 
-    color: #cbd5e1;
-    text-decoration: none;
+    gap:15px;
 
-    transition: .25s ease;
 
-    font-size: 16px;
-    font-weight: 500;
+    padding:14px 18px;
+
+
+    border-radius:12px;
+
+
+    color:#cbd5e1;
+
+    text-decoration:none;
+
+
+    transition:.25s ease;
+
+
+    font-size:16px;
+
+    font-weight:500;
+
 }
+
+
 
 .menu-item svg {
-    font-size: 20px;
+
+    font-size:20px;
+
+    flex-shrink:0;
+
 }
+
 
 .menu-item:hover {
-    background: #1e293b;
-    color: white;
+
+    background:#1e293b;
+
+    color:white;
+
 }
+
 
 .menu-item.active {
-    background: #2563eb;
-    color: white;
 
-    box-shadow: 0 6px 15px rgba(37,99,235,.35);
+    background:#2563eb;
+
+    color:white;
+
+
+    box-shadow:0 6px 15px rgba(37,99,235,.35);
+
 }
+
+
 
 /* ================= LOGOUT ================= */
 
-/* We'll move Logout to the Navbar in the next step,
-   so hide it here for now. */
 
 .logout-btn {
-    display: none;
+
+    display:none;
+
+}
+
+
+
+/* ================================================= */
+/* ================= LARGE DESKTOP ================= */
+/* ================================================= */
+
+
+@media(min-width:1920px){
+
+    .sidebar{
+
+        width:300px;
+
+        padding:30px 22px;
+
+    }
+
+
+    .logo-circle{
+
+        width:70px;
+
+        height:70px;
+
+        font-size:32px;
+
+    }
+
+
+    .sidebar-logo h2{
+
+        font-size:25px;
+
+    }
+
+
+    .menu-item{
+
+        font-size:17px;
+
+        padding:16px 20px;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= LAPTOP ================= */
+/* ================================================= */
+
+
+@media(max-width:1440px){
+
+
+    .sidebar{
+
+        width:250px;
+
+    }
+
+
+    .logo-circle{
+
+        width:55px;
+
+        height:55px;
+
+        font-size:25px;
+
+    }
+
+
+    .menu-item{
+
+        padding:13px 15px;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= TABLET ================= */
+/* ================================================= */
+
+
+@media(max-width:1024px){
+
+
+    .sidebar{
+
+        width:220px;
+
+        padding:20px 15px;
+
+    }
+
+
+    .sidebar-logo{
+
+        gap:10px;
+
+        margin-bottom:30px;
+
+    }
+
+
+    .logo-circle{
+
+        width:50px;
+
+        height:50px;
+
+        font-size:22px;
+
+        border-radius:12px;
+
+    }
+
+
+    .sidebar-logo h2{
+
+        font-size:18px;
+
+    }
+
+
+    .sidebar-logo p{
+
+        font-size:12px;
+
+    }
+
+
+    .menu-item{
+
+        gap:12px;
+
+        padding:12px;
+
+        font-size:14px;
+
+    }
+
+
+    .menu-item svg{
+
+        font-size:18px;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= MOBILE ================= */
+/* ================================================= */
+
+
+@media(max-width:768px){
+
+
+    .sidebar{
+
+        width:100%;
+
+        height:auto;
+
+        min-height:70px;
+
+
+        position:relative;
+
+
+        padding:15px;
+
+
+        flex-direction:row;
+
+        align-items:center;
+
+
+        box-shadow:0 3px 12px rgba(0,0,0,.15);
+
+    }
+
+
+    .sidebar-logo{
+
+        margin:0;
+
+    }
+
+
+    .logo-circle{
+
+        width:45px;
+
+        height:45px;
+
+        font-size:20px;
+
+        border-radius:12px;
+
+    }
+
+
+    .sidebar-logo h2{
+
+        font-size:18px;
+
+    }
+
+
+    .sidebar-logo p{
+
+        display:none;
+
+    }
+
+
+    .sidebar-menu{
+
+        display:none;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= SMALL MOBILE ================= */
+/* ================================================= */
+
+
+@media(max-width:480px){
+
+
+    .sidebar{
+
+        padding:12px;
+
+    }
+
+
+    .logo-circle{
+
+        width:40px;
+
+        height:40px;
+
+        font-size:18px;
+
+    }
+
+
+    .sidebar-logo h2{
+
+        font-size:16px;
+
+    }
+
 }

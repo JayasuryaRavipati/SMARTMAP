@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   FaSearch,
-  FaMapMarkerAlt,
+  FaEye,
   FaEdit,
   FaTrash,
 } from "react-icons/fa";
@@ -10,49 +10,51 @@ import {
   deleteDelivery,
 } from "../services/api";
 import "../styles/DeliveryTable.css";
-
-
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function DeliveryTable() {
   const [deliveries, setDeliveries] = useState([]);
-const [loading, setLoading] = useState(true);
-const [search, setSearch] = useState("");
-useEffect(() => {
-  fetchDeliveries();
-}, []);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
-const fetchDeliveries = async () => {
-  try {
-    const data = await getDeliveries();
-    setDeliveries(data.deliveries);
-  } catch (error) {
-    console.log(error);
-  } finally {
-    setLoading(false);
-  }
-};
-
-const filteredDeliveries = deliveries.filter((delivery) =>
-  (delivery.customerName || "")
-    .toLowerCase()
-    .includes(search.toLowerCase())
-);
-
-const handleDelete = async (id) => {
-  if (!window.confirm("Delete this delivery?")) return;
-
-  try {
-    await deleteDelivery(id);
-
+  useEffect(() => {
     fetchDeliveries();
-  } catch (error) {
-    toast.error(error.response?.data?.message || "Something went wrong");
-  }
-};
+  }, []);
 
-if (loading) {
-  return <h2>Loading deliveries...</h2>;
-}
+  const fetchDeliveries = async () => {
+    try {
+      const data = await getDeliveries();
+      setDeliveries(data.deliveries);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredDeliveries = deliveries.filter((delivery) =>
+    (delivery.customerName || "")
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this delivery?")) return;
+
+    try {
+      await deleteDelivery(id);
+      fetchDeliveries();
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Something went wrong"
+      );
+    }
+  };
+
+  if (loading) {
+    return <h2>Loading deliveries...</h2>;
+  }
 
   return (
     <div className="delivery-container">
@@ -63,86 +65,121 @@ if (loading) {
 
         <div className="search-box">
           <FaSearch />
-         <input
-    type="text"
-    placeholder="Search customer..."
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-/>
+
+          <input
+            type="text"
+            placeholder="Search customer..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
         </div>
 
       </div>
-      
 
-      <table className="delivery-table">
+      {/* Responsive Table Wrapper */}
+      <div className="delivery-table-wrapper">
 
-        <thead>
-          <tr>
-            <th>Customer</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Priority</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+        <table className="delivery-table">
 
-        <tbody>
+          <thead>
 
-          {filteredDeliveries.map((delivery) => (
-
-           <tr key={delivery._id}>
-
-              <td>{delivery.customerName}</td>
-
-              <td>{delivery.phone}</td>
-
-              <td>{delivery.address}</td>
-
-              <td>
-                <span
-                  className={`priority ${delivery.priority.toLowerCase()}`}
-                >
-                  {delivery.priority}
-                </span>
-              </td>
-
-              <td>
-                <span
-                  className={`status ${delivery.status
-                    .toLowerCase()
-                    .replace(" ", "-")}`}
-                >
-                  {delivery.status}
-                </span>
-              </td>
-
-              <td>
-
-                <button className="icon-btn">
-                  <FaMapMarkerAlt />
-                </button>
-
-                <button className="icon-btn">
-                  <FaEdit />
-                </button>
-
-                <button
-    className="icon-btn delete"
-    onClick={() => handleDelete(delivery._id)}
->
-                  <FaTrash />
-                </button>
-
-              </td>
-
+            <tr>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
 
-          ))}
+          </thead>
 
-        </tbody>
+          <tbody>
 
-      </table>
+            {filteredDeliveries.length > 0 ? (
+
+              filteredDeliveries.map((delivery) => (
+
+                <tr key={delivery._id}>
+
+                  <td>{delivery.customerName}</td>
+
+                  <td>{delivery.phone}</td>
+
+                  <td>{delivery.address}</td>
+
+                  <td>
+                    <span
+                      className={`priority ${delivery.priority.toLowerCase()}`}
+                    >
+                      {delivery.priority}
+                    </span>
+                  </td>
+
+                  <td>
+                    <span
+                      className={`status ${delivery.status
+                        .toLowerCase()
+                        .replace(" ", "-")}`}
+                    >
+                      {delivery.status}
+                    </span>
+                  </td>
+
+                  <td className="actions">
+
+                    <Link
+                      to={`/deliveries/${delivery._id}`}
+                      className="icon-btn view-btn"
+                      title="View Delivery"
+                    >
+                      <FaEye />
+                    </Link>
+
+                    <Link
+                      to={`/deliveries/edit/${delivery._id}`}
+                      className="icon-btn edit-btn"
+                      title="Edit Delivery"
+                    >
+                      <FaEdit />
+                    </Link>
+
+                    <button
+                      className="icon-btn delete-btn"
+                      title="Delete Delivery"
+                      onClick={() => handleDelete(delivery._id)}
+                    >
+                      <FaTrash />
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              ))
+
+            ) : (
+
+              <tr>
+                <td
+                  colSpan="6"
+                  style={{
+                    textAlign: "center",
+                    padding: "30px",
+                  }}
+                >
+                  No deliveries found.
+                </td>
+              </tr>
+
+            )}
+
+          </tbody>
+
+        </table>
+
+      </div>
 
     </div>
   );

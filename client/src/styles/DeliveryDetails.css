@@ -3,6 +3,7 @@
 }
 
 .details-card{
+    width:100%;
     max-width:700px;
     margin:auto;
     background:#fff;
@@ -13,6 +14,7 @@
 
 .details-card h1{
     margin-bottom:30px;
+    color:#0f172a;
 }
 
 .detail-item{
@@ -20,13 +22,17 @@
 }
 
 .detail-item strong{
+    display:block;
     color:#334155;
+    font-size:15px;
+    margin-bottom:6px;
 }
 
 .detail-item p{
-    margin-top:6px;
+    margin:0;
     color:#64748b;
     line-height:1.6;
+    word-break:break-word;
 }
 
 .button-group{
@@ -43,13 +49,157 @@
     border-radius:10px;
     color:#fff;
     font-size:16px;
+    font-weight:600;
     cursor:pointer;
+    transition:.3s;
 }
 
 .start-btn{
     background:#2563eb;
 }
 
+.start-btn:hover{
+    background:#1d4ed8;
+}
+
 .complete-btn{
     background:#16a34a;
+}
+
+.complete-btn:hover{
+    background:#15803d;
+}
+
+.start-btn:disabled,
+.complete-btn:disabled{
+    background:#cbd5e1;
+    cursor:not-allowed;
+    color:#64748b;
+}
+
+/* ==========================
+   Large Laptop (≤1200px)
+========================== */
+
+@media (max-width:1200px){
+
+    .details-page{
+        padding:25px;
+    }
+
+}
+
+/* ==========================
+   Tablet (≤992px)
+========================== */
+
+@media (max-width:992px){
+
+    .details-page{
+        padding:20px;
+    }
+
+    .details-card{
+        max-width:100%;
+    }
+
+}
+
+/* ==========================
+   Small Tablet (≤768px)
+========================== */
+
+@media (max-width:768px){
+
+    .details-page{
+        padding:15px;
+    }
+
+    .details-card{
+        padding:25px;
+        border-radius:16px;
+    }
+
+    .details-card h1{
+        font-size:28px;
+        margin-bottom:25px;
+    }
+
+    .button-group{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .start-btn,
+    .complete-btn{
+        width:100%;
+    }
+
+}
+
+/* ==========================
+   Mobile (≤576px)
+========================== */
+
+@media (max-width:576px){
+
+    .details-page{
+        padding:10px;
+    }
+
+    .details-card{
+        padding:18px;
+        border-radius:12px;
+    }
+
+    .details-card h1{
+        font-size:24px;
+        margin-bottom:20px;
+    }
+
+    .detail-item{
+        margin-bottom:18px;
+    }
+
+    .detail-item strong{
+        font-size:14px;
+    }
+
+    .detail-item p{
+        font-size:14px;
+    }
+
+    .button-group{
+        margin-top:25px;
+        gap:12px;
+    }
+
+    .start-btn,
+    .complete-btn{
+        padding:14px;
+        font-size:15px;
+    }
+
+}
+
+/* ==========================
+   Small Phones (≤400px)
+========================== */
+
+@media (max-width:400px){
+
+    .details-card{
+        padding:15px;
+    }
+
+    .details-card h1{
+        font-size:22px;
+    }
+
+    .start-btn,
+    .complete-btn{
+        padding:13px;
+        font-size:14px;
+    }
+
 }

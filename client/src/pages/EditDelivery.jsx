@@ -120,17 +120,60 @@ function EditDelivery() {
 
               </div>
 
-              <select
-                name="priority"
-                value={form.priority}
-                onChange={handleChange}
-              >
+              <div className="priority-box">
 
-                <option>Normal</option>
-                <option>High</option>
-                <option>Super</option>
+                <label
+                  className={
+                    form.priority === "Normal"
+                      ? "priority active normal"
+                      : "priority normal"
+                  }
+                >
+                  <input
+                    type="radio"
+                    name="priority"
+                    value="Normal"
+                    checked={form.priority === "Normal"}
+                    onChange={handleChange}
+                  />
+                  Normal
+                </label>
 
-              </select>
+                <label
+                  className={
+                    form.priority === "High"
+                      ? "priority active high"
+                      : "priority high"
+                  }
+                >
+                  <input
+                    type="radio"
+                    name="priority"
+                    value="High"
+                    checked={form.priority === "High"}
+                    onChange={handleChange}
+                  />
+                  High
+                </label>
+
+                <label
+                  className={
+                    form.priority === "Super"
+                      ? "priority active super"
+                      : "priority super"
+                  }
+                >
+                  <input
+                    type="radio"
+                    name="priority"
+                    value="Super"
+                    checked={form.priority === "Super"}
+                    onChange={handleChange}
+                  />
+                  Super
+                </label>
+
+              </div>
 
               <button className="save-btn">
 

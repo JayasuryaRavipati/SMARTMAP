@@ -9,6 +9,9 @@
     box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
 
+
+/* ================= LEFT SECTION ================= */
+
 .navbar-left h2{
     margin:0;
     color:#1e3a8a;
@@ -21,11 +24,15 @@
     font-size:14px;
 }
 
+
+/* ================= RIGHT SECTION ================= */
+
 .navbar-right{
     display:flex;
     align-items:center;
     gap:25px;
 }
+
 
 .notification-btn{
     width:45px;
@@ -42,9 +49,11 @@
     transition:.3s;
 }
 
+
 .notification-btn:hover{
     background:#e2e8f0;
 }
+
 
 .notification-dot{
     width:10px;
@@ -56,65 +65,367 @@
     right:10px;
 }
 
+
+/* ================= DRIVER PROFILE ================= */
+
 .driver-profile{
     display:flex;
     align-items:center;
     gap:15px;
 }
 
+
 .driver-info{
     text-align:right;
 }
+
 
 .driver-info h4{
     margin:0;
     color:#0f172a;
 }
 
+
 .driver-info span{
     color:#64748b;
     font-size:14px;
 }
 
+
 .profile-icon{
     font-size:45px;
     color:#2563eb;
 }
-/* ================= NAVBAR LOGOUT ================= */
+
+
+
+/* ================= LOGOUT BUTTON ================= */
 
 .navbar-logout-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
 
-    padding: 10px 18px;
+    display:flex;
+    align-items:center;
+    gap:8px;
 
-    border: none;
-    border-radius: 12px;
+    padding:10px 18px;
 
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    color: #fff;
+    border:none;
+    border-radius:12px;
 
-    font-size: 15px;
-    font-weight: 600;
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+    color:#fff;
 
-    cursor: pointer;
+    font-size:15px;
+    font-weight:600;
 
-    transition: all 0.3s ease;
+    cursor:pointer;
 
-    box-shadow: 0 6px 15px rgba(220, 38, 38, 0.25);
+    transition:all .3s ease;
+
+    box-shadow:0 6px 15px rgba(220,38,38,.25);
 }
 
-.navbar-logout-btn svg {
-    font-size: 16px;
+
+.navbar-logout-btn svg{
+    font-size:16px;
 }
 
-.navbar-logout-btn:hover {
-    background: linear-gradient(135deg, #dc2626, #b91c1c);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 22px rgba(220, 38, 38, 0.35);
+
+.navbar-logout-btn:hover{
+
+    background:linear-gradient(135deg,#dc2626,#b91c1c);
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 22px rgba(220,38,38,.35);
 }
 
-.navbar-logout-btn:active {
-    transform: scale(0.97);
+
+.navbar-logout-btn:active{
+    transform:scale(.97);
+}
+
+
+
+/* ================================================= */
+/* ================= LARGE DESKTOP ================= */
+/* ================================================= */
+
+@media(min-width:1920px){
+
+    .navbar{
+        height:85px;
+        padding:0 50px;
+    }
+
+
+    .navbar-left h2{
+        font-size:32px;
+    }
+
+
+    .profile-icon{
+        font-size:50px;
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= LAPTOP ================= */
+/* ================================================= */
+
+@media(max-width:1440px){
+
+    .navbar{
+        padding:0 25px;
+    }
+
+
+    .navbar-left h2{
+        font-size:26px;
+    }
+
+
+    .navbar-right{
+        gap:20px;
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= TABLET ================= */
+/* ================================================= */
+
+@media(max-width:1024px){
+
+    .navbar{
+
+        padding:0 20px;
+
+    }
+
+
+    .navbar-left h2{
+        font-size:24px;
+    }
+
+
+    .navbar-right{
+        gap:15px;
+    }
+
+
+    .driver-info h4{
+        font-size:14px;
+    }
+
+
+    .driver-info span{
+        font-size:12px;
+    }
+
+
+    .profile-icon{
+        font-size:40px;
+    }
+
+
+    .navbar-logout-btn{
+
+        padding:9px 14px;
+
+        font-size:14px;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= MOBILE ================= */
+/* ================================================= */
+
+@media(max-width:768px){
+
+    .navbar{
+
+        height:auto;
+        min-height:70px;
+
+        padding:15px;
+
+        flex-wrap:wrap;
+
+        gap:15px;
+
+    }
+
+
+    .navbar-left{
+
+        flex:1;
+
+    }
+
+
+    .navbar-left h2{
+        font-size:22px;
+    }
+
+
+    .navbar-left p{
+
+        font-size:12px;
+
+    }
+
+
+    .navbar-right{
+
+        width:100%;
+
+        justify-content:flex-end;
+
+        gap:12px;
+
+    }
+
+
+    .notification-btn{
+
+        width:38px;
+        height:38px;
+
+        font-size:16px;
+
+    }
+
+
+    .notification-dot{
+
+        width:8px;
+        height:8px;
+
+        top:8px;
+        right:8px;
+
+    }
+
+
+    .driver-info{
+
+        display:none;
+
+    }
+
+
+    .profile-icon{
+
+        font-size:38px;
+
+    }
+
+
+    .navbar-logout-btn{
+
+        padding:8px 12px;
+
+        font-size:13px;
+
+        border-radius:10px;
+
+    }
+
+
+    .navbar-logout-btn svg{
+
+        font-size:14px;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= SMALL MOBILE ================= */
+/* ================================================= */
+
+@media(max-width:480px){
+
+    .navbar{
+
+        padding:12px;
+
+    }
+
+
+    .navbar-left h2{
+
+        font-size:20px;
+
+    }
+
+
+    .navbar-left p{
+
+        display:none;
+
+    }
+
+
+    .navbar-right{
+
+        gap:8px;
+
+    }
+
+
+    .notification-btn{
+
+        width:35px;
+        height:35px;
+
+    }
+
+
+    .profile-icon{
+
+        font-size:34px;
+
+    }
+
+
+    .navbar-logout-btn span{
+
+        display:none;
+
+    }
+
+
+    .navbar-logout-btn{
+
+        width:38px;
+        height:38px;
+
+        justify-content:center;
+
+        padding:0;
+
+        border-radius:50%;
+
+    }
+
+
+    .navbar-logout-btn svg{
+
+        font-size:15px;
+
+    }
+
 }

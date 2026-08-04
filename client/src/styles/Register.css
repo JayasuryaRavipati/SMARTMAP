@@ -1,70 +1,374 @@
 .register-page {
-  min-height: 100vh;
-  background: #f4f7fb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+    min-height:100vh;
+
+    background:#f4f7fb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
 }
+
+
+
+/* ================= CARD ================= */
+
 
 .register-card {
-  width: 420px;
-  background: white;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,.08);
+
+    width:420px;
+
+    max-width:100%;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    box-sizing:border-box;
+
 }
+
+
 
 .register-card h1 {
-  color: #1e3a8a;
-  text-align: center;
-  margin-bottom: 10px;
+
+    color:#1e3a8a;
+
+    text-align:center;
+
+    margin-bottom:10px;
+
 }
+
+
 
 .register-card p {
-  text-align: center;
-  color: #64748b;
-  margin-bottom: 25px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    margin-bottom:25px;
+
 }
+
+
+
+/* ================= FORM ================= */
+
 
 .register-card form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
 }
+
+
 
 .register-card input {
-  padding: 14px;
-  border: 1px solid #dbe3ef;
-  border-radius: 8px;
-  font-size: 15px;
-  outline: none;
+
+    width:100%;
+
+    box-sizing:border-box;
+
+    padding:14px;
+
+    border:1px solid #dbe3ef;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    outline:none;
+
 }
+
+
 
 .register-card input:focus {
-  border-color: #2563eb;
+
+    border-color:#2563eb;
+
 }
+
+
 
 .register-card button {
-  padding: 14px;
-  border: none;
-  border-radius: 8px;
-  background: #2563eb;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: .3s;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
 }
+
+
 
 .register-card button:hover {
-  background: #1d4ed8;
+
+    background:#1d4ed8;
+
 }
+
+
 
 .login-link {
-  margin-top: 20px;
+
+    margin-top:20px;
+
+    text-align:center;
+
 }
 
+
+
 .login-link a {
-  color: #2563eb;
-  text-decoration: none;
-  font-weight: 600;
+
+    color:#2563eb;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+
+
+
+
+/* ================================================= */
+/* ================= LARGE DESKTOP ================= */
+/* ================================================= */
+
+
+@media(min-width:1920px){
+
+    .register-card{
+
+        width:480px;
+
+        padding:45px;
+
+    }
+
+
+    .register-card h1{
+
+        font-size:34px;
+
+    }
+
+
+    .register-card input,
+    .register-card button{
+
+        font-size:16px;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= LAPTOP ================= */
+/* ================================================= */
+
+
+@media(max-width:1440px){
+
+    .register-card{
+
+        width:420px;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= TABLET ================= */
+/* ================================================= */
+
+
+@media(max-width:1024px){
+
+    .register-page{
+
+        padding:30px;
+
+    }
+
+
+    .register-card{
+
+        width:400px;
+
+        padding:35px;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= MOBILE ================= */
+/* ================================================= */
+
+
+@media(max-width:768px){
+
+
+    .register-page{
+
+        padding:20px;
+
+    }
+
+
+    .register-card{
+
+        width:100%;
+
+        max-width:380px;
+
+        padding:30px;
+
+        border-radius:12px;
+
+    }
+
+
+    .register-card h1{
+
+        font-size:26px;
+
+    }
+
+
+    .register-card p{
+
+        font-size:14px;
+
+        margin-bottom:20px;
+
+    }
+
+
+    .register-card input{
+
+        padding:12px;
+
+        font-size:14px;
+
+    }
+
+
+    .register-card button{
+
+        padding:12px;
+
+        font-size:15px;
+
+    }
+
+}
+
+
+
+/* ================================================= */
+/* ================= SMALL MOBILE ================= */
+/* ================================================= */
+
+
+@media(max-width:480px){
+
+
+    .register-page{
+
+        padding:15px;
+
+    }
+
+
+    .register-card{
+
+        padding:22px;
+
+        border-radius:10px;
+
+    }
+
+
+    .register-card h1{
+
+        font-size:22px;
+
+    }
+
+
+    .register-card p{
+
+        font-size:13px;
+
+    }
+
+
+    .register-card form{
+
+        gap:12px;
+
+    }
+
+
+    .register-card input{
+
+        padding:11px;
+
+        font-size:13px;
+
+    }
+
+
+    .register-card button{
+
+        padding:11px;
+
+        font-size:14px;
+
+    }
+
+
+    .login-link{
+
+        font-size:14px;
+
+    }
+
 }

@@ -46,16 +46,22 @@ function AddDelivery() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const coordinates = await geocodeAddress(form.address);
+   const coordinates = await geocodeAddress(form.address);
 
-    if (!coordinates) {
-      alert("Unable to locate this address.");
-      return;
-    }
+if (!coordinates) {
+  toast.error("Unable to locate this address.");
+  return;
+}
 
+const deliveryData = {
+  ...form,
+  latitude: coordinates.lat,
+  longitude: coordinates.lng,
+};
 
     try {
-      await createDelivery(form);
+      console.log(deliveryData);
+      await createDelivery(deliveryData);
 
       setForm({
         customerName: "",

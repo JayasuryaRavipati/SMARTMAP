@@ -6,6 +6,7 @@
 }
 
 .delivery-card{
+    width:100%;
     max-width:700px;
     margin:auto;
     background:white;
@@ -38,6 +39,7 @@
     margin-top:5px;
     color:#2563eb;
     font-size:20px;
+    flex-shrink:0;
 }
 
 .input-group input,
@@ -47,13 +49,15 @@
     outline:none;
     font-size:16px;
     resize:none;
+    width:100%;
+    background:transparent;
 }
 
 .priority-box{
     display:flex;
-   
     gap:30px;
     margin:30px 0;
+    flex-wrap:wrap;
 }
 
 .priority-box label{
@@ -83,8 +87,156 @@
 .save-btn:hover{
     background:#1d4ed8;
 }
+
 .success-msg{
     margin-top:15px;
     color:#16a34a;
     font-weight:600;
+}
+
+/* ==========================
+   Large Laptops (≤1200px)
+========================== */
+
+@media (max-width:1200px){
+
+    .add-delivery-page{
+        padding:25px;
+    }
+
+    .delivery-card{
+        max-width:650px;
+    }
+
+}
+
+/* ==========================
+   Tablets (≤992px)
+========================== */
+
+@media (max-width:992px){
+
+    .add-delivery-page{
+        padding:20px;
+    }
+
+    .delivery-card{
+        max-width:100%;
+        padding:30px;
+    }
+
+}
+
+/* ==========================
+   Small Tablets (≤768px)
+========================== */
+
+@media (max-width:768px){
+
+    .add-delivery-page{
+        padding:15px;
+    }
+
+    .delivery-card{
+        padding:25px;
+        border-radius:14px;
+    }
+
+    .delivery-card h1{
+        font-size:28px;
+    }
+
+    .delivery-card p{
+        font-size:15px;
+    }
+
+    .priority-box{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .save-btn{
+        font-size:16px;
+        padding:15px;
+    }
+
+}
+
+/* ==========================
+   Mobile (≤576px)
+========================== */
+
+@media (max-width:576px){
+
+    .add-delivery-page{
+        padding:10px;
+    }
+
+    .delivery-card{
+        padding:18px;
+        border-radius:12px;
+    }
+
+    .delivery-card h1{
+        font-size:24px;
+    }
+
+    .delivery-card p{
+        font-size:14px;
+        margin-bottom:20px;
+    }
+
+    .input-group{
+        gap:10px;
+        padding:12px;
+    }
+
+    .input-group svg{
+        font-size:18px;
+    }
+
+    .input-group input,
+    .input-group textarea{
+        font-size:15px;
+    }
+
+    .priority-box{
+        margin:20px 0;
+        gap:12px;
+    }
+
+    .priority-box label{
+        font-size:14px;
+    }
+
+    .save-btn{
+        font-size:15px;
+        padding:14px;
+    }
+
+}
+
+/* ==========================
+   Small Phones (≤400px)
+========================== */
+
+@media (max-width:400px){
+
+    .delivery-card{
+        padding:15px;
+    }
+
+    .delivery-card h1{
+        font-size:22px;
+    }
+
+    .input-group{
+        padding:10px;
+    }
+
+    .save-btn{
+        padding:13px;
+        font-size:14px;
+    }
+
 }

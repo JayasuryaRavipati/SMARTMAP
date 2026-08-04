@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-import { getDelivery } from "../services/api";
+import {
+  getDelivery,
+  updateDelivery,
+} from "../services/api";
 import "../styles/DeliveryDetails.css";
 
 function DeliveryDetails() {
@@ -22,7 +25,36 @@ function DeliveryDetails() {
       console.log(err);
     }
   };
+  const handleStartDelivery = async () => {
+  console.log("Start Delivery clicked");
 
+  try {
+    const data = await updateDelivery(id, {
+      status: "On Route",
+    });
+
+    console.log(data);
+
+    loadDelivery();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+  const handleMarkDelivered = async () => {
+  try {
+    const data = await updateDelivery(id, {
+      status: "Delivered",
+    });
+
+    console.log(data);
+
+    loadDelivery();
+
+  } catch (err) {
+    console.log(err);
+  }
+};
   if (!delivery) return <h2>Loading...</h2>;
 
   return (
@@ -65,11 +97,19 @@ function DeliveryDetails() {
 
             <div className="button-group">
 
-              <button className="start-btn">
+              <button
+                className="start-btn"
+                onClick={handleStartDelivery}
+                disabled={delivery.status !== "Pending"}
+              >
                 Start Delivery
               </button>
 
-              <button className="complete-btn">
+              <button
+                className="complete-btn"
+                onClick={handleMarkDelivered}
+                disabled={delivery.status !== "On Route"}
+              >
                 Mark Delivered
               </button>
 
