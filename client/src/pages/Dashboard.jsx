@@ -19,12 +19,12 @@ function Dashboard() {
 
         <div className="dashboard-content">
 
-          <div className="dashboard-header">
+          {/* <div className="dashboard-header">
             <h1>Driver Dashboard</h1>
             <p>
               Welcome back! Manage your deliveries and optimize today's route.
             </p>
-          </div>
+          </div> */}
 
           <StatsCards />
 

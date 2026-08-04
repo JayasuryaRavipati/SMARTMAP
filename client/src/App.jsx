@@ -12,6 +12,7 @@ import DeliveryDetails from "./pages/DeliveryDetails";
 // import Profile from "./pages/Profile";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import EditDelivery from "./pages/EditDelivery";
 
 function App() {
   return (
@@ -71,6 +72,10 @@ function App() {
       <Route
     path="/deliveries/:id"
     element={<DeliveryDetails />}
+/>
+<Route
+    path="/deliveries/edit/:id"
+    element={<EditDelivery />}
 />
     </Routes>
   );

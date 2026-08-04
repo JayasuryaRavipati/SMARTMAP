@@ -108,3 +108,25 @@
 .delete:hover{
     background:#ef4444;
 }
+.delivery-actions{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:20px;
+}
+
+.optimize-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.optimize-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}

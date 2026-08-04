@@ -38,7 +38,10 @@
     left:45%;
     animation-delay:4s;
 }
-
+*{
+    margin:0;
+    padding:0;
+}
 .splash-card{
     z-index:2;
     background:rgba(255,255,255,.12);

@@ -10,7 +10,6 @@ import {
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-// import Profile from "./pages/Profile";
 import "../styles/Sidebar.css";
 
 function Sidebar() {
@@ -28,10 +27,11 @@ function Sidebar() {
       icon: <FaHome />,
       path: "/dashboard",
     },
-   {
-  name: "My Deliveries",
-  path: "/deliveries",
-},
+    {
+      name: "My Deliveries",
+      icon: <FaBox />,
+      path: "/deliveries",
+    },
     {
       name: "Add Delivery",
       icon: <FaPlusCircle />,
@@ -63,8 +63,8 @@ function Sidebar() {
         </div>
 
         <div>
-          <h2>SMARTMAP</h2>
-          <p>Driver Panel</p>
+          <h2>Driver Panel</h2>
+          {/* <p>Driver Panel</p> */}
         </div>
       </div>
 

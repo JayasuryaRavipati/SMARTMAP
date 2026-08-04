@@ -1,5 +1,5 @@
 import { createDelivery } from "../services/api";
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -33,181 +33,170 @@ function AddDelivery() {
     });
   };
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
 
-//     console.log(form);
+  //     console.log(form);
 
-//     alert("Delivery Saved Successfully");
+  //     alert("Delivery Saved Successfully");
 
-//     navigate("/deliveries");
-//   };
-
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const coordinates = await geocodeAddress(form.address);
-
-if (!coordinates) {
-  alert("Unable to locate this address.");
-  return;
-}
+  //     navigate("/deliveries");
+  //   };
 
 
-  try {
-    await createDelivery(form);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const coordinates = await geocodeAddress(form.address);
 
-setForm({
-  customerName: "",
-  phone: "",
-  address: "",
-  priority: "Normal",
-});
+    if (!coordinates) {
+      alert("Unable to locate this address.");
+      return;
+    }
 
-toast.success("Delivery Added Successfully");
 
-    setTimeout(() => {
-      navigate("/deliveries");
-    }, 1000);
+    try {
+      await createDelivery(form);
 
-  } catch (error) {
-    toast.error(
-      error.response?.data?.message || "Failed to add delivery"
-    );
-  }
-};
+      setForm({
+        customerName: "",
+        phone: "",
+        address: "",
+        priority: "Normal",
+      });
+
+      toast.success("Delivery Added Successfully");
+
+      setTimeout(() => {
+        navigate("/deliveries");
+      }, 1000);
+
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to add delivery"
+      );
+    }
+  };
   return (
     <>
-     <ToastContainer />
-    <div className="dashboard">
+      <ToastContainer />
+      <div className="dashboard">
 
-      <Sidebar />
+        <Sidebar />
 
-      <div className="dashboard-main">
+        <div className="dashboard-main">
 
-        <Navbar />
+          <Navbar />
 
-        <div className="add-delivery-page">
+          <div className="add-delivery-page">
 
-          <div className="delivery-card">
+            <div className="delivery-card">
 
-            <h1>Add New Delivery</h1>
+              <h1>Add New Delivery</h1>
 
-            <p>
-              Enter customer delivery details below.
-            </p>
+              <p>
+                Enter customer delivery details below.
+              </p>
 
-            <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
 
-              <div className="input-group">
+                <div className="form-grid">
 
-                <FaUser />
+                  {/* Customer Name */}
+                  <div className="input-group">
+                    <FaUser />
+                    <input
+                      type="text"
+                      placeholder="Customer Name"
+                      name="customerName"
+                      value={form.customerName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
 
-                <input
-                  type="text"
-                  placeholder="Customer Name"
-                  name="customerName"
-                  value={form.customerName}
-                  onChange={handleChange}
-                  required
-                />
+                  {/* Phone */}
+                  <div className="input-group">
+                    <FaPhone />
+                    <input
+                      type="text"
+                      placeholder="Phone Number"
+                      name="phone"
+                      value={form.phone}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
 
-              </div>
-              
+                </div>
 
-              <div className="input-group">
+                {/* Address */}
 
-                <FaPhone />
+                <div className="input-group address-box">
+                  <FaMapMarkerAlt />
 
-                <input
-                  type="text"
-                  placeholder="Phone Number"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                  required
-                />
-
-              </div>
-
-              <div className="input-group">
-
-                <FaMapMarkerAlt />
-
-                <textarea
-                  placeholder="Complete Delivery Address"
-                  rows="4"
-                  name="address"
-                  value={form.address}
-                  onChange={handleChange}
-                  required
-                />
-
-              </div>
-
-              <div className="priority-box">
-
-                <label>
-
-                  <input
-                    type="radio"
-                    value="Normal"
-                    name="priority"
-                    checked={form.priority === "Normal"}
+                  <textarea
+                    placeholder="Complete Delivery Address"
+                    rows="5"
+                    name="address"
+                    value={form.address}
                     onChange={handleChange}
+                    required
                   />
+                </div>
 
-                  Normal
+                {/* Priority */}
 
-                </label>
+                <div className="priority-box">
 
-                <label>
+                  <label className={form.priority === "Normal" ? "priority active normal" : "priority normal"}>
+                    <input
+                      type="radio"
+                      value="Normal"
+                      name="priority"
+                      checked={form.priority === "Normal"}
+                      onChange={handleChange}
+                    />
+                    Normal
+                  </label>
 
-                  <input
-                    type="radio"
-                    value="High"
-                    name="priority"
-                    checked={form.priority === "High"}
-                    onChange={handleChange}
-                  />
+                  <label className={form.priority === "High" ? "priority active high" : "priority high"}>
+                    <input
+                      type="radio"
+                      value="High"
+                      name="priority"
+                      checked={form.priority === "High"}
+                      onChange={handleChange}
+                    />
+                    High
+                  </label>
 
-                  High
+                  <label className={form.priority === "Super" ? "priority active super" : "priority super"}>
+                    <input
+                      type="radio"
+                      value="Super"
+                      name="priority"
+                      checked={form.priority === "Super"}
+                      onChange={handleChange}
+                    />
+                    Super
+                  </label>
 
-                </label>
+                </div>
 
-                <label>
+                <button className="save-btn">
+                  <FaSave />
+                  Save Delivery
+                </button>
 
-                  <input
-                    type="radio"
-                    value="Super"
-                    name="priority"
-                    checked={form.priority === "Super"}
-                    onChange={handleChange}
-                  />
+              </form>
 
-                  Super (5 Min)
-
-                </label>
-
-              </div>
-
-              <button className="save-btn">
-
-                <FaSave />
-
-                Save Delivery
-
-              </button>
-
-            </form>
+            </div>
 
           </div>
 
         </div>
 
       </div>
-
-    </div>
     </>
   );
 }

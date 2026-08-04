@@ -5,12 +5,14 @@ import Navbar from "../components/Navbar";
 import { getDeliveries, deleteDelivery } from "../services/api";
 import "../styles/MyDeliveries.css";
 import { Link } from "react-router-dom";
+import { optimizeRoute } from "../utils/routeOptimizer";
 function MyDeliveries() {
 
   const [deliveries, setDeliveries] = useState([]);
   const [search, setSearch] = useState("");
   const [priority, setPriority] = useState("All");
   const [status, setStatus] = useState("All");
+  const [optimized, setOptimized] = useState(false);
 
   useEffect(() => {
     loadDeliveries();
@@ -46,6 +48,13 @@ function MyDeliveries() {
 
     return searchMatch && priorityMatch && statusMatch;
   });
+  const handleOptimize = () => {
+    const sorted = optimizeRoute(deliveries);
+
+    setDeliveries(sorted);
+
+    setOptimized(true);
+  };
 
   return (
     <div className="dashboard">
@@ -94,6 +103,27 @@ function MyDeliveries() {
             </div>
 
           </div>
+          <div className="delivery-actions">
+
+            <button
+              className="optimize-btn"
+              onClick={handleOptimize}
+            >
+              🚀 Optimize Route
+            </button>
+            {optimized && (
+              <p
+                style={{
+                  color: "#16a34a",
+                  marginBottom: "15px",
+                  fontWeight: "600",
+                }}
+              >
+                ✅ Route optimized!
+              </p>
+            )}
+
+          </div>
 
           <table className="delivery-table">
 
@@ -126,31 +156,34 @@ function MyDeliveries() {
                   </td>
 
                   <td>
-                    <span className={`status ${delivery.status.toLowerCase().replace(" ","-")}`}>
+                    <span className={`status ${delivery.status.toLowerCase().replace(" ", "-")}`}>
                       {delivery.status}
                     </span>
                   </td>
 
                   <td>
+                    <div className="actions">
+                      <Link
+                        to={`/deliveries/${delivery._id}`}
+                        className="action-btn view-btn"
+                      >
+                        <FaEye />
+                      </Link>
 
-                    <Link
-    to={`/deliveries/${delivery._id}`}
-    className="action-btn"
->
-    <FaEye />
-</Link>
+                      <Link
+                        to={`/deliveries/edit/${delivery._id}`}
+                        className="action-btn edit-btn"
+                      >
+                        <FaEdit />
+                      </Link>
 
-                    <button className="action-btn">
-                      <FaEdit />
-                    </button>
-
-                    <button
-                      className="action-btn delete"
-                      onClick={() => handleDelete(delivery._id)}
-                    >
-                      <FaTrash />
-                    </button>
-
+                      <button
+                        className="action-btn delete-btn"
+                        onClick={() => handleDelete(delivery._id)}
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
                   </td>
 
                 </tr>
