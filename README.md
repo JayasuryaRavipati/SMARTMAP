@@ -1,138 +1,147 @@
-# 🚚 SMARTMAP
+# 🚚 SMARTMAP - Smart Delivery Route Optimization System
 
-SMARTMAP is a full-stack MERN web application designed to streamline delivery management and route optimization. It enables administrators to manage deliveries, assign drivers, and monitor delivery locations on an interactive map, while drivers can view their assigned deliveries and update delivery statuses.
+SMARTMAP is a delivery route optimization web application built for delivery drivers. It helps drivers manage deliveries, organize them based on priority, and optimize routes for faster and more efficient delivery.
 
-## ✨ Features
+## 📌 Project Overview
 
-### 🔐 Authentication
-- User Registration
-- Secure Login (JWT)
-- Forgot Password
-- Reset Password
-- Protected Routes
-- Logout
+SMARTMAP simplifies daily delivery operations by allowing drivers to:
 
-### 📊 Dashboard
-- Delivery Statistics
-- Interactive Dashboard
-- Responsive Sidebar
-- User Profile
+- Register and securely log in
+- Add customer delivery details
+- Manage deliveries
+- View all assigned deliveries
+- Optimize delivery order based on priority and distance
+- Visualize deliveries on an interactive map (In Progress)
 
-### 📦 Delivery Management
-- Add Delivery
-- View Deliveries
-- Update Delivery Status
-- Delete Delivery
-- Assign Drivers
-
-### 🚛 Driver Module
-- Driver Dashboard
-- Assigned Deliveries
-- Delivery Tracking
-
-### 🗺️ Maps & Routing
-- Interactive Map using Leaflet
-- OpenStreetMap Integration
-- Delivery Location Selection
-- Current Driver Location
-- Route Visualization
-
-### 🔒 Security
-- JWT Authentication
-- Password Encryption (bcrypt)
-- Protected APIs
-- Environment Variables
+The application follows the **KISS (Keep It Simple, Stupid)** principle by providing an easy-to-use interface while implementing useful delivery management features.
 
 ---
 
-## 🛠️ Tech Stack
+# ✨ Features
 
-### Frontend
+### Authentication
+- User Registration
+- User Login
+- JWT Authentication
+- Protected Routes
+- Logout
+
+### Dashboard
+- Driver Dashboard
+- Statistics Cards
+- Quick Actions
+- Navigation Sidebar
+- Responsive Layout
+
+### Delivery Management
+- Add Delivery
+- View All Deliveries
+- Search Deliveries
+- Filter by Priority
+- Filter by Status
+- View Delivery Details
+- Delete Delivery
+
+### Driver Profile
+- Update Personal Information
+- Vehicle Details
+- Contact Information
+
+### Route Optimization (Upcoming)
+- Priority-based Sorting
+- Distance Optimization
+- Estimated Travel Time
+- Optimized Delivery Sequence
+
+### Map Integration (Upcoming)
+- OpenStreetMap
+- Leaflet Map
+- Route Visualization
+- Live Delivery Markers
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
 - React.js
-- Vite
 - React Router DOM
 - Axios
-- React Hook Form
-- React Toastify
-- Framer Motion
 - React Icons
+- React Toastify
 - Leaflet
 - React Leaflet
+- CSS3
 
-### Backend
+## Backend
+
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
-- JWT
-- bcryptjs
-- Socket.IO
-- CORS
-- Cookie Parser
+- JWT Authentication
+- bcrypt.js
+- dotenv
 
 ---
 
-## 📁 Project Structure
+# 📁 Project Structure
 
 ```
-SMARTMAP/
+SMARTMAP
 │
-├── client/
-│   ├── src/
-│   ├── public/
+├── client
+│   ├── src
+│   │   ├── components
+│   │   ├── pages
+│   │   ├── services
+│   │   ├── hooks
+│   │   ├── styles
+│   │   ├── utils
+│   │   └── context
+│   │
 │   └── package.json
 │
-├── server/
-│   ├── config/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── server.js
-│   └── package.json
+├── server
+│   ├── config
+│   ├── controllers
+│   ├── middleware
+│   ├── models
+│   ├── routes
+│   ├── services
+│   ├── utils
+│   └── server.js
 │
-├── .gitignore
-├── README.md
-└── package.json
+└── README.md
 ```
 
 ---
 
-## ⚙️ Installation
+# 🚀 Installation
 
-### Clone the repository
+## Clone Repository
 
 ```bash
-git clone https://github.com/<your-username>/SMARTMAP.git
+git clone https://github.com/JayasuryaRavipati/SMARTMAP.git
 ```
 
-### Navigate into the project
+Move into the project folder.
 
 ```bash
 cd SMARTMAP
 ```
 
-### Install dependencies
-
-#### Client
-
-```bash
-cd client
-npm install
-```
-
-#### Server
-
-```bash
-cd ../server
-npm install
-```
-
 ---
 
-## 🔑 Environment Variables
+## Backend Setup
 
-Create a `.env` file inside the **server** folder.
+```bash
+cd server
+npm install
+```
+
+Create a `.env` file inside the `server` directory.
 
 ```env
 PORT=5000
@@ -140,90 +149,126 @@ MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 ```
 
----
-
-## ▶️ Run the Project
-
-### Start the backend
+Start the backend server.
 
 ```bash
-cd server
 npm run dev
 ```
 
-### Start the frontend
+---
+
+## Frontend Setup
+
+Open a new terminal.
 
 ```bash
 cd client
+npm install
+```
+
+Run the frontend.
+
+```bash
 npm run dev
 ```
 
-Frontend:
+---
 
-```
-http://localhost:5173
-```
+# ⚙ Environment Variables
 
-Backend:
+Server `.env`
 
-```
-http://localhost:5000
+```env
+PORT=5000
+MONGO_URI=
+JWT_SECRET=
 ```
 
 ---
 
-## 📌 API Endpoints
+# 📸 Screens
 
-### Authentication
-
-- `POST /api/auth/signup`
-- `POST /api/auth/login`
-- `POST /api/auth/forgot-password`
-- `POST /api/auth/reset-password`
-- `GET /api/auth/profile`
-
-### Deliveries
-
-- `GET /api/deliveries`
-- `POST /api/deliveries`
-- `PUT /api/deliveries/:id`
-- `DELETE /api/deliveries/:id`
-- `GET /api/deliveries/my-deliveries`
-
-### Users
-
-- `GET /api/users/drivers`
+- Splash Screen
+- Login
+- Register
+- Dashboard
+- Add Delivery
+- My Deliveries
+- Delivery Details
+- Driver Profile
 
 ---
 
-## 🚀 Future Enhancements
+# 🔄 Workflow
 
-- Live Driver Tracking
+```
+Register/Login
+        │
+        ▼
+Dashboard
+        │
+        ▼
+Add Delivery
+        │
+        ▼
+Save to MongoDB
+        │
+        ▼
+My Deliveries
+        │
+        ▼
+Optimize Route
+        │
+        ▼
+Display Optimized Route
+        │
+        ▼
+Complete Delivery
+```
+
+---
+
+# 📈 Future Improvements
+
 - Route Optimization Algorithm
+- Live GPS Tracking
+- Interactive Map
 - Real-Time Notifications
-- Google Maps Integration
-- Delivery Analytics
-- Admin Reports
-- Mobile Application
+- Delivery History
+- Estimated Delivery Time
 - Dark Mode
-- Multi-language Support
+- Mobile Responsive UI
+- Driver Analytics Dashboard
+- Export Delivery Reports
 
 ---
 
-## 👨‍💻 Author
+# 🎯 Learning Outcomes
+
+This project demonstrates knowledge of:
+
+- Full Stack Web Development
+- REST API Development
+- JWT Authentication
+- MongoDB CRUD Operations
+- React State Management
+- React Router
+- Protected Routes
+- Component-Based Architecture
+- Responsive UI Design
+- Delivery Management Systems
+
+---
+
+# 👨‍💻 Author
 
 **Surya Ravipati**
 
-- Full Stack Developer
-- MERN Stack Developer
-- React Developer
+GitHub:
+https://github.com/JayasuryaRavipati
 
 ---
 
-## 📄 License
+# 📄 License
 
-This project is licensed under the MIT License.
-
----
-
-⭐ If you like this project, don't forget to **star** the repository!
+This project is developed for educational and portfolio purposes.
