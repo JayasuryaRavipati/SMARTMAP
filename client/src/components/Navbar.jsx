@@ -5,7 +5,8 @@ import { useAuth } from "../context/AuthContext";
 import "../styles/Navbar.css";
 
 function Navbar() {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
+ console.log("Navbar User:", user);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -33,7 +34,7 @@ function Navbar() {
           <FaUserCircle className="profile-icon" />
 
           <div className="driver-info">
-            <h4>Surya</h4>
+            <h4>{user?.name}</h4>
             <span>Delivery Driver</span>
           </div>
 

@@ -14,11 +14,48 @@ import {
 } from "react-icons/fa";
 
 import "../styles/RouteOptimizer.css";
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371;
 
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+
+    const a =
+        Math.sin(dLat / 2) ** 2 +
+        Math.cos((lat1 * Math.PI) / 180) *
+            Math.cos((lat2 * Math.PI) / 180) *
+            Math.sin(dLon / 2) ** 2;
+
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function getRouteDistance(route) {
+    if (route.length < 2) return 0;
+
+    let total = 0;
+
+    for (let i = 0; i < route.length - 1; i++) {
+        total += calculateDistance(
+            route[i].latitude,
+            route[i].longitude,
+            route[i + 1].latitude,
+            route[i + 1].longitude
+        );
+    }
+
+    return total;
+}
 function RouteOptimizer() {
 
     const [deliveries, setDeliveries] = useState([]);
     const [optimizedRoute, setOptimizedRoute] = useState([]);
+    const totalDistance = getRouteDistance(optimizedRoute);
+
+const estimatedHours = totalDistance / 30;
+
+const estimatedMinutes = Math.round(estimatedHours * 60);
+
+const fuelSaved = (totalDistance / 15).toFixed(1);
 
     useEffect(() => {
         loadDeliveries();
@@ -86,19 +123,21 @@ function RouteOptimizer() {
 
                             <div className="summary-card">
                                 <FaRoad className="summary-icon" />
-                                <h2>42 km</h2>
+                               <h2>{totalDistance.toFixed(1)} km</h2>
                                 <p>Total Distance</p>
                             </div>
 
                             <div className="summary-card">
                                 <FaClock className="summary-icon" />
-                                <h2>2h 15m</h2>
+                               <h2>
+{Math.floor(estimatedMinutes / 60)}h {estimatedMinutes % 60}m
+</h2>
                                 <p>Estimated Time</p>
                             </div>
 
                             <div className="summary-card">
                                 <FaGasPump className="summary-icon" />
-                                <h2>1.8 L</h2>
+                               <h2>{fuelSaved} L</h2>
                                 <p>Fuel Saved</p>
                             </div>
 
@@ -132,22 +171,24 @@ function RouteOptimizer() {
 
                                 <div className="stat-row">
                                     <span>Original Distance</span>
-                                    <strong>56 km</strong>
+                                    <strong>{(totalDistance * 1.2).toFixed(1)} km</strong>
                                 </div>
 
                                 <div className="stat-row">
                                     <span>Optimized Distance</span>
-                                    <strong>42 km</strong>
+                                    <strong>{totalDistance.toFixed(1)} km</strong>
                                 </div>
 
                                 <div className="stat-row">
                                     <span>Estimated Time</span>
-                                    <strong>2h 15m</strong>
+                                    <strong>
+{Math.floor(estimatedMinutes / 60)}h {estimatedMinutes % 60}m
+</strong>
                                 </div>
 
                                 <div className="stat-row">
                                     <span>Fuel Saved</span>
-                                    <strong>1.8 Litres</strong>
+                                    <strong>{fuelSaved} Litres</strong>
                                 </div>
 
                             </div>

@@ -140,3 +140,49 @@ exports.getProfile = async (req, res) => {
     });
   }
 };
+
+// =========================
+// Update Profile
+// =========================
+exports.updateProfile = async (req, res) => {
+  try {
+    const {
+      name,
+      phone,
+      vehicleNumber,
+      vehicleType,
+    } = req.body;
+
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    user.name = name || user.name;
+    user.phone = phone || user.phone;
+    user.vehicleNumber = vehicleNumber || user.vehicleNumber;
+    user.vehicleType = vehicleType || user.vehicleType;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Profile Updated Successfully",
+      user,
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+
+  }
+};

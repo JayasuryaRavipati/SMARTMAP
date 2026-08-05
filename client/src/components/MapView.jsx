@@ -9,14 +9,16 @@ import {
 
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-
-import { getDeliveries } from "../services/api";
-import "../styles/MapView.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
-import Routing from "./Routing";
 
-// Fix Leaflet Icons
+import { getDeliveries } from "../services/api";
+import Routing from "./Routing";
+import "../styles/MapView.css";
+
+// -----------------------------
+// Fix Leaflet Marker Icons
+// -----------------------------
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -28,21 +30,70 @@ L.Icon.Default.mergeOptions({
     "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
-function MapView({ deliveries: propDeliveries }) {
+// -----------------------------
+// Driver Icon
+// -----------------------------
+const driverIcon = new L.Icon({
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+  iconSize: [35, 35],
+});
 
-  const [deliveries, setDeliveries] = useState([]);
+// -----------------------------
+// Auto Center Map
+// -----------------------------
+function ChangeMapCenter({ position }) {
+  const map = useMap();
 
   useEffect(() => {
+    if (position) {
+      map.setView(position, 13);
+    }
+  }, [position, map]);
 
-    // If deliveries are passed from parent, use them
-    if (propDeliveries) {
-      setDeliveries(propDeliveries);
+  return null;
+}
+
+function MapView({ deliveries: propDeliveries }) {
+  const [deliveries, setDeliveries] = useState([]);
+  const [driverLocation, setDriverLocation] = useState(null);
+
+  // -----------------------------
+  // Driver Live Location
+  // -----------------------------
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      console.log("Geolocation is not supported.");
       return;
     }
 
-    // Otherwise fetch normally
-    loadDeliveries();
+    const watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        setDriverLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.log(error);
+      },
+      {
+        enableHighAccuracy: true,
+        maximumAge: 1000,
+      }
+    );
 
+    return () => navigator.geolocation.clearWatch(watchId);
+  }, []);
+
+  // -----------------------------
+  // Load Deliveries
+  // -----------------------------
+  useEffect(() => {
+    if (propDeliveries) {
+      setDeliveries(propDeliveries);
+    } else {
+      loadDeliveries();
+    }
   }, [propDeliveries]);
 
   const loadDeliveries = async () => {
@@ -56,8 +107,12 @@ function MapView({ deliveries: propDeliveries }) {
 
   return (
     <MapContainer
-      center={[17.385, 78.4867]}
-      zoom={11}
+      center={
+        driverLocation
+          ? [driverLocation.lat, driverLocation.lng]
+          : [17.385, 78.4867]
+      }
+      zoom={13}
       style={{
         height: "450px",
         width: "100%",
@@ -68,14 +123,48 @@ function MapView({ deliveries: propDeliveries }) {
         attribution="© OpenStreetMap"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {deliveries.length > 1 && (
-        <Routing deliveries={deliveries} />
+
+      {/* Auto Move Map */}
+      {driverLocation && (
+        <ChangeMapCenter
+          position={[
+            driverLocation.lat,
+            driverLocation.lng,
+          ]}
+        />
       )}
 
+      {/* Driver Marker */}
+      {driverLocation && (
+        <Marker
+          position={[
+            driverLocation.lat,
+            driverLocation.lng,
+          ]}
+          icon={driverIcon}
+        >
+          <Popup>
+            <b>Your Current Location</b>
+          </Popup>
+        </Marker>
+      )}
+
+      {/* Route */}
+      {driverLocation && deliveries.length > 0 && (
+        <Routing
+          deliveries={deliveries}
+          driverLocation={driverLocation}
+        />
+      )}
+
+      {/* Delivery Markers */}
       {deliveries.map((delivery) => {
-
-
-        if (!delivery.latitude || !delivery.longitude) return null;
+        if (
+          delivery.latitude == null ||
+          delivery.longitude == null
+        ) {
+          return null;
+        }
 
         return (
           <Marker
@@ -94,11 +183,14 @@ function MapView({ deliveries: propDeliveries }) {
 
               <br />
 
-              {delivery.priority}
+              Priority: {delivery.priority}
+
+              <br />
+
+              Status: {delivery.status}
             </Popup>
           </Marker>
         );
-
       })}
     </MapContainer>
   );

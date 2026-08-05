@@ -6,6 +6,7 @@ import {
   FaUser,
   FaCog,
   FaSignOutAlt,
+  FaTruck,
 } from "react-icons/fa";
 
 import { NavLink, useNavigate } from "react-router-dom";
@@ -57,16 +58,19 @@ function Sidebar() {
   return (
     <aside className="sidebar">
 
+      {/* Logo Section */}
+
       <div className="sidebar-logo">
+
         <div className="logo-circle">
-          🚚
+          <FaTruck className="truck-icon" />
         </div>
 
-        <div>
-          <h2>Driver Panel</h2>
-          {/* <p>Driver Panel</p> */}
-        </div>
+        <h2>Driver Panel</h2>
+
       </div>
+
+      {/* Menu */}
 
       <nav className="sidebar-menu">
 
@@ -85,12 +89,14 @@ function Sidebar() {
 
       </nav>
 
+      {/* Logout */}
+
       <button
         className="logout-btn"
         onClick={handleLogout}
       >
         <FaSignOutAlt />
-        Logout
+        <span>Logout</span>
       </button>
 
     </aside>

@@ -43,7 +43,7 @@ function Register() {
       toast.success("Registration Successful");
 
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/login");
       }, 1000);
 
     } catch (error) {

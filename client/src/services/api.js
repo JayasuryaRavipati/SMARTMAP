@@ -46,3 +46,13 @@ export const deleteDelivery = async (id) => {
   const response = await API.delete(`/deliveries/${id}`);
   return response.data;
 };
+
+export const getProfile = async () => {
+  const res = await API.get("/auth/profile");
+  return res.data;
+};
+
+export const updateProfile = async (profile) => {
+  const res = await API.put("/auth/profile", profile);
+  return res.data;
+};

@@ -27,6 +27,18 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: 6,
     },
+
+    vehicleNumber: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    vehicleType: {
+      type: String,
+      default: "",
+      trim: true,
+    },
   },
   {
     timestamps: true,
