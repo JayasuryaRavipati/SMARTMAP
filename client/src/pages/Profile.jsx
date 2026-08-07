@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+
 import {
   getProfile,
   updateProfile,
 } from "../services/api";
+
+import {
+  FaUser,
+  FaEnvelope,
+  FaPhone,
+  FaMotorcycle,
+  FaTruck,
+  FaSave,
+} from "react-icons/fa";
+
 import "../styles/Profile.css";
 
 function Profile() {
+  const [loading, setLoading] = useState(true);
+
   const [profile, setProfile] = useState({
     name: "",
     email: "",
@@ -25,14 +36,16 @@ function Profile() {
       const data = await getProfile();
 
       setProfile({
-        name: data.user.name,
-        email: data.user.email,
+        name: data.user.name || "",
+        email: data.user.email || "",
         phone: data.user.phone || "",
         vehicleNumber: data.user.vehicleNumber || "",
         vehicleType: data.user.vehicleType || "",
       });
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,105 +71,141 @@ function Profile() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="profile-page">
+        <div className="profile-card">
+          <h2>Loading Profile...</h2>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="dashboard">
-      <Sidebar />
+    <div className="profile-page">
 
-      <div className="dashboard-main">
-        <Navbar />
+      <div className="profile-card">
 
-        <div className="profile-page">
-          <div className="profile-card">
+        <div className="profile-header">
 
-            <div className="profile-header">
+          <div className="profile-avatar">
+            {profile.name
+              ? profile.name.charAt(0).toUpperCase()
+              : "U"}
+          </div>
 
-              <div className="profile-avatar">
-                {profile.name ? profile.name.charAt(0).toUpperCase() : "U"}
-              </div>
+          <div>
+            <h2>Driver Profile</h2>
+            <p>Manage your personal information</p>
+          </div>
 
-              <div>
-                <h2>Driver Profile</h2>
-                <p>Manage your account information</p>
-              </div>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+
+          <div className="profile-grid">
+
+            <div className="input-box">
+
+              <label>
+                <FaUser />
+                Full Name
+              </label>
+
+              <input
+                type="text"
+                name="name"
+                value={profile.name}
+                onChange={handleChange}
+              />
 
             </div>
 
-            <form onSubmit={handleSubmit}>
+            <div className="input-box">
 
-              <div className="profile-grid">
+              <label>
+                <FaEnvelope />
+                Email Address
+              </label>
 
-                <div className="input-box">
-                  <label>Full Name</label>
+              <input
+                type="email"
+                name="email"
+                value={profile.email}
+                disabled
+              />
 
-                  <input
-                    type="text"
-                    name="name"
-                    value={profile.name}
-                    onChange={handleChange}
-                  />
-                </div>
+            </div>
 
-                <div className="input-box">
-                  <label>Email</label>
+            <div className="input-box">
 
-                  <input
-                    type="email"
-                    name="email"
-                    value={profile.email}
-                    disabled
-                  />
-                </div>
+              <label>
+                <FaPhone />
+                Phone Number
+              </label>
 
-                <div className="input-box">
-                  <label>Phone Number</label>
+              <input
+                type="text"
+                name="phone"
+                value={profile.phone}
+                onChange={handleChange}
+                placeholder="+91 9876543210"
+              />
 
-                  <input
-                    type="text"
-                    name="phone"
-                    value={profile.phone}
-                    onChange={handleChange}
-                  />
-                </div>
+            </div>
 
-                <div className="input-box">
-                  <label>Vehicle Number</label>
+            <div className="input-box">
 
-                  <input
-                    type="text"
-                    name="vehicleNumber"
-                    value={profile.vehicleNumber}
-                    onChange={handleChange}
-                    placeholder="AP39AB1234"
-                  />
-                </div>
+              <label>
+                <FaTruck />
+                Vehicle Number
+              </label>
 
-                <div className="input-box">
-                  <label>Vehicle Type</label>
+              <input
+                type="text"
+                name="vehicleNumber"
+                value={profile.vehicleNumber}
+                onChange={handleChange}
+                placeholder="AP39AB1234"
+              />
 
-                  <select
-                    name="vehicleType"
-                    value={profile.vehicleType}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Vehicle</option>
-                    <option value="Bike">Bike</option>
-                    <option value="Scooter">Scooter</option>
-                    <option value="Van">Van</option>
-                    <option value="Truck">Truck</option>
-                  </select>
-                </div>
+            </div>
 
-              </div>
+            <div className="input-box">
 
-              <button type="submit" className="update-btn">
-                Update Profile
-              </button>
+              <label>
+                <FaMotorcycle />
+                Vehicle Type
+              </label>
 
-            </form>
+              <select
+                name="vehicleType"
+                value={profile.vehicleType}
+                onChange={handleChange}
+              >
+                <option value="">Select Vehicle</option>
+                <option value="Bike">Bike</option>
+                <option value="Scooter">Scooter</option>
+                <option value="Van">Van</option>
+                <option value="Truck">Truck</option>
+              </select>
+
+            </div>
 
           </div>
-        </div>
+
+          <button
+            type="submit"
+            className="update-btn"
+          >
+            <FaSave />
+            Update Profile
+          </button>
+
+        </form>
+
       </div>
+
     </div>
   );
 }

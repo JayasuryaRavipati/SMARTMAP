@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
-import { getDeliveries, deleteDelivery } from "../services/api";
-import "../styles/MyDeliveries.css";
 import { Link } from "react-router-dom";
-import { optimizeRoute } from "../utils/routeOptimizer";
-function MyDeliveries() {
 
+import {
+  getDeliveries,
+  deleteDelivery,
+} from "../services/api";
+
+import { optimizeRoute } from "../utils/routeOptimizer";
+
+import "../styles/MyDeliveries.css";
+
+function MyDeliveries() {
   const [deliveries, setDeliveries] = useState([]);
   const [search, setSearch] = useState("");
   const [priority, setPriority] = useState("All");
@@ -21,7 +25,7 @@ function MyDeliveries() {
   const loadDeliveries = async () => {
     try {
       const data = await getDeliveries();
-      setDeliveries(data.deliveries);
+      setDeliveries(data.deliveries || []);
     } catch (err) {
       console.log(err);
     }
@@ -30,173 +34,196 @@ function MyDeliveries() {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this delivery?")) return;
 
-    await deleteDelivery(id);
-
-    loadDeliveries();
+    try {
+      await deleteDelivery(id);
+      loadDeliveries();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const filtered = deliveries.filter((d) => {
-
-    const searchMatch =
-      d.customerName.toLowerCase().includes(search.toLowerCase());
-
-    const priorityMatch =
-      priority === "All" || d.priority === priority;
-
-    const statusMatch =
-      status === "All" || d.status === status;
-
-    return searchMatch && priorityMatch && statusMatch;
-  });
   const handleOptimize = () => {
     const sorted = optimizeRoute(deliveries);
-
     setDeliveries(sorted);
-
     setOptimized(true);
   };
 
+  const filtered = deliveries.filter((delivery) => {
+    const searchMatch = delivery.customerName
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    const priorityMatch =
+      priority === "All" || delivery.priority === priority;
+
+    const statusMatch =
+      status === "All" || delivery.status === status;
+
+    return searchMatch && priorityMatch && statusMatch;
+  });
+
   return (
-    <div className="dashboard">
+    <div className="deliveries-page">
 
-      <Sidebar />
+      {/* Header */}
 
-      <div className="dashboard-main">
+      <div className="deliveries-header">
 
-        <Navbar />
+        <h1>My Deliveries</h1>
 
-        <div className="deliveries-page">
+        <div className="filters">
 
-          <div className="deliveries-header">
+          <input
+            type="text"
+            placeholder="Search customer..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
-            <h1>My Deliveries</h1>
+          <select
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+          >
+            <option>All</option>
+            <option>Super</option>
+            <option>High</option>
+            <option>Normal</option>
+          </select>
 
-            <div className="filters">
-
-              <input
-                type="text"
-                placeholder="Search customer..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-
-              <select
-                value={priority}
-                onChange={(e) => setPriority(e.target.value)}
-              >
-                <option>All</option>
-                <option>Super</option>
-                <option>High</option>
-                <option>Normal</option>
-              </select>
-
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <option>All</option>
-                <option>Pending</option>
-                <option>On Route</option>
-                <option>Delivered</option>
-              </select>
-
-            </div>
-
-          </div>
-          <div className="delivery-actions">
-
-            <button
-              className="optimize-btn"
-              onClick={handleOptimize}
-            >
-              🚀 Optimize Route
-            </button>
-            {optimized && (
-              <p
-                style={{
-                  color: "#16a34a",
-                  marginBottom: "15px",
-                  fontWeight: "600",
-                }}
-              >
-                ✅ Route optimized!
-              </p>
-            )}
-
-          </div>
-
-          <table className="delivery-table">
-
-            <thead>
-
-              <tr>
-                <th>Customer</th>
-                <th>Phone</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              {filtered.map((delivery) => (
-
-                <tr key={delivery._id}>
-
-                  <td>{delivery.customerName}</td>
-
-                  <td>{delivery.phone}</td>
-
-                  <td>
-                    <span className={`priority ${delivery.priority.toLowerCase()}`}>
-                      {delivery.priority}
-                    </span>
-                  </td>
-
-                  <td>
-                    <span className={`status ${delivery.status.toLowerCase().replace(" ", "-")}`}>
-                      {delivery.status}
-                    </span>
-                  </td>
-
-                  <td>
-                    <div className="actions">
-                      <Link
-                        to={`/deliveries/${delivery._id}`}
-                        className="action-btn view-btn"
-                      >
-                        <FaEye />
-                      </Link>
-
-                      <Link
-                        to={`/deliveries/edit/${delivery._id}`}
-                        className="action-btn edit-btn"
-                      >
-                        <FaEdit />
-                      </Link>
-
-                      <button
-                        className="action-btn delete-btn"
-                        onClick={() => handleDelete(delivery._id)}
-                      >
-                        <FaTrash />
-                      </button>
-                    </div>
-                  </td>
-
-                </tr>
-
-              ))}
-
-            </tbody>
-
-          </table>
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <option>All</option>
+            <option>Pending</option>
+            <option>On Route</option>
+            <option>Delivered</option>
+          </select>
 
         </div>
 
       </div>
+
+      {/* Optimize Button */}
+
+      <div className="delivery-actions">
+
+        <button
+          className="optimize-btn"
+          onClick={handleOptimize}
+        >
+          🚀 Optimize Route
+        </button>
+
+        {optimized && (
+          <p className="optimized-text">
+            ✅ Route optimized!
+          </p>
+        )}
+
+      </div>
+
+      {/* Empty State */}
+
+      {filtered.length === 0 ? (
+
+        <div className="empty-state">
+
+          <h2>No Deliveries Found</h2>
+
+          <p>
+            Add a new delivery to get started.
+          </p>
+
+        </div>
+
+      ) : (
+
+        <div className="delivery-table-wrapper">
+
+          <div className="delivery-table-scroll">
+
+            <table className="delivery-table">
+
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Phone</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                {filtered.map((delivery) => (
+
+                  <tr key={delivery._id}>
+
+                    <td>{delivery.customerName}</td>
+
+                    <td>{delivery.phone}</td>
+
+                    <td>
+                      <span
+                        className={`priority ${delivery.priority.toLowerCase()}`}
+                      >
+                        {delivery.priority}
+                      </span>
+                    </td>
+
+                    <td>
+                      <span
+                        className={`status ${delivery.status
+                          .toLowerCase()
+                          .replace(" ", "-")}`}
+                      >
+                        {delivery.status}
+                      </span>
+                    </td>
+
+                    <td>
+
+                      <div className="actions">
+
+                        <Link
+                          to={`/deliveries/${delivery._id}`}
+                          className="action-btn view-btn"
+                        >
+                          <FaEye />
+                        </Link>
+
+                        <Link
+                          to={`/deliveries/edit/${delivery._id}`}
+                          className="action-btn edit-btn"
+                        >
+                          <FaEdit />
+                        </Link>
+
+                        <button
+                          className="action-btn delete-btn"
+                          onClick={() => handleDelete(delivery._id)}
+                        >
+                          <FaTrash />
+                        </button>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                ))}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+      )}
 
     </div>
   );

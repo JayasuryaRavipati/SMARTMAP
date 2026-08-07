@@ -33,41 +33,58 @@
 
 /* ================= TABLE ================= */
 
-.delivery-table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 16px;
+.delivery-table-wrapper{
+    width:100%;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
 }
 
+/* Only table body scrolls */
+.delivery-table-scroll{
+    max-height:420px;      /* About 6 rows */
+    overflow-y:auto;
+    overflow-x:auto;
 
-.delivery-table {
-    width: 100%;
-    min-width: 900px;
-    background: #fff;
-    border-radius: 16px;
-    overflow: hidden;
-    border-collapse: collapse;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    scrollbar-width:none;
+    -ms-overflow-style:none;
 }
 
-
-.delivery-table th {
-    background: #f8fafc;
-    padding: 16px;
-    text-align: left;
-    color: #334155;
-    font-weight: 600;
-    white-space: nowrap;
+.delivery-table-scroll::-webkit-scrollbar{
+    display:none;
 }
 
-
-.delivery-table td {
-    padding: 16px;
-    border-top: 1px solid #e5e7eb;
-    vertical-align: middle;
+.delivery-table{
+    width:100%;
+    min-width:900px;
+    border-collapse:collapse;
 }
 
+/* Sticky Header */
 
+.delivery-table thead th{
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:#f8fafc;
+
+    padding:16px;
+    text-align:left;
+
+    color:#334155;
+    font-weight:600;
+
+    border-bottom:1px solid #e5e7eb;
+}
+
+.delivery-table td{
+    padding:16px;
+    border-top:1px solid #e5e7eb;
+    background:#fff;
+}
 /* ================= ACTION BUTTONS ================= */
 
 .actions {
@@ -143,10 +160,63 @@
     background:#dc2626;
     color:#fff;
 }
+/* ================= Optimize Route Button ================= */
+
+.delivery-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.optimize-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    padding:14px 28px;
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+
+    border:none;
+    border-radius:14px;
+
+    font-size:16px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:all .3s ease;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
+.optimize-btn:hover{
+    background:linear-gradient(135deg,#1d4ed8,#1e40af);
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(37,99,235,.35);
+}
+
+.optimize-btn:active{
+    transform:translateY(0);
+}
+
+.optimize-btn:focus{
+    outline:none;
+    box-shadow:0 0 0 4px rgba(37,99,235,.2);
+}
+
+.optimized-text{
+    color:#16a34a;
+    font-weight:600;
+    margin:0;
+}
 
 
-
-/* ================= LARGE DESKTOP ================= */
+/* ==========================================
+   LARGE DESKTOP (1920px+)
+========================================== */
 
 @media (min-width:1920px){
 
@@ -154,141 +224,183 @@
         padding:40px;
     }
 
+    .delivery-table-scroll{
+        max-height:520px;
+    }
+
     .delivery-table th,
     .delivery-table td{
         padding:18px;
+        font-size:16px;
+    }
+
+    .optimize-btn{
+        padding:16px 34px;
+        font-size:17px;
     }
 
 }
 
 
+/* ==========================================
+   LAPTOP (1440px)
+========================================== */
 
-/* ================= LAPTOP ================= */
-
-@media(max-width:1440px){
+@media (max-width:1440px){
 
     .deliveries-page{
         padding:25px;
     }
 
-    .delivery-table th,
-    .delivery-table td{
-        padding:14px;
+    .delivery-table-scroll{
+        max-height:420px;
     }
 
 }
 
 
+/* ==========================================
+   TABLET (1024px)
+========================================== */
 
-/* ================= TABLET ================= */
-
-@media(max-width:1024px){
+@media (max-width:1024px){
 
     .deliveries-page{
         padding:20px;
     }
-
 
     .deliveries-header{
         flex-direction:column;
         align-items:flex-start;
     }
 
-
     .filters{
         width:100%;
+        gap:12px;
     }
-
 
     .filters input,
     .filters select{
         flex:1;
-        min-width:200px;
+        min-width:180px;
     }
 
+    .delivery-actions{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
 
-    .delivery-table-wrapper{
-        overflow-x:auto;
+    .delivery-table-scroll{
+        max-height:380px;
     }
 
 }
 
 
+/* ==========================================
+   MOBILE (768px)
+========================================== */
 
-/* ================= MOBILE ================= */
-
-@media(max-width:768px){
+@media (max-width:768px){
 
     .deliveries-page{
         padding:15px;
     }
 
-
-    .deliveries-header{
-        margin-bottom:20px;
+    .deliveries-header h1{
+        font-size:28px;
     }
-
 
     .filters{
         flex-direction:column;
         width:100%;
-        gap:10px;
     }
-
 
     .filters input,
     .filters select{
         width:100%;
         min-width:100%;
-        padding:10px;
     }
 
+    .delivery-actions{
+        width:100%;
+    }
+
+    .optimize-btn{
+        width:100%;
+        justify-content:center;
+    }
+
+    .optimized-text{
+        font-size:14px;
+    }
+
+    .delivery-table-scroll{
+        max-height:340px;
+    }
 
     .delivery-table{
         min-width:850px;
     }
 
+    .delivery-table th,
+    .delivery-table td{
+        padding:14px;
+        font-size:14px;
+    }
 
     .actions{
         gap:8px;
     }
 
-
     .actions .action-btn{
-
-        width:34px !important;
-        height:34px !important;
-
-        min-width:34px !important;
-        max-width:34px !important;
-
-        flex-basis:34px !important;
-
-        border-radius:8px;
+        width:36px !important;
+        height:36px !important;
+        min-width:36px !important;
+        max-width:36px !important;
+        flex-basis:36px !important;
     }
 
-
     .actions .action-btn svg{
-        font-size:14px;
+        font-size:15px;
     }
 
 }
 
 
+/* ==========================================
+   SMALL MOBILE (480px)
+========================================== */
 
-/* ================= SMALL MOBILE ================= */
-
-@media(max-width:480px){
+@media (max-width:480px){
 
     .deliveries-page{
         padding:10px;
     }
 
+    .deliveries-header h1{
+        font-size:24px;
+    }
+
+    .filters input,
+    .filters select{
+        padding:10px;
+        font-size:14px;
+    }
+
+    .optimize-btn{
+        padding:12px 18px;
+        font-size:14px;
+    }
+
+    .delivery-table-scroll{
+        max-height:300px;
+    }
 
     .delivery-table{
         min-width:780px;
     }
-
 
     .delivery-table th,
     .delivery-table td{
@@ -296,26 +408,18 @@
         font-size:13px;
     }
 
-
-    .actions{
-        gap:6px;
-    }
-
-
     .actions .action-btn{
-
         width:32px !important;
         height:32px !important;
-
         min-width:32px !important;
         max-width:32px !important;
-
         flex-basis:32px !important;
     }
-
 
     .actions .action-btn svg{
         font-size:13px;
     }
 
 }
+
+

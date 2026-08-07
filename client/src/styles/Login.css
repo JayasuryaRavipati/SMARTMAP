@@ -1,126 +1,289 @@
-.login-page {
-    min-height: 100vh;
-    background: #f4f7fb;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+/* ==================================================
+   LOGIN PAGE
+================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.login-card {
-    width: 100%;
-    max-width: 420px;
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+.login-page{
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:30px;
+
+    background:linear-gradient(135deg,#f8fafc,#eef4ff);
 }
 
-.login-card h1 {
-    color: #1e3a8a;
-    text-align: center;
-    margin-bottom: 10px;
-    font-size: 32px;
+/* ==================================================
+   LOGIN CARD
+================================================== */
+
+.login-card{
+
+    width:100%;
+    max-width:430px;
+
+    background:#ffffff;
+
+    padding:42px;
+
+    border-radius:22px;
+
+    border:1px solid #e5e7eb;
+
+    box-shadow:
+        0 20px 40px rgba(15,23,42,.08),
+        0 6px 12px rgba(15,23,42,.04);
+
+    animation:fadeUp .5s ease;
 }
 
-.login-card p {
-    text-align: center;
-    color: #64748b;
-    margin-bottom: 25px;
-    line-height: 1.6;
+/* ==================================================
+   TITLE
+================================================== */
+
+.login-card h1{
+
+    font-size:34px;
+
+    color:#1e3a8a;
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+    font-weight:700;
 }
 
-.login-card form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+.login-card p{
+
+    text-align:center;
+
+    color:#64748b;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+    margin-bottom:28px;
 }
 
-.login-card input {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #dbe3ef;
-    border-radius: 8px;
-    font-size: 15px;
-    outline: none;
-    box-sizing: border-box;
-    transition: .3s;
+/* ==================================================
+   FORM
+================================================== */
+
+.login-card form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
 }
 
-.login-card input:focus {
-    border-color: #2563eb;
+/* ==================================================
+   INPUTS
+================================================== */
+
+.login-card input{
+
+    width:100%;
+
+    padding:15px 16px;
+
+    border:1px solid #dbe3ef;
+
+    border-radius:12px;
+
+    background:#f8fafc;
+
+    color:#0f172a;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    outline:none;
 }
 
-.login-card button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    background: #2563eb;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .3s;
+.login-card input::placeholder{
+    color:#94a3b8;
 }
 
-.login-card button:hover {
-    background: #1d4ed8;
+.login-card input:focus{
+
+    background:#ffffff;
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
 }
 
-.register-link {
-    margin-top: 20px;
-    text-align: center;
+/* ==================================================
+   BUTTON
+================================================== */
+
+.login-card button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    color:#ffffff;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 12px 24px rgba(37,99,235,.25);
 }
 
-.register-link a {
-    color: #2563eb;
-    text-decoration: none;
-    font-weight: 600;
+.login-card button:hover{
+
+    transform:translateY(-3px);
+
+    background:linear-gradient(135deg,#1d4ed8,#1e40af);
+
+    box-shadow:0 18px 35px rgba(37,99,235,.35);
 }
 
-.register-link a:hover {
-    text-decoration: underline;
+.login-card button:active{
+    transform:scale(.98);
 }
 
-/* ==========================
-   Laptop (≤1200px)
-========================== */
+/* ==================================================
+   REGISTER LINK
+================================================== */
 
-@media (max-width:1200px){
+.register-link{
 
-    .login-card{
-        max-width:400px;
+    margin-top:24px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    font-size:15px;
+}
+
+.register-link a{
+
+    color:#2563eb;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.register-link a:hover{
+
+    color:#1d4ed8;
+
+    text-decoration:underline;
+}
+
+/* ==================================================
+   ANIMATION
+================================================== */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
     }
 
 }
 
-/* ==========================
-   Tablet (≤992px)
-========================== */
+/* ==================================================
+   LARGE DESKTOP (4K)
+================================================== */
 
-@media (max-width:992px){
+@media (min-width:1920px){
+
+    .login-card{
+        max-width:470px;
+        padding:50px;
+    }
+
+    .login-card h1{
+        font-size:38px;
+    }
+
+}
+
+/* ==================================================
+   LAPTOP
+================================================== */
+
+@media (max-width:1440px){
+
+    .login-page{
+        padding:25px;
+    }
 
     .login-card{
         max-width:420px;
-        padding:35px;
     }
 
 }
 
-/* ==========================
-   Mobile (≤768px)
-========================== */
+/* ==================================================
+   TABLET
+================================================== */
 
-@media (max-width:768px){
+@media (max-width:1024px){
 
     .login-page{
         padding:20px;
     }
 
     .login-card{
-        width:100%;
-        padding:30px 25px;
+        padding:36px;
+    }
+
+}
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width:768px){
+
+    .login-page{
+        padding:16px;
+    }
+
+    .login-card{
+
+        max-width:100%;
+
+        padding:28px;
+
+        border-radius:18px;
     }
 
     .login-card h1{
@@ -128,34 +291,40 @@
     }
 
     .login-card p{
-        font-size:15px;
+        font-size:14px;
     }
 
     .login-card input{
-        padding:13px;
-        font-size:15px;
+
+        padding:14px;
+
+        font-size:14px;
     }
 
     .login-card button{
-        padding:13px;
+
+        padding:14px;
+
         font-size:15px;
     }
 
 }
 
-/* ==========================
-   Small Mobile (≤576px)
-========================== */
+/* ==================================================
+   SMALL MOBILE
+================================================== */
 
-@media (max-width:576px){
+@media (max-width:480px){
 
     .login-page{
-        padding:15px;
+        padding:12px;
     }
 
     .login-card{
-        padding:25px 20px;
-        border-radius:12px;
+
+        padding:22px;
+
+        border-radius:16px;
     }
 
     .login-card h1{
@@ -163,50 +332,25 @@
     }
 
     .login-card p{
-        font-size:14px;
-        margin-bottom:20px;
+        font-size:13px;
     }
 
     .login-card input{
-        padding:12px;
-        font-size:14px;
+
+        padding:13px;
+
+        font-size:13px;
     }
 
     .login-card button{
-        padding:12px;
+
+        padding:13px;
+
         font-size:14px;
     }
 
     .register-link{
         font-size:14px;
-    }
-
-}
-
-/* ==========================
-   Extra Small Phones (≤400px)
-========================== */
-
-@media (max-width:400px){
-
-    .login-card{
-        padding:20px 16px;
-    }
-
-    .login-card h1{
-        font-size:22px;
-    }
-
-    .login-card p{
-        font-size:13px;
-    }
-
-    .login-card input{
-        font-size:13px;
-    }
-
-    .login-card button{
-        font-size:13px;
     }
 
 }

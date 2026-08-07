@@ -1,84 +1,79 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
-import Splash from "./pages/Splash";
+import Layout from "./components/Layout";
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import Deliveries from "./pages/Deliveries";
-import AddDelivery from "./pages/AddDelivery";
-import Profile from "./pages/Profile";
 import MyDeliveries from "./pages/Deliveries";
-import DeliveryDetails from "./pages/DeliveryDetails";
-// import Profile from "./pages/Profile";
-
-import ProtectedRoute from "./components/ProtectedRoute";
+import AddDelivery from "./pages/AddDelivery";
 import EditDelivery from "./pages/EditDelivery";
-import OptimizeRoute from "./pages/RouteOptimizer";
+import DeliveryDetails from "./pages/DeliveryDetails";
+import RouteOptimizer from "./pages/RouteOptimizer";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
     <Routes>
-      {/* Splash */}
-      <Route path="/" element={<Splash />} />
 
-      {/* Authentication */}
+      {/* Public Routes */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Protected Routes */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
+      {/* Protected Layout */}
+      <Route element={<Layout />}>
 
-      <Route
-        path="/deliveries"
-        element={
-          <ProtectedRoute>
-            <Deliveries />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/"
+          element={<Navigate to="/dashboard" replace />}
+        />
 
-      <Route
-        path="/deliveries/add"
-        element={
-          <ProtectedRoute>
-            <AddDelivery />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
 
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/deliveries"
+          element={<MyDeliveries />}
+        />
 
-      {/* Redirect */}
-      <Route path="/home" element={<Navigate to="/dashboard" replace />} />
+        <Route
+          path="/deliveries/add"
+          element={<AddDelivery />}
+        />
 
-      {/* Catch All */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-      {/* <Route path="/profile" element={<Profile />} /> */}
+        <Route
+          path="/deliveries/edit/:id"
+          element={<EditDelivery />}
+        />
 
-      {/* <Route path="/deliveries" element={<Deliveries />} /> */}
-      <Route
-    path="/deliveries/:id"
-    element={<DeliveryDetails />}
-/>
-<Route
-    path="/deliveries/edit/:id"
-    element={<EditDelivery />}
-/>
-<Route path="/optimize" element={<OptimizeRoute />} />
+        <Route
+          path="/deliveries/:id"
+          element={<DeliveryDetails />}
+        />
+
+        <Route
+          path="/optimize"
+          element={<RouteOptimizer />}
+        />
+
+        <Route
+          path="/profile"
+          element={<Profile />}
+        />
+
+        <Route
+          path="/settings"
+          element={<Settings />}
+        />
+
+      </Route>
 
     </Routes>
   );

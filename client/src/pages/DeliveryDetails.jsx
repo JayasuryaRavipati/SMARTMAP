@@ -1,17 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+
 import {
   getDelivery,
   updateDelivery,
 } from "../services/api";
+
+import {
+  FaUser,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaFlag,
+  FaTruck,
+} from "react-icons/fa";
+
 import "../styles/DeliveryDetails.css";
 
 function DeliveryDetails() {
   const { id } = useParams();
 
   const [delivery, setDelivery] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadDelivery();
@@ -23,99 +32,130 @@ function DeliveryDetails() {
       setDelivery(data.delivery);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
+
   const handleStartDelivery = async () => {
-  console.log("Start Delivery clicked");
+    try {
+      await updateDelivery(id, {
+        status: "On Route",
+      });
 
-  try {
-    const data = await updateDelivery(id, {
-      status: "On Route",
-    });
-
-    console.log(data);
-
-    loadDelivery();
-  } catch (err) {
-    console.log(err);
-  }
-};
+      loadDelivery();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleMarkDelivered = async () => {
-  try {
-    const data = await updateDelivery(id, {
-      status: "Delivered",
-    });
+    try {
+      await updateDelivery(id, {
+        status: "Delivered",
+      });
 
-    console.log(data);
+      loadDelivery();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    loadDelivery();
-
-  } catch (err) {
-    console.log(err);
+  if (loading) {
+    return (
+      <div className="details-page">
+        <div className="details-card">
+          <h2>Loading Delivery...</h2>
+        </div>
+      </div>
+    );
   }
-};
-  if (!delivery) return <h2>Loading...</h2>;
 
   return (
-    <div className="dashboard">
-      <Sidebar />
+    <div className="details-page">
 
-      <div className="dashboard-main">
-        <Navbar />
+      <div className="details-card">
 
-        <div className="details-page">
+        <h1>Delivery Details</h1>
 
-          <div className="details-card">
+        <p className="details-subtitle">
+          View customer information and update delivery status.
+        </p>
 
-            <h1>Delivery Details</h1>
+        <div className="detail-item">
+          <FaUser className="detail-icon" />
 
-            <div className="detail-item">
-              <strong>Customer</strong>
-              <p>{delivery.customerName}</p>
-            </div>
-
-            <div className="detail-item">
-              <strong>Phone</strong>
-              <p>{delivery.phone}</p>
-            </div>
-
-            <div className="detail-item">
-              <strong>Address</strong>
-              <p>{delivery.address}</p>
-            </div>
-
-            <div className="detail-item">
-              <strong>Priority</strong>
-              <p>{delivery.priority}</p>
-            </div>
-
-            <div className="detail-item">
-              <strong>Status</strong>
-              <p>{delivery.status}</p>
-            </div>
-
-            <div className="button-group">
-
-              <button
-                className="start-btn"
-                onClick={handleStartDelivery}
-                disabled={delivery.status !== "Pending"}
-              >
-                Start Delivery
-              </button>
-
-              <button
-                className="complete-btn"
-                onClick={handleMarkDelivered}
-                disabled={delivery.status !== "On Route"}
-              >
-                Mark Delivered
-              </button>
-
-            </div>
-
+          <div>
+            <strong>Customer</strong>
+            <p>{delivery.customerName}</p>
           </div>
+        </div>
+
+        <div className="detail-item">
+          <FaPhone className="detail-icon" />
+
+          <div>
+            <strong>Phone</strong>
+            <p>{delivery.phone}</p>
+          </div>
+        </div>
+
+        <div className="detail-item">
+          <FaMapMarkerAlt className="detail-icon" />
+
+          <div>
+            <strong>Address</strong>
+            <p>{delivery.address}</p>
+          </div>
+        </div>
+
+        <div className="detail-item">
+          <FaFlag className="detail-icon" />
+
+          <div>
+            <strong>Priority</strong>
+
+            <span
+              className={`priority ${delivery.priority.toLowerCase()}`}
+            >
+              {delivery.priority}
+            </span>
+          </div>
+        </div>
+
+        <div className="detail-item">
+          <FaTruck className="detail-icon" />
+
+          <div>
+            <strong>Status</strong>
+
+            <span
+              className={`status ${delivery.status
+                .toLowerCase()
+                .replace(" ", "-")}`}
+            >
+              {delivery.status}
+            </span>
+          </div>
+        </div>
+
+        <div className="button-group">
+
+          <button
+            className="start-btn"
+            onClick={handleStartDelivery}
+            disabled={delivery.status !== "Pending"}
+          >
+            🚚 Start Delivery
+          </button>
+
+          <button
+            className="complete-btn"
+            onClick={handleMarkDelivered}
+            disabled={delivery.status !== "On Route"}
+          >
+            ✅ Mark Delivered
+          </button>
 
         </div>
 

@@ -1,0 +1,281 @@
+/* =========================================
+   FOOTER
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.footer{
+    width:100%;
+    margin-top:0;
+
+    background:linear-gradient(180deg,#0f172a,#020617);
+
+    color:#ffffff;
+
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.footer-content{
+    max-width:1300px;
+    margin:auto;
+
+    padding:32px 25px 20px;
+}
+
+/* =========================================
+   LOGO
+========================================= */
+
+.footer-logo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+}
+
+.footer-truck{
+    font-size:30px;
+    color:#3b82f6;
+}
+
+.footer-logo h2{
+    font-size:30px;
+    font-weight:800;
+    letter-spacing:2px;
+    color:#ffffff;
+}
+
+.footer-tagline{
+    margin:12px auto 28px;
+
+    max-width:550px;
+
+    text-align:center;
+
+    color:#cbd5e1;
+
+    font-size:16px;
+
+    line-height:1.6;
+}
+
+/* =========================================
+   GRID
+========================================= */
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
+
+    padding-top:20px;
+}
+
+.footer-column{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.footer-column h3{
+    margin-bottom:15px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#ffffff;
+}
+
+.footer-column a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    text-decoration:none;
+
+    color:#cbd5e1;
+
+    font-size:14px;
+
+    padding:7px 0;
+
+    transition:all .3s ease;
+}
+
+.footer-column a svg{
+    color:#60a5fa;
+    font-size:15px;
+}
+
+.footer-column a:hover{
+    color:#3b82f6;
+    transform:translateX(5px);
+}
+
+/* =========================================
+   BOTTOM
+========================================= */
+
+.footer-bottom{
+
+    max-width:1300px;
+
+    margin:20px auto 0;
+
+    padding:16px 25px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:#94a3b8;
+
+    font-size:14px;
+}
+
+/* =========================================
+   LARGE DESKTOP
+========================================= */
+
+@media (min-width:1920px){
+
+    .footer-content{
+        max-width:1450px;
+    }
+
+    .footer-bottom{
+        max-width:1450px;
+    }
+
+}
+
+/* =========================================
+   LAPTOP
+========================================= */
+
+@media (max-width:1440px){
+
+    .footer-content{
+        padding:30px 22px 20px;
+    }
+
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width:992px){
+
+    .footer-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:30px;
+    }
+
+    .footer-bottom{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:10px;
+        text-align:center;
+    }
+
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width:768px){
+
+    .footer-content{
+        padding:28px 18px;
+    }
+
+    .footer-logo h2{
+        font-size:26px;
+    }
+
+    .footer-truck{
+        font-size:26px;
+    }
+
+    .footer-tagline{
+        font-size:15px;
+        margin-bottom:24px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+        gap:25px;
+    }
+
+    .footer-column{
+        align-items:center;
+        text-align:center;
+    }
+
+    .footer-column a{
+        justify-content:center;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+        gap:8px;
+        font-size:13px;
+        text-align:center;
+    }
+
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width:480px){
+
+    .footer-content{
+        padding:24px 15px;
+    }
+
+    .footer-logo h2{
+        font-size:22px;
+    }
+
+    .footer-truck{
+        font-size:24px;
+    }
+
+    .footer-tagline{
+        font-size:14px;
+    }
+
+    .footer-column h3{
+        font-size:16px;
+    }
+
+    .footer-column a{
+        font-size:13px;
+    }
+
+    .footer-bottom{
+        padding:14px;
+        font-size:12px;
+    }
+
+}

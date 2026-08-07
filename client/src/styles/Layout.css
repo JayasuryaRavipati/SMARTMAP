@@ -1,0 +1,155 @@
+/* ==========================================
+   APP LAYOUT
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.layout{
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    background:#f8fafc;
+
+    overflow-x:hidden;
+}
+
+/* ==========================================
+   BODY
+========================================== */
+
+.layout-body{
+
+    display:flex;
+
+    flex:1;
+    height:100vh;
+
+    align-items:flex-start;
+
+    margin-top:72px;
+
+    width:100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+}
+
+/* ==========================================
+   RIGHT SIDE
+========================================== */
+
+.layout-content{
+
+    max-height:100vh;
+
+    flex:1;
+
+    min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+}
+
+/* ==========================================
+   PAGE CONTENT
+========================================== */
+
+.page-content{
+
+    flex:1;
+
+    width:100%;
+
+    min-height:calc(100vh - 72px);
+
+    padding:30px;
+
+    background:#f8fafc;
+
+    overflow-x:hidden;
+
+    overflow-y:auto;
+
+    transition:padding .3s ease;
+}
+
+/* ==========================================
+   LARGE DESKTOP (4K)
+========================================== */
+
+@media (min-width:1920px){
+
+    .page-content{
+        padding:40px 50px;
+    }
+
+}
+
+/* ==========================================
+   DESKTOP
+========================================== */
+
+@media (max-width:1440px){
+
+    .page-content{
+        padding:25px;
+    }
+
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width:1024px){
+
+    .layout-body{
+        margin-top:70px;
+    }
+
+    .page-content{
+        padding:20px;
+    }
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width:768px){
+
+    .layout-body{
+        margin-top:65px;
+    }
+
+    .page-content{
+        padding:16px;
+    }
+
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width:480px){
+
+    .layout-body{
+        margin-top:60px;
+    }
+
+    .page-content{
+        padding:12px;
+    }
+
+}

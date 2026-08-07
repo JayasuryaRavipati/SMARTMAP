@@ -1,0 +1,442 @@
+/* ===========================
+   SETTINGS PAGE
+=========================== */
+
+.settings-page{
+    padding:30px;
+    min-height:calc(100vh - 140px);
+    background:#f5f7fb;
+}
+
+.settings-card{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 12px 35px rgba(15,23,42,.08);
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.settings-header{
+    margin-bottom:35px;
+}
+
+.settings-title{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.settings-main-icon{
+    width:65px;
+    height:65px;
+    padding:18px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    color:#fff;
+    font-size:28px;
+    flex-shrink:0;
+}
+
+.settings-header h1{
+    margin:0;
+    font-size:32px;
+    color:#0f172a;
+    font-weight:700;
+}
+
+.settings-header p{
+    margin-top:6px;
+    color:#64748b;
+    font-size:15px;
+}
+
+/* ===========================
+   SETTING ITEM
+=========================== */
+
+.setting-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:24px 0;
+    border-bottom:1px solid #e2e8f0;
+}
+
+.setting-item:last-of-type{
+    border-bottom:none;
+    margin-bottom:30px;
+}
+
+.setting-info{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.setting-icon{
+    width:55px;
+    height:55px;
+    padding:16px;
+    border-radius:14px;
+    background:#eff6ff;
+    color:#2563eb;
+    font-size:22px;
+    flex-shrink:0;
+}
+
+.setting-info h3{
+    margin:0;
+    font-size:18px;
+    color:#0f172a;
+}
+
+.setting-info p{
+    margin-top:6px;
+    color:#64748b;
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* ===========================
+   TOGGLE SWITCH
+=========================== */
+
+.switch{
+    position:relative;
+    display:inline-block;
+    width:58px;
+    height:32px;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    cursor:pointer;
+    background:#cbd5e1;
+    border-radius:50px;
+    transition:.3s;
+}
+
+.slider::before{
+    content:"";
+    position:absolute;
+    width:24px;
+    height:24px;
+    left:4px;
+    bottom:4px;
+    background:#fff;
+    border-radius:50%;
+    transition:.3s;
+    box-shadow:0 2px 6px rgba(0,0,0,.25);
+}
+
+.switch input:checked + .slider{
+    background:#2563eb;
+}
+
+.switch input:checked + .slider::before{
+    transform:translateX(26px);
+}
+
+/* Disabled */
+
+.slider.disabled{
+    cursor:not-allowed;
+    opacity:.55;
+}
+
+/* ===========================
+   SAVE BUTTON
+=========================== */
+
+.save-settings-btn{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    padding:15px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#2563eb;
+    color:#fff;
+
+    font-size:16px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.save-settings-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+/* ===================================================
+   LARGE DESKTOP (1920px+)
+=================================================== */
+
+@media (min-width:1920px){
+
+    .settings-card{
+        max-width:980px;
+        padding:40px;
+    }
+
+    .settings-header h1{
+        font-size:36px;
+    }
+
+    .setting-item{
+        padding:28px 0;
+    }
+
+}
+
+
+/* ===================================================
+   LAPTOP (1440px)
+=================================================== */
+
+@media (max-width:1440px){
+
+    .settings-page{
+        padding:25px;
+    }
+
+    .settings-card{
+        max-width:860px;
+    }
+
+}
+
+
+/* ===================================================
+   TABLET (1024px)
+=================================================== */
+
+@media (max-width:1024px){
+
+    .settings-page{
+        padding:20px;
+    }
+
+    .settings-card{
+        padding:30px;
+    }
+
+    .settings-header h1{
+        font-size:28px;
+    }
+
+    .setting-icon{
+        width:50px;
+        height:50px;
+        font-size:20px;
+    }
+
+}
+
+
+/* ===================================================
+   MOBILE (768px)
+=================================================== */
+
+@media (max-width:768px){
+
+    .settings-page{
+        padding:15px;
+    }
+
+    .settings-card{
+        padding:22px;
+        border-radius:16px;
+    }
+
+    .settings-title{
+        gap:14px;
+    }
+
+    .settings-main-icon{
+        width:56px;
+        height:56px;
+        padding:15px;
+        font-size:24px;
+    }
+
+    .settings-header h1{
+        font-size:24px;
+    }
+
+    .settings-header p{
+        font-size:14px;
+    }
+
+    .setting-item{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:18px;
+        padding:20px 0;
+    }
+
+    .setting-info{
+        width:100%;
+        align-items:flex-start;
+    }
+
+    .setting-icon{
+        width:46px;
+        height:46px;
+        padding:13px;
+        font-size:18px;
+    }
+
+    .setting-info h3{
+        font-size:17px;
+    }
+
+    .setting-info p{
+        font-size:13px;
+    }
+
+    .switch{
+        align-self:flex-end;
+    }
+
+    .save-settings-btn{
+        padding:14px;
+        font-size:15px;
+    }
+
+}
+
+
+/* ===================================================
+   SMALL MOBILE (480px)
+=================================================== */
+
+@media (max-width:480px){
+
+    .settings-page{
+        padding:10px;
+    }
+
+    .settings-card{
+        padding:18px;
+        border-radius:14px;
+    }
+
+    .settings-title{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:12px;
+    }
+
+    .settings-main-icon{
+        width:50px;
+        height:50px;
+        padding:13px;
+        font-size:22px;
+        border-radius:14px;
+    }
+
+    .settings-header h1{
+        font-size:22px;
+    }
+
+    .settings-header p{
+        font-size:13px;
+    }
+
+    .setting-item{
+        gap:15px;
+    }
+
+    .setting-info{
+        gap:14px;
+    }
+
+    .setting-icon{
+        width:42px;
+        height:42px;
+        padding:11px;
+        font-size:17px;
+        border-radius:12px;
+    }
+
+    .setting-info h3{
+        font-size:16px;
+    }
+
+    .setting-info p{
+        font-size:12px;
+    }
+
+    .switch{
+        width:52px;
+        height:30px;
+    }
+
+    .slider::before{
+        width:22px;
+        height:22px;
+    }
+
+    .switch input:checked + .slider::before{
+        transform:translateX(22px);
+    }
+
+    .save-settings-btn{
+        padding:13px;
+        font-size:14px;
+        border-radius:10px;
+    }
+
+}
+
+
+/* ===================================================
+   EXTRA SMALL DEVICES (360px)
+=================================================== */
+
+@media (max-width:360px){
+
+    .settings-card{
+        padding:15px;
+    }
+
+    .settings-header h1{
+        font-size:20px;
+    }
+
+    .settings-header p{
+        font-size:12px;
+    }
+
+    .setting-info h3{
+        font-size:15px;
+    }
+
+    .setting-info p{
+        font-size:11px;
+    }
+
+    .save-settings-btn{
+        font-size:13px;
+        padding:12px;
+    }
+
+}

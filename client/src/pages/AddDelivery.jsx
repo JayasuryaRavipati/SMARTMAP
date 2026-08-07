@@ -1,23 +1,24 @@
-import { createDelivery } from "../services/api";
-import { toast, ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { createDelivery } from "../services/api";
+import { geocodeAddress } from "../utils/geocoding";
+
+import { toast, ToastContainer } from "react-toastify";
+
 import {
   FaUser,
   FaPhone,
   FaMapMarkerAlt,
-  FaFlag,
   FaSave,
 } from "react-icons/fa";
-
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
-import { geocodeAddress } from "../utils/geocoding";
 
 import "../styles/AddDelivery.css";
 
 function AddDelivery() {
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
     customerName: "",
@@ -33,34 +34,28 @@ function AddDelivery() {
     });
   };
 
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-
-  //     console.log(form);
-
-  //     alert("Delivery Saved Successfully");
-
-  //     navigate("/deliveries");
-  //   };
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-   const coordinates = await geocodeAddress(form.address);
 
-if (!coordinates) {
-  toast.error("Unable to locate this address.");
-  return;
-}
+    if (loading) return;
 
-const deliveryData = {
-  ...form,
-  latitude: coordinates.lat,
-  longitude: coordinates.lng,
-};
+    setLoading(true);
 
     try {
-      console.log(deliveryData);
+      const coordinates = await geocodeAddress(form.address);
+
+      if (!coordinates) {
+        toast.error("Unable to locate this address.");
+        setLoading(false);
+        return;
+      }
+
+      const deliveryData = {
+        ...form,
+        latitude: coordinates.lat,
+        longitude: coordinates.lng,
+      };
+
       await createDelivery(deliveryData);
 
       setForm({
@@ -78,127 +73,140 @@ const deliveryData = {
 
     } catch (error) {
       toast.error(
-        error.response?.data?.message || "Failed to add delivery"
+        error.response?.data?.message ||
+        "Failed to add delivery"
       );
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <>
-      <ToastContainer />
-      <div className="dashboard">
+      <ToastContainer position="top-right" autoClose={2500} />
 
-        <Sidebar />
+      <div className="add-delivery-page">
 
-        <div className="dashboard-main">
+        <div className="delivery-card">
 
-          <Navbar />
+          <h1>Add New Delivery</h1>
 
-          <div className="add-delivery-page">
+          <p>Enter customer delivery details below.</p>
 
-            <div className="delivery-card">
+          <form onSubmit={handleSubmit}>
 
-              <h1>Add New Delivery</h1>
+            <div className="form-grid">
 
-              <p>
-                Enter customer delivery details below.
-              </p>
+              <div className="input-group">
+                <FaUser />
 
-              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  placeholder="Customer Name"
+                  name="customerName"
+                  value={form.customerName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-                <div className="form-grid">
+              <div className="input-group">
+                <FaPhone />
 
-                  {/* Customer Name */}
-                  <div className="input-group">
-                    <FaUser />
-                    <input
-                      type="text"
-                      placeholder="Customer Name"
-                      name="customerName"
-                      value={form.customerName}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  {/* Phone */}
-                  <div className="input-group">
-                    <FaPhone />
-                    <input
-                      type="text"
-                      placeholder="Phone Number"
-                      name="phone"
-                      value={form.phone}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                </div>
-
-                {/* Address */}
-
-                <div className="input-group address-box">
-                  <FaMapMarkerAlt />
-
-                  <textarea
-                    placeholder="Complete Delivery Address"
-                    rows="5"
-                    name="address"
-                    value={form.address}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                {/* Priority */}
-
-                <div className="priority-box">
-
-                  <label className={form.priority === "Normal" ? "priority active normal" : "priority normal"}>
-                    <input
-                      type="radio"
-                      value="Normal"
-                      name="priority"
-                      checked={form.priority === "Normal"}
-                      onChange={handleChange}
-                    />
-                    Normal
-                  </label>
-
-                  <label className={form.priority === "High" ? "priority active high" : "priority high"}>
-                    <input
-                      type="radio"
-                      value="High"
-                      name="priority"
-                      checked={form.priority === "High"}
-                      onChange={handleChange}
-                    />
-                    High
-                  </label>
-
-                  <label className={form.priority === "Super" ? "priority active super" : "priority super"}>
-                    <input
-                      type="radio"
-                      value="Super"
-                      name="priority"
-                      checked={form.priority === "Super"}
-                      onChange={handleChange}
-                    />
-                    Super
-                  </label>
-
-                </div>
-
-                <button className="save-btn">
-                  <FaSave />
-                  Save Delivery
-                </button>
-
-              </form>
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
             </div>
 
-          </div>
+            <div className="input-group address-box">
+
+              <FaMapMarkerAlt />
+
+              <textarea
+                placeholder="Complete Delivery Address"
+                rows="5"
+                name="address"
+                value={form.address}
+                onChange={handleChange}
+                required
+              />
+
+            </div>
+
+            <div className="priority-box">
+
+              <label
+                className={
+                  form.priority === "Normal"
+                    ? "priority active normal"
+                    : "priority normal"
+                }
+              >
+                <input
+                  type="radio"
+                  name="priority"
+                  value="Normal"
+                  checked={form.priority === "Normal"}
+                  onChange={handleChange}
+                />
+                Normal
+              </label>
+
+              <label
+                className={
+                  form.priority === "High"
+                    ? "priority active high"
+                    : "priority high"
+                }
+              >
+                <input
+                  type="radio"
+                  name="priority"
+                  value="High"
+                  checked={form.priority === "High"}
+                  onChange={handleChange}
+                />
+                High
+              </label>
+
+              <label
+                className={
+                  form.priority === "Super"
+                    ? "priority active super"
+                    : "priority super"
+                }
+              >
+                <input
+                  type="radio"
+                  name="priority"
+                  value="Super"
+                  checked={form.priority === "Super"}
+                  onChange={handleChange}
+                />
+                Super
+              </label>
+
+            </div>
+
+            <button
+              type="submit"
+              className="save-btn"
+              disabled={loading}
+            >
+              <FaSave />
+
+              {loading ? "Saving..." : "Save Delivery"}
+
+            </button>
+
+          </form>
 
         </div>
 

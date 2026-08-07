@@ -21,6 +21,13 @@ function Sidebar() {
     logout();
     navigate("/login");
   };
+  const handleSettings = () => {
+  navigate("/dashboard", { replace: true });
+
+  setTimeout(() => {
+    window.location.reload();
+  }, 150);
+};
 
   const menuItems = [
     {
@@ -48,11 +55,11 @@ function Sidebar() {
       icon: <FaUser />,
       path: "/profile",
     },
-    {
-      name: "Settings",
-      icon: <FaCog />,
-      path: "/settings",
-    },
+    // {
+    //   name: "Settings",
+    //   icon: <FaCog />,
+    //   path: "/dashboard",
+    // },
   ];
 
   return (
@@ -86,6 +93,14 @@ function Sidebar() {
             <span>{item.name}</span>
           </NavLink>
         ))}
+        <div
+  className="menu-item"
+  onClick={handleSettings}
+  style={{ cursor: "pointer" }}
+>
+  <FaCog />
+  <span>Settings</span>
+</div>
 
       </nav>
 

@@ -1,263 +1,268 @@
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { getDeliveries } from "../services/api";
 import { optimizeRoute } from "../utils/routeOptimizer";
 import MapView from "../components/MapView";
 
 import {
-    FaRoute,
-    FaTruck,
-    FaRoad,
-    FaClock,
-    FaGasPump,
+  FaRoute,
+  FaTruck,
+  FaRoad,
+  FaClock,
+  FaGasPump,
 } from "react-icons/fa";
 
 import "../styles/RouteOptimizer.css";
+
 function calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371;
+  const R = 6371;
 
-    const dLat = ((lat2 - lat1) * Math.PI) / 180;
-    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
 
-    const a =
-        Math.sin(dLat / 2) ** 2 +
-        Math.cos((lat1 * Math.PI) / 180) *
-            Math.cos((lat2 * Math.PI) / 180) *
-            Math.sin(dLon / 2) ** 2;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) ** 2;
 
-    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
 function getRouteDistance(route) {
-    if (route.length < 2) return 0;
+  if (route.length < 2) return 0;
 
-    let total = 0;
+  let total = 0;
 
-    for (let i = 0; i < route.length - 1; i++) {
-        total += calculateDistance(
-            route[i].latitude,
-            route[i].longitude,
-            route[i + 1].latitude,
-            route[i + 1].longitude
-        );
-    }
+  for (let i = 0; i < route.length - 1; i++) {
+    total += calculateDistance(
+      Number(route[i].latitude),
+      Number(route[i].longitude),
+      Number(route[i + 1].latitude),
+      Number(route[i + 1].longitude)
+    );
+  }
 
-    return total;
+  return total;
 }
+
 function RouteOptimizer() {
+  const [deliveries, setDeliveries] = useState([]);
+  const [optimizedRoute, setOptimizedRoute] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const [deliveries, setDeliveries] = useState([]);
-    const [optimizedRoute, setOptimizedRoute] = useState([]);
-    const totalDistance = getRouteDistance(optimizedRoute);
+  useEffect(() => {
+    loadDeliveries();
+  }, []);
 
-const estimatedHours = totalDistance / 30;
+  const loadDeliveries = async () => {
+    try {
+      const data = await getDeliveries();
 
-const estimatedMinutes = Math.round(estimatedHours * 60);
+      setDeliveries(data.deliveries);
 
-const fuelSaved = (totalDistance / 15).toFixed(1);
+      setOptimizedRoute(optimizeRoute(data.deliveries));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    useEffect(() => {
-        loadDeliveries();
-    }, []);
+  const handleOptimize = () => {
+    setOptimizedRoute(optimizeRoute(deliveries));
+  };
 
-    const loadDeliveries = async () => {
-        try {
-            const data = await getDeliveries();
+  const totalDistance = getRouteDistance(optimizedRoute);
+  const estimatedMinutes = Math.round((totalDistance / 30) * 60);
+  const fuelSaved = (totalDistance / 15).toFixed(1);
 
-            setDeliveries(data.deliveries);
-
-            setOptimizedRoute(optimizeRoute(data.deliveries));
-
-        } catch (err) {
-            console.log(err);
-        }
-    };
+  if (loading) {
     return (
-        <div className="dashboard">
+      <div className="route-page">
+        <h2>Loading route...</h2>
+      </div>
+    );
+  }
 
-            <Sidebar />
+  return (
+    <div className="route-page">
 
-            <div className="dashboard-main">
+      {/* Header */}
 
-                <Navbar />
+      <div className="route-header">
 
-                <div className="dashboard-content">
+        <div>
 
-                    <div className="route-page">
+          <h1>
+            <FaRoute />
+            Optimize Route
+          </h1>
 
-                        {/* Header */}
+          <p>
+            Optimize today's deliveries to reduce travel distance,
+            save fuel and improve delivery efficiency.
+          </p>
 
-                        <div className="route-header">
+        </div>
 
-                            <div>
-                                <h1>
-                                    <FaRoute />
-                                    Optimize Route
-                                </h1>
+        <button
+          className="optimize-route-btn"
+          onClick={handleOptimize}
+        >
+          🚀 Optimize Now
+        </button>
 
-                                <p>
-                                    Optimize today's deliveries to reduce travel distance,
-                                    save fuel and improve delivery efficiency.
-                                </p>
-                            </div>
+      </div>
 
-                            <button
-                                className="optimize-route-btn"
-                                onClick={() => setOptimizedRoute(optimizeRoute(deliveries))}
-                            >
-                                Optimize Now
-                            </button>
+      {/* Summary */}
 
-                        </div>
+      <div className="summary-cards">
 
-                        {/* Summary Cards */}
+        <div className="summary-card">
+          <FaTruck className="summary-icon" />
+          <h2>{deliveries.length}</h2>
+          <p>Total Deliveries</p>
+        </div>
 
-                        <div className="summary-cards">
+        <div className="summary-card">
+          <FaRoad className="summary-icon" />
+          <h2>{totalDistance.toFixed(1)} km</h2>
+          <p>Total Distance</p>
+        </div>
 
-                            <div className="summary-card">
-                                <FaTruck className="summary-icon" />
-                                <h2>{deliveries.length}</h2>
-                                <p>Total Deliveries</p>
-                            </div>
+        <div className="summary-card">
+          <FaClock className="summary-icon" />
+          <h2>
+            {Math.floor(estimatedMinutes / 60)}h{" "}
+            {estimatedMinutes % 60}m
+          </h2>
+          <p>Estimated Time</p>
+        </div>
 
-                            <div className="summary-card">
-                                <FaRoad className="summary-icon" />
-                               <h2>{totalDistance.toFixed(1)} km</h2>
-                                <p>Total Distance</p>
-                            </div>
+        <div className="summary-card">
+          <FaGasPump className="summary-icon" />
+          <h2>{fuelSaved} L</h2>
+          <p>Fuel Saved</p>
+        </div>
 
-                            <div className="summary-card">
-                                <FaClock className="summary-icon" />
-                               <h2>
-{Math.floor(estimatedMinutes / 60)}h {estimatedMinutes % 60}m
-</h2>
-                                <p>Estimated Time</p>
-                            </div>
+      </div>
 
-                            <div className="summary-card">
-                                <FaGasPump className="summary-icon" />
-                               <h2>{fuelSaved} L</h2>
-                                <p>Fuel Saved</p>
-                            </div>
+      {/* Map */}
 
-                        </div>
+      <div className="route-map">
 
-                        {/* Map */}
+        <div className="route-map-header">
 
-                        <div className="route-map">
+          <h2>Optimized Route Map</h2>
 
-                            <div className="route-map-header">
+          <span>Live Preview</span>
 
-                                <h2>Optimized Route Map</h2>
+        </div>
 
-                                <span>
-                                    Live Route Preview
-                                </span>
+        <MapView deliveries={optimizedRoute} />
 
-                            </div>
+      </div>
 
-                            <MapView deliveries={optimizedRoute} />
+      {/* Bottom */}
 
-                        </div>
+      <div className="route-bottom">
 
-                        {/* Bottom Section */}
+        <div className="route-stats">
 
-                        <div className="route-bottom">
+          <h2>Route Statistics</h2>
 
-                            <div className="route-stats">
+          <div className="stat-row">
+            <span>Original Distance</span>
+            <strong>{(totalDistance * 1.2).toFixed(1)} km</strong>
+          </div>
 
-                                <h2>Route Statistics</h2>
+          <div className="stat-row">
+            <span>Optimized Distance</span>
+            <strong>{totalDistance.toFixed(1)} km</strong>
+          </div>
 
-                                <div className="stat-row">
-                                    <span>Original Distance</span>
-                                    <strong>{(totalDistance * 1.2).toFixed(1)} km</strong>
-                                </div>
+          <div className="stat-row">
+            <span>Estimated Time</span>
+            <strong>
+              {Math.floor(estimatedMinutes / 60)}h{" "}
+              {estimatedMinutes % 60}m
+            </strong>
+          </div>
 
-                                <div className="stat-row">
-                                    <span>Optimized Distance</span>
-                                    <strong>{totalDistance.toFixed(1)} km</strong>
-                                </div>
+          <div className="stat-row">
+            <span>Fuel Saved</span>
+            <strong>{fuelSaved} Litres</strong>
+          </div>
 
-                                <div className="stat-row">
-                                    <span>Estimated Time</span>
-                                    <strong>
-{Math.floor(estimatedMinutes / 60)}h {estimatedMinutes % 60}m
-</strong>
-                                </div>
+        </div>
 
-                                <div className="stat-row">
-                                    <span>Fuel Saved</span>
-                                    <strong>{fuelSaved} Litres</strong>
-                                </div>
+        <div className="optimized-stops">
 
-                            </div>
+          <h2>Optimized Delivery Sequence</h2>
 
-                            <div className="optimized-stops">
+          {optimizedRoute.length === 0 ? (
 
-                                <h2>Optimized Delivery Sequence</h2>
+            <div className="empty-route">
+              No deliveries available.
+            </div>
 
-                                <div className="stops-container">
+          ) : (
 
-                                    {optimizedRoute.map((delivery, index) => (
+            <div className="stops-container">
 
-                                        <div
-                                            className="stop-card"
-                                            key={delivery._id}
-                                        >
+              {optimizedRoute.map((delivery, index) => (
 
-                                            <div className="stop-number">
+                <div
+                  className="stop-card"
+                  key={delivery._id}
+                >
 
-                                                {index + 1}
+                  <div className="stop-number">
+                    {index + 1}
+                  </div>
 
-                                            </div>
+                  <div className="stop-info">
 
-                                            <div className="stop-info">
+                    <h3>{delivery.customerName}</h3>
 
-                                                <h3>{delivery.customerName}</h3>
+                    <p>📍 {delivery.address}</p>
 
-                                                <p>📍 {delivery.address}</p>
+                    <p>📞 {delivery.phone}</p>
 
-                                                <p>📞 {delivery.phone}</p>
+                  </div>
 
-                                            </div>
+                  <div className="stop-right">
 
-                                            <div className="stop-right">
+                    <span
+                      className={`priority-badge ${delivery.priority.toLowerCase()}`}
+                    >
+                      {delivery.priority}
+                    </span>
 
-                                                <span
-                                                    className={`priority-badge ${delivery.priority.toLowerCase()}`}
-                                                >
-                                                    {delivery.priority}
-                                                </span>
+                    <span
+                      className={`status-badge ${delivery.status
+                        .toLowerCase()
+                        .replace(" ", "-")}`}
+                    >
+                      {delivery.status}
+                    </span>
 
-                                                <span
-                                                    className={`status-badge ${delivery.status
-                                                        .toLowerCase()
-                                                        .replace(" ", "-")}`}
-                                                >
-                                                    {delivery.status}
-                                                </span>
-
-                                            </div>
-
-                                        </div>
-
-                                    ))}
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
+                  </div>
 
                 </div>
 
+              ))}
+
             </div>
 
+          )}
+
         </div>
-    );
+
+      </div>
+
+    </div>
+  );
 }
 
 export default RouteOptimizer;
