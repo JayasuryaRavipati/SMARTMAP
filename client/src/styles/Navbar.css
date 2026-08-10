@@ -1,279 +1,495 @@
-/* ===================================
+/* ==========================================
    NAVBAR
-=================================== */
+========================================== */
 
-.navbar{
-    position:fixed;
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 
-    top:0;
-    left:0;
-    right:0;
+    height: 72px;
 
-    height:72px;
+    background: #ffffff;
 
-    background:#ffffff;
+    display: flex;
+    align-items: center;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    padding: 0 30px;
 
-    padding:0 30px;
+    border-bottom: 1px solid #e2e8f0;
 
-    border-bottom:1px solid #e2e8f0;
-    box-shadow:0 4px 12px rgba(0,0,0,.06);
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
 
-    z-index:2000;
-}
-/* ===================================
-   LEFT
-=================================== */
-
-.navbar-left h2 {
-  margin: 0;
-  color: #2563eb;
-  font-size: 24px;
-  font-weight: 700;
+    z-index: 2000;
 }
 
-.navbar-left p {
-  margin: 2px 0 0;
-  color: #64748b;
-  font-size: 13px;
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.navbar-left {
+    flex-shrink: 0;
 }
 
-/* ===================================
-   RIGHT
-=================================== */
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+    cursor: pointer;
 }
 
-/* ===================================
-   DRIVER PROFILE
-=================================== */
-
-.driver-profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  cursor: pointer;
-
-  transition: .3s;
+.navbar-logo > svg {
+    font-size: 28px;
+    color: #2563eb;
 }
 
-.driver-profile:hover {
-  opacity: .8;
+.navbar-logo h2 {
+    margin: 0;
+
+    color: #2563eb;
+
+    font-size: 23px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.navbar-logo p {
+    margin: 2px 0 0;
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+
+    color: #475569;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    padding: 10px 13px;
+
+    border-radius: 9px;
+
+    transition: 0.25s ease;
+}
+
+.nav-link:hover {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.nav-link.active {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+
+/* ==========================================
+   PROFILE
+========================================== */
+
+.navbar-profile-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.navbar-profile {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    padding: 6px 8px;
+
+    border-radius: 10px;
+
+    transition: 0.25s ease;
+}
+
+.navbar-profile:hover {
+    background: #f8fafc;
 }
 
 .profile-icon {
-  font-size: 38px;
-  color: #2563eb;
+    font-size: 34px;
+    color: #2563eb;
 }
 
 .driver-info {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .driver-info h4 {
-  margin: 0;
-  font-size: 15px;
-  color: #1e293b;
+    margin: 0;
+
+    color: #1e293b;
+
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .driver-info span {
-  font-size: 12px;
-  color: #64748b;
+    color: #64748b;
+
+    font-size: 11px;
 }
 
-/* ===================================
-   LOGOUT BUTTON
-=================================== */
+.profile-arrow {
+    color: #64748b;
 
-.navbar-logout-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    font-size: 10px;
 
-  padding: 10px 16px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background: #ef4444;
-
-  color: white;
-
-  cursor: pointer;
-
-  transition: .3s;
+    transition: 0.25s ease;
 }
 
-.navbar-logout-btn:hover {
-  background: #dc2626;
-}
-
-/* ===================================
-   LARGE DESKTOP (1920px+)
-=================================== */
-
-@media (min-width:1920px){
-
-    .navbar{
-        height:78px;
-        padding:0 40px;
-    }
-
-    .navbar-left h2{
-        font-size:28px;
-    }
-
-    .navbar-left p{
-        font-size:14px;
-    }
-
-    .profile-icon{
-        font-size:42px;
-    }
-
-    .driver-info h4{
-        font-size:16px;
-    }
-
-    .driver-info span{
-        font-size:13px;
-    }
-
+.profile-arrow.rotate {
+    transform: rotate(180deg);
 }
 
 
-/* ===================================
-   LAPTOP (1440px)
-=================================== */
+/* ==========================================
+   PROFILE DROPDOWN
+========================================== */
 
-@media (max-width:1440px){
+.profile-dropdown {
+    position: absolute;
 
-    .navbar{
-        padding:0 25px;
+    top: calc(100% + 10px);
+    right: 0;
+
+    width: 210px;
+
+    padding: 8px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 14px;
+
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.14);
+
+    animation: profileDropdown 0.18s ease;
+}
+
+@keyframes profileDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
     }
 
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
-/* ===================================
-   TABLET (1024px)
-=================================== */
+/* ==========================================
+   DROPDOWN HEADER
+========================================== */
 
-@media (max-width:1024px){
+.profile-dropdown-header {
+    display: flex;
 
-    .navbar{
-        padding:0 20px;
-    }
+    align-items: center;
 
-    .navbar-left h2{
-        font-size:22px;
-    }
+    gap: 10px;
 
-    .navbar-left p{
-        font-size:12px;
-    }
+    padding: 10px;
+}
 
-    .navbar-right{
-        gap:15px;
-    }
+.profile-dropdown-header > svg {
+    font-size: 35px;
+    color: #2563eb;
+}
 
-    .profile-icon{
-        font-size:34px;
-    }
+.profile-dropdown-header div {
+    display: flex;
+    flex-direction: column;
+}
 
-    .driver-info h4{
-        font-size:14px;
-    }
+.profile-dropdown-header strong {
+    color: #1e293b;
+    font-size: 14px;
+}
 
+.profile-dropdown-header span {
+    margin-top: 2px;
+
+    color: #64748b;
+    font-size: 12px;
 }
 
 
-/* ===================================
-   MOBILE (768px)
-=================================== */
+/* ==========================================
+   DIVIDER
+========================================== */
 
-@media (max-width:768px){
+.profile-dropdown-divider {
+    height: 1px;
 
-    .navbar{
-        height:70px;
-        padding:0 15px;
-    }
+    margin: 5px 0;
 
-    .navbar-left h2{
-        font-size:20px;
-    }
-
-    .navbar-left p{
-        display:none;
-    }
-
-    .navbar-right{
-        gap:12px;
-    }
-
-    .profile-icon{
-        font-size:32px;
-    }
-
-    .driver-info{
-        display:none;
-    }
-
-    .navbar-logout-btn{
-
-        padding:9px 12px;
-
-        font-size:14px;
-    }
-
+    background: #e2e8f0;
 }
 
 
-/* ===================================
-   SMALL MOBILE (480px)
-=================================== */
+/* ==========================================
+   DROPDOWN BUTTONS
+========================================== */
 
-@media (max-width:480px){
+.profile-dropdown button {
+    width: 100%;
 
-    .navbar{
-        padding:0 10px;
-        height:65px;
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px 12px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: transparent;
+
+    color: #334155;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.profile-dropdown button:hover {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+.profile-dropdown .profile-logout {
+    color: #dc2626;
+}
+
+.profile-dropdown .profile-logout:hover {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+
+
+/* ==========================================
+   LARGE DESKTOP
+========================================== */
+
+@media (min-width: 1920px) {
+
+    .navbar {
+        height: 78px;
+        padding: 0 45px;
     }
 
-    .navbar-left h2{
-        font-size:18px;
+    .navbar-logo > svg {
+        font-size: 32px;
     }
 
-    .navbar-right{
-        gap:8px;
+    .navbar-logo h2 {
+        font-size: 27px;
     }
 
-    .profile-icon{
-        font-size:28px;
+    .desktop-nav {
+        gap: 8px;
     }
 
-    .navbar-logout-btn{
-
-        padding:8px;
-
-        width:38px;
-        height:38px;
-
-        justify-content:center;
+    .nav-link {
+        font-size: 15px;
+        padding: 11px 15px;
     }
 
-    .navbar-logout-btn span{
-        display:none;
+    .profile-icon {
+        font-size: 40px;
+    }
+}
+
+
+/* ==========================================
+   LAPTOP
+========================================== */
+
+@media (max-width: 1440px) {
+
+    .navbar {
+        padding: 0 22px;
     }
 
+    .desktop-nav {
+        margin-right: 20px;
+    }
+
+    .nav-link {
+        padding: 9px 10px;
+        font-size: 13px;
+    }
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1050px) {
+
+    .navbar {
+        padding: 0 18px;
+    }
+
+    .navbar-logo p {
+        display: none;
+    }
+
+    .desktop-nav {
+        gap: 2px;
+        margin-right: 12px;
+    }
+
+    .nav-link {
+        padding: 8px 8px;
+        font-size: 12px;
+    }
+
+    .driver-info {
+        display: none;
+    }
+
+    .profile-icon {
+        font-size: 32px;
+    }
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        height: 70px;
+        padding: 0 16px;
+    }
+
+    .navbar-logo > svg {
+        font-size: 27px;
+    }
+
+    .navbar-logo h2 {
+        font-size: 21px;
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .navbar-profile {
+        padding: 5px;
+    }
+
+    .driver-info {
+        display: none;
+    }
+
+    .profile-icon {
+        font-size: 32px;
+    }
+
+    .profile-arrow {
+        display: none;
+    }
+
+    .profile-dropdown {
+        right: 0;
+        width: 200px;
+    }
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 480px) {
+
+    .navbar {
+        height: 65px;
+        padding: 0 12px;
+    }
+
+    .navbar-logo > svg {
+        font-size: 24px;
+    }
+
+    .navbar-logo h2 {
+        font-size: 19px;
+    }
+
+    .profile-icon {
+        font-size: 29px;
+    }
+
+    .profile-dropdown {
+        width: 190px;
+    }
+}
+
+
+/* ==========================================
+   EXTRA SMALL
+========================================== */
+
+@media (max-width: 360px) {
+
+    .navbar {
+        padding: 0 10px;
+    }
+
+    .navbar-logo h2 {
+        font-size: 18px;
+    }
 }

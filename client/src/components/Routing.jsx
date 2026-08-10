@@ -8,32 +8,40 @@ function Routing({ deliveries, driverLocation }) {
   const routingRef = useRef(null);
 
   useEffect(() => {
-    // Wait until we have driver's location
-    if (!driverLocation) return;
+    if (!map || !driverLocation || !deliveries?.length) {
+      return;
+    }
 
-    // Wait until deliveries are loaded
-    if (!deliveries || deliveries.length === 0) return;
+    const activeDeliveries = deliveries.filter(
+      (delivery) =>
+        delivery.status?.toLowerCase() !== "delivered" &&
+        delivery.latitude != null &&
+        delivery.longitude != null
+    );
 
-    // Create waypoints
+    // Remove old route if there are no active deliveries
+    if (activeDeliveries.length === 0) {
+      if (routingRef.current) {
+        map.removeControl(routingRef.current);
+        routingRef.current = null;
+      }
+      return;
+    }
+
+    // Driver -> A -> B -> C -> D
     const waypoints = [
-      L.latLng(driverLocation.lat, driverLocation.lng),
+      L.latLng(
+        Number(driverLocation.lat),
+        Number(driverLocation.lng)
+      ),
 
-      ...deliveries
-        .filter(
-          (delivery) =>
-            delivery.latitude != null &&
-            delivery.longitude != null
+      ...activeDeliveries.map((delivery) =>
+        L.latLng(
+          Number(delivery.latitude),
+          Number(delivery.longitude)
         )
-        .map((delivery) =>
-          L.latLng(
-            Number(delivery.latitude),
-            Number(delivery.longitude)
-          )
-        ),
+      ),
     ];
-
-    // Need at least driver + one delivery
-    if (waypoints.length < 2) return;
 
     // Remove previous route
     if (routingRef.current) {
@@ -41,8 +49,8 @@ function Routing({ deliveries, driverLocation }) {
       routingRef.current = null;
     }
 
-    // Create routing
-    routingRef.current = L.Routing.control({
+    // Create new route
+    const routingControl = L.Routing.control({
       waypoints,
 
       router: L.Routing.osrmv1({
@@ -52,7 +60,9 @@ function Routing({ deliveries, driverLocation }) {
       routeWhileDragging: false,
       draggableWaypoints: false,
       addWaypoints: false,
-      fitSelectedRoutes: true,
+
+      fitSelectedRoutes: false,
+
       show: false,
 
       createMarker: () => null,
@@ -62,19 +72,28 @@ function Routing({ deliveries, driverLocation }) {
           {
             color: "#2563eb",
             weight: 6,
-            opacity: 0.8,
+            opacity: 0.85,
           },
         ],
       },
-    }).addTo(map);
+    });
+
+    routingControl.addTo(map);
+
+    routingRef.current = routingControl;
 
     return () => {
       if (routingRef.current) {
-        map.removeControl(routingRef.current);
+        try {
+          map.removeControl(routingRef.current);
+        } catch (error) {
+          console.log("Route cleanup:", error);
+        }
+
         routingRef.current = null;
       }
     };
-  }, [deliveries, driverLocation, map]);
+  }, [map, driverLocation, deliveries]);
 
   return null;
 }

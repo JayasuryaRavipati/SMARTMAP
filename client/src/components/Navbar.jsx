@@ -1,56 +1,228 @@
-import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useState, useEffect, useRef } from "react";
+import {
+    FaUserCircle,
+    FaSignOutAlt,
+    FaTruck,
+    FaChevronDown
+} from "react-icons/fa";
 
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 import "../styles/Navbar.css";
 
 function Navbar() {
-  const { user, logout } = useAuth();
- console.log("Navbar User:", user);
-  const navigate = useNavigate();
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+    const [profileOpen, setProfileOpen] = useState(false);
+    const profileRef = useRef(null);
 
-  return (
-    <header className="navbar">
+    const handleLogout = () => {
+        logout();
+        setProfileOpen(false);
+        navigate("/login");
+    };
 
-      <div className="navbar-left">
-        <h2>SMARTMAP</h2>
-        <p>Smart Delivery Management</p>
-      </div>
+    const closeProfile = () => {
+        setProfileOpen(false);
+    };
 
-      <div className="navbar-right">
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                profileRef.current &&
+                !profileRef.current.contains(event.target)
+            ) {
+                setProfileOpen(false);
+            }
+        };
 
-        <div
-  className="driver-profile"
-  onClick={() => navigate("/profile")}
->
+        document.addEventListener("mousedown", handleClickOutside);
 
-  <FaUserCircle className="profile-icon" />
+        return () => {
+            document.removeEventListener(
+                "mousedown",
+                handleClickOutside
+            );
+        };
+    }, []);
 
-  <div className="driver-info">
-    <h4>{user?.name}</h4>
-    <span>Delivery Driver</span>
-  </div>
+    return (
+        <header className="navbar">
 
-</div>
+            {/* Logo */}
 
-        <button
-          className="navbar-logout-btn"
-          onClick={handleLogout}
-        >
-          <FaSignOutAlt />
-          <span>Logout</span>
-        </button>
+            <div className="navbar-left">
 
-      </div>
+                <div
+                    className="navbar-logo"
+                    onClick={() => navigate("/dashboard")}
+                >
+                    <FaTruck />
 
-    </header>
-  );
+                    <div>
+                        <h2>SMARTMAP</h2>
+                        <p>Smart Delivery Management</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            {/* Navigation */}
+
+            <nav className="desktop-nav">
+
+                <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) =>
+                        isActive
+                            ? "nav-link active"
+                            : "nav-link"
+                    }
+                >
+                    Dashboard
+                </NavLink>
+
+                <NavLink
+                    to="/deliveries"
+                    className={({ isActive }) =>
+                        isActive
+                            ? "nav-link active"
+                            : "nav-link"
+                    }
+                >
+                    Deliveries
+                </NavLink>
+
+                <NavLink
+                    to="/deliveries/add"
+                    className={({ isActive }) =>
+                        isActive
+                            ? "nav-link active"
+                            : "nav-link"
+                    }
+                >
+                    Add Delivery
+                </NavLink>
+
+                <NavLink
+                    to="/optimize"
+                    className={({ isActive }) =>
+                        isActive
+                            ? "nav-link active"
+                            : "nav-link"
+                    }
+                >
+                    Optimize Route
+                </NavLink>
+
+            </nav>
+
+
+            {/* Profile */}
+
+            <div
+                className="navbar-profile-wrapper"
+                ref={profileRef}
+            >
+
+                <button
+                    className="navbar-profile"
+                    onClick={() =>
+                        setProfileOpen(!profileOpen)
+                    }
+                >
+
+                    <FaUserCircle className="profile-icon" />
+
+                    <div className="driver-info">
+                        <h4>
+                            {user?.name || "Surya"}
+                        </h4>
+
+                        <span>
+                            Driver
+                        </span>
+                    </div>
+
+                    <FaChevronDown
+                        className={
+                            profileOpen
+                                ? "profile-arrow rotate"
+                                : "profile-arrow"
+                        }
+                    />
+
+                </button>
+
+
+                {/* Profile Dropdown */}
+
+                {profileOpen && (
+
+                    <div className="profile-dropdown">
+
+                        <div className="profile-dropdown-header">
+
+                            <FaUserCircle />
+
+                            <div>
+                                <strong>
+                                    {user?.name || "Surya"}
+                                </strong>
+
+                                <span>
+                                    Driver
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div className="profile-dropdown-divider" />
+
+
+                        <button
+                            onClick={() => {
+                                navigate("/profile");
+                                closeProfile();
+                            }}
+                        >
+                            View Profile
+                        </button>
+
+
+                        <button
+                            onClick={() => {
+                                navigate("/settings");
+                                closeProfile();
+                            }}
+                        >
+                            Settings
+                        </button>
+
+
+                        <div className="profile-dropdown-divider" />
+
+
+                        <button
+                            className="profile-logout"
+                            onClick={handleLogout}
+                        >
+                            <FaSignOutAlt />
+                            Logout
+                        </button>
+
+                    </div>
+
+                )}
+
+            </div>
+
+        </header>
+    );
 }
 
 export default Navbar;

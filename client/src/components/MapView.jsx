@@ -79,9 +79,9 @@ function MapView({ deliveries: propDeliveries }) {
       {
         enableHighAccuracy: true,
         maximumAge: 1000,
+        timeout: 10000,
       }
     );
-
     return () => navigator.geolocation.clearWatch(watchId);
   }, []);
 
@@ -89,21 +89,32 @@ function MapView({ deliveries: propDeliveries }) {
   // Load Deliveries
   // -----------------------------
   useEffect(() => {
-    if (propDeliveries) {
-      setDeliveries(propDeliveries);
-    } else {
-      loadDeliveries();
-    }
-  }, [propDeliveries]);
+  if (propDeliveries) {
+    setDeliveries(
+      propDeliveries.filter(
+        (delivery) =>
+          delivery.status?.toLowerCase() !== "delivered"
+      )
+    );
+  } else {
+    loadDeliveries();
+  }
+}, [propDeliveries]);
 
-  const loadDeliveries = async () => {
-    try {
-      const data = await getDeliveries();
-      setDeliveries(data.deliveries);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+ const loadDeliveries = async () => {
+  try {
+    const data = await getDeliveries();
+
+    const activeDeliveries = (data.deliveries || []).filter(
+      (delivery) =>
+        delivery.status?.toLowerCase() !== "delivered"
+    );
+
+    setDeliveries(activeDeliveries);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
   return (
     <MapContainer
@@ -158,7 +169,12 @@ function MapView({ deliveries: propDeliveries }) {
       )}
 
       {/* Delivery Markers */}
-      {deliveries.map((delivery) => {
+      {deliveries
+  .filter(
+    (delivery) =>
+      delivery.status?.toLowerCase() !== "delivered"
+  )
+  .map((delivery) => {
         if (
           delivery.latitude == null ||
           delivery.longitude == null

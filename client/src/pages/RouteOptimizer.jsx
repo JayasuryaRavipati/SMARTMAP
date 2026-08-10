@@ -60,7 +60,13 @@ function RouteOptimizer() {
 
       setDeliveries(data.deliveries);
 
-      setOptimizedRoute(optimizeRoute(data.deliveries));
+      const activeDeliveries = data.deliveries.filter(
+  (delivery) =>
+    delivery.status?.toLowerCase() !== "delivered"
+);
+
+setDeliveries(activeDeliveries);
+setOptimizedRoute(optimizeRoute(activeDeliveries));
     } catch (err) {
       console.log(err);
     } finally {
@@ -68,9 +74,14 @@ function RouteOptimizer() {
     }
   };
 
-  const handleOptimize = () => {
-    setOptimizedRoute(optimizeRoute(deliveries));
-  };
+const handleOptimize = () => {
+  const activeDeliveries = deliveries.filter(
+    (delivery) =>
+      delivery.status?.toLowerCase() !== "delivered"
+  );
+
+  setOptimizedRoute(optimizeRoute(activeDeliveries));
+};
 
   const totalDistance = getRouteDistance(optimizedRoute);
   const estimatedMinutes = Math.round((totalDistance / 30) * 60);
