@@ -5,23 +5,37 @@
 .mobile-menu-btn {
   display: none;
 
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  margin-left: auto;
+
   border: none;
   background: transparent;
 
   color: #1e293b;
-  font-size: 25px;
+
+  font-size: 24px;
 
   cursor: pointer;
 
   padding: 8px;
+
   border-radius: 8px;
 
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .mobile-menu-btn:hover {
   background: #eff6ff;
   color: #2563eb;
+}
+
+.mobile-menu-btn:focus {
+  outline: none;
 }
 
 /* ==========================================
@@ -36,12 +50,13 @@
 
   width: 230px;
 
+  padding: 8px;
+
   background: #ffffff;
 
   border: 1px solid #e2e8f0;
-  border-radius: 14px;
 
-  padding: 8px;
+  border-radius: 14px;
 
   box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
 
@@ -92,12 +107,16 @@
 
   text-align: left;
 
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .mobile-nav-link svg {
+  width: 17px;
   font-size: 17px;
+
   color: #2563eb;
+
+  flex-shrink: 0;
 }
 
 .mobile-nav-link:hover {
@@ -150,21 +169,19 @@
     padding: 0 16px;
   }
 
+  /* Hide desktop navigation */
   .desktop-nav {
     display: none;
   }
 
+  /* Hide desktop profile */
   .desktop-profile {
     display: none;
   }
 
+  /* Show hamburger */
   .mobile-menu-btn {
     display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    margin-left: auto;
   }
 
   .navbar-logo > svg {
@@ -200,11 +217,34 @@
   }
 
   .mobile-menu-btn {
+    width: 40px;
+    height: 40px;
+
     font-size: 23px;
   }
 
   .mobile-menu {
     right: 10px;
     width: 215px;
+  }
+}
+
+/* ==========================================
+   EXTRA SMALL MOBILE
+========================================== */
+
+@media (max-width: 360px) {
+
+  .navbar {
+    padding: 0 10px;
+  }
+
+  .navbar-logo h2 {
+    font-size: 18px;
+  }
+
+  .mobile-menu {
+    right: 8px;
+    width: 205px;
   }
 }
