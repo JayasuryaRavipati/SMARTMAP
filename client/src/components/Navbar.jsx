@@ -39,29 +39,25 @@ function Navbar() {
   return (
     <header className="navbar">
 
-      {/* ================= LEFT DIV ================= */}
-
+      {/* LEFT - LOGO */}
       <div
         className="navbar-left"
         onClick={() => navigate("/dashboard")}
       >
         <div className="navbar-logo">
-          <FaTruck className="logo-icon" />
+          <FaTruck />
 
-          <div className="logo-text">
+          <div>
             <h2>SMARTMAP</h2>
             <p>Smart Delivery Management</p>
           </div>
         </div>
       </div>
 
+      {/* RIGHT CONTENT */}
+      <div className="navbar-content">
 
-      {/* ================= RIGHT DIV ================= */}
-
-      <div className="navbar-right">
-
-        {/* Desktop Navigation */}
-
+        {/* DESKTOP NAVIGATION */}
         <nav className="desktop-nav">
 
           <NavLink
@@ -102,9 +98,7 @@ function Navbar() {
 
         </nav>
 
-
-        {/* Desktop Profile */}
-
+        {/* DESKTOP PROFILE */}
         <button
           className="navbar-profile"
           onClick={handleProfile}
@@ -113,16 +107,14 @@ function Navbar() {
           <FaUser className="profile-icon" />
 
           <div className="driver-info">
-            <h4>{user?.name || "Jayasurya"}</h4>
+            <h4>{user?.name || "Surya"}</h4>
             <span>Driver</span>
           </div>
         </button>
 
-
-        {/* Desktop Logout */}
-
+        {/* DESKTOP LOGOUT */}
         <button
-          className="desktop-logout"
+          className="navbar-logout"
           onClick={handleLogout}
           type="button"
         >
@@ -130,109 +122,96 @@ function Navbar() {
           <span>Logout</span>
         </button>
 
-
-        {/* ================= MOBILE BUTTON ================= */}
-
-        <button
-          className="mobile-menu-btn"
-          onClick={() =>
-            setIsMobileMenuOpen(!isMobileMenuOpen)
-          }
-          type="button"
-          aria-label="Open navigation menu"
-          aria-expanded={isMobileMenuOpen}
-        >
-          <FaBars />
-        </button>
-
-
-        {/* ================= MOBILE MENU ================= */}
-
-        {isMobileMenuOpen && (
-          <div className="mobile-menu">
-
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                isActive
-                  ? "mobile-nav-link active"
-                  : "mobile-nav-link"
-              }
-              onClick={closeMobileMenu}
-            >
-              <FaHome />
-              <span>Dashboard</span>
-            </NavLink>
-
-
-            <NavLink
-              to="/deliveries"
-              className={({ isActive }) =>
-                isActive
-                  ? "mobile-nav-link active"
-                  : "mobile-nav-link"
-              }
-              onClick={closeMobileMenu}
-            >
-              <FaBox />
-              <span>My Deliveries</span>
-            </NavLink>
-
-
-            <NavLink
-              to="/deliveries/add"
-              className={({ isActive }) =>
-                isActive
-                  ? "mobile-nav-link active"
-                  : "mobile-nav-link"
-              }
-              onClick={closeMobileMenu}
-            >
-              <FaPlusCircle />
-              <span>Add Delivery</span>
-            </NavLink>
-
-
-            <NavLink
-              to="/optimize"
-              className={({ isActive }) =>
-                isActive
-                  ? "mobile-nav-link active"
-                  : "mobile-nav-link"
-              }
-              onClick={closeMobileMenu}
-            >
-              <FaRoute />
-              <span>Optimize Route</span>
-            </NavLink>
-
-
-            <button
-              className="mobile-nav-link"
-              onClick={handleProfile}
-              type="button"
-            >
-              <FaUser />
-              <span>Profile</span>
-            </button>
-
-
-            <div className="mobile-menu-divider"></div>
-
-
-            <button
-              className="mobile-nav-link mobile-logout"
-              onClick={handleLogout}
-              type="button"
-            >
-              <FaSignOutAlt />
-              <span>Logout</span>
-            </button>
-
-          </div>
-        )}
-
       </div>
+
+      {/* MOBILE MENU BUTTON */}
+      <button
+        className="mobile-menu-btn"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        type="button"
+        aria-label="Open menu"
+      >
+        <FaBars />
+      </button>
+
+      {/* MOBILE MENU */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu">
+
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              isActive
+                ? "mobile-nav-link active"
+                : "mobile-nav-link"
+            }
+            onClick={closeMobileMenu}
+          >
+            <FaHome />
+            <span>Dashboard</span>
+          </NavLink>
+
+          <NavLink
+            to="/deliveries"
+            className={({ isActive }) =>
+              isActive
+                ? "mobile-nav-link active"
+                : "mobile-nav-link"
+            }
+            onClick={closeMobileMenu}
+          >
+            <FaBox />
+            <span>My Deliveries</span>
+          </NavLink>
+
+          <NavLink
+            to="/deliveries/add"
+            className={({ isActive }) =>
+              isActive
+                ? "mobile-nav-link active"
+                : "mobile-nav-link"
+            }
+            onClick={closeMobileMenu}
+          >
+            <FaPlusCircle />
+            <span>Add Delivery</span>
+          </NavLink>
+
+          <NavLink
+            to="/optimize"
+            className={({ isActive }) =>
+              isActive
+                ? "mobile-nav-link active"
+                : "mobile-nav-link"
+            }
+            onClick={closeMobileMenu}
+          >
+            <FaRoute />
+            <span>Optimize Route</span>
+          </NavLink>
+
+          <button
+            className="mobile-nav-link mobile-profile"
+            onClick={handleProfile}
+            type="button"
+          >
+            <FaUser />
+            <span>Profile</span>
+          </button>
+
+          <div className="mobile-menu-divider"></div>
+
+          <button
+            className="mobile-nav-link mobile-logout"
+            onClick={handleLogout}
+            type="button"
+          >
+            <FaSignOutAlt />
+            <span>Logout</span>
+          </button>
+
+        </div>
+      )}
 
     </header>
   );
