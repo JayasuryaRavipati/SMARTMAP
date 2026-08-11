@@ -73,99 +73,89 @@ function DeliveryTable() {
         </div>
       </div>
 
-      <div className="delivery-table-wrapper">
+   <div className="delivery-table-wrapper">
+  <div className="delivery-table-scroll">
 
-        {/* Fixed Header */}
-        <table className="delivery-table-header">
-          <thead>
-            <tr>
-              <th>Customer</th>
-              <th>Phone</th>
-              <th>Address</th>
-              <th>Priority</th>
-              <th>Status</th>
-              <th>Actions</th>
+    <table className="delivery-table">
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {filteredDeliveries.length > 0 ? (
+          filteredDeliveries.map((delivery) => (
+            <tr key={delivery._id}>
+
+              <td>{delivery.customerName}</td>
+
+              <td>{delivery.phone}</td>
+
+              <td>{delivery.address}</td>
+
+              <td>
+                <span
+                  className={`priority ${delivery.priority.toLowerCase()}`}
+                >
+                  {delivery.priority}
+                </span>
+              </td>
+
+              <td>
+                <span
+                  className={`status ${delivery.status
+                    .toLowerCase()
+                    .replace(" ", "-")}`}
+                >
+                  {delivery.status}
+                </span>
+              </td>
+
+              <td className="actions">
+
+                <Link
+                  to={`/deliveries/${delivery._id}`}
+                  className="icon-btn view-btn"
+                >
+                  <FaEye />
+                </Link>
+
+                <Link
+                  to={`/deliveries/edit/${delivery._id}`}
+                  className="icon-btn edit-btn"
+                >
+                  <FaEdit />
+                </Link>
+
+                <button
+                  className="icon-btn delete-btn"
+                  onClick={() => handleDelete(delivery._id)}
+                >
+                  <FaTrash />
+                </button>
+
+              </td>
+
             </tr>
-          </thead>
-        </table>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="6" className="no-deliveries">
+              No deliveries found.
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
 
-        {/* Scrollable Body */}
-        <div className="delivery-table-body">
-          <table className="delivery-table">
-            <tbody>
-
-              {filteredDeliveries.length > 0 ? (
-
-                filteredDeliveries.map((delivery) => (
-
-                  <tr key={delivery._id}>
-
-                    <td>{delivery.customerName}</td>
-
-                    <td>{delivery.phone}</td>
-
-                    <td>{delivery.address}</td>
-
-                    <td>
-                      <span className={`priority ${delivery.priority.toLowerCase()}`}>
-                        {delivery.priority}
-                      </span>
-                    </td>
-
-                    <td>
-                      <span
-                        className={`status ${delivery.status
-                          .toLowerCase()
-                          .replace(" ", "-")}`}
-                      >
-                        {delivery.status}
-                      </span>
-                    </td>
-
-                    <td className="actions">
-
-                      <Link
-                        to={`/deliveries/${delivery._id}`}
-                        className="icon-btn view-btn"
-                      >
-                        <FaEye />
-                      </Link>
-
-                      <Link
-                        to={`/deliveries/edit/${delivery._id}`}
-                        className="icon-btn edit-btn"
-                      >
-                        <FaEdit />
-                      </Link>
-
-                      <button
-                        className="icon-btn delete-btn"
-                        onClick={() => handleDelete(delivery._id)}
-                      >
-                        <FaTrash />
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                ))
-
-              ) : (
-
-                <tr>
-                  <td colSpan="6" style={{ textAlign: "center", padding: "30px" }}>
-                    No deliveries found.
-                  </td>
-                </tr>
-
-              )}
-
-            </tbody>
-          </table>
-        </div>
-
-      </div>
+  </div>
+</div>
 
     </div>
   );
