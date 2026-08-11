@@ -110,14 +110,14 @@ function Navbar() {
 
       </div>
 
-      <button
-        className="mobile-menu-btn"
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        type="button"
-        aria-label="Open menu"
-      >
-        <FaBars />
-      </button>
+     <button
+  className="mobile-menu-btn"
+  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+  type="button"
+  aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+>
+  <FaBars />
+</button>
 
       {isMobileMenuOpen && (
         <div className="mobile-menu">
