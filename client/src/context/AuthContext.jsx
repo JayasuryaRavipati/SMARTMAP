@@ -7,56 +7,46 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user when app starts
   useEffect(() => {
-   const loadUser = async () => {
-  const token = localStorage.getItem("token");
+    const loadUser = async () => {
+      const token = localStorage.getItem("token");
 
-  console.log("Token:", token);
+      if (!token) {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
 
-  if (!token) {
-    setLoading(false);
-    return;
-  }
+      try {
+        const res = await API.get("/auth/profile");
+        setUser(res.data.user);
+      } catch (error) {
+        console.log("PROFILE ERROR:", error.response?.data);
 
-  try {
-    const res = await API.get("/auth/profile");
-
-    console.log("PROFILE RESPONSE:", res.data);
-
-    setUser(res.data.user);
-  } catch (error) {
-    console.log("PROFILE ERROR:", error.response?.data);
-
-    localStorage.removeItem("token");
-    setUser(null);
-  } finally {
-    setLoading(false);
-  }
-};
+        localStorage.removeItem("token");
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     loadUser();
   }, []);
 
-  // Register
- const register = async (formData) => {
-  const res = await API.post("/auth/register", formData);
+  const register = async (formData) => {
+    const res = await API.post("/auth/register", formData);
+    return res.data;
+  };
 
-  return res.data;
-};
-
-  // Login
   const login = async (formData) => {
     const res = await API.post("/auth/login", formData);
 
     localStorage.setItem("token", res.data.token);
-
     setUser(res.data.user);
 
     return res.data;
   };
 
-  // Logout
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);

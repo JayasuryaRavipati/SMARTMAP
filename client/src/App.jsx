@@ -1,10 +1,7 @@
-import {
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -22,16 +19,29 @@ function App() {
     <Routes>
 
       {/* Public Routes */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route
+        path="/"
+        element={<Navigate to="/login" replace />}
+      />
 
-      {/* Protected Layout */}
-      <Route element={<Layout />}>
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
-        <Route
-          path="/"
-          element={<Navigate to="/dashboard" replace />}
-        />
+      <Route
+        path="/register"
+        element={<Register />}
+      />
+
+      {/* Protected Routes */}
+      <Route
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
 
         <Route
           path="/dashboard"
@@ -74,6 +84,12 @@ function App() {
         />
 
       </Route>
+
+      {/* Invalid URL */}
+      <Route
+        path="*"
+        element={<Navigate to="/login" replace />}
+      />
 
     </Routes>
   );
