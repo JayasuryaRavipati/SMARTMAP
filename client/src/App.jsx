@@ -12,29 +12,16 @@ import EditDelivery from "./pages/EditDelivery";
 import DeliveryDetails from "./pages/DeliveryDetails";
 import RouteOptimizer from "./pages/RouteOptimizer";
 import Profile from "./pages/Profile";
-import Settings from "./pages/Settings";
 
 function App() {
   return (
     <Routes>
 
-      {/* Public Routes */}
-      <Route
-        path="/"
-        element={<Navigate to="/login" replace />}
-      />
+      {/* Public */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-      <Route
-        path="/login"
-        element={<Login />}
-      />
-
-      <Route
-        path="/register"
-        element={<Register />}
-      />
-
-      {/* Protected Routes */}
+      {/* Protected */}
       <Route
         element={
           <ProtectedRoute>
@@ -42,16 +29,11 @@ function App() {
           </ProtectedRoute>
         }
       >
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
+        <Route path="/dashboard" element={<Dashboard />} />
 
-        <Route
-          path="/deliveries"
-          element={<MyDeliveries />}
-        />
+        <Route path="/deliveries" element={<MyDeliveries />} />
 
         <Route
           path="/deliveries/add"
@@ -77,15 +59,9 @@ function App() {
           path="/profile"
           element={<Profile />}
         />
-
-        <Route
-          path="/settings"
-          element={<Settings />}
-        />
-
       </Route>
 
-      {/* Invalid URL */}
+      {/* Unknown URL */}
       <Route
         path="*"
         element={<Navigate to="/login" replace />}

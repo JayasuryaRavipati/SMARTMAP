@@ -10,13 +10,15 @@ function Layout() {
 
       <Navbar />
 
-      <main className="layout-content">
-        <div className="page-content">
+      <div className="layout-content">
+
+        <main className="page-content">
           <Outlet />
-        </div>
+        </main>
 
         <Footer />
-      </main>
+
+      </div>
 
     </div>
   );

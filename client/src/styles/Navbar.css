@@ -3,162 +3,141 @@
 ========================================== */
 
 .mobile-menu-btn {
-    display: none;
+  display: none;
 
-    border: none;
-    background: transparent;
+  border: none;
+  background: transparent;
 
-    color: #1e293b;
+  color: #1e293b;
+  font-size: 25px;
 
-    font-size: 25px;
+  cursor: pointer;
 
-    cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
 
-    padding: 8px;
-
-    border-radius: 8px;
-
-    transition: 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .mobile-menu-btn:hover {
-    background: #eff6ff;
-    color: #2563eb;
+  background: #eff6ff;
+  color: #2563eb;
 }
-
 
 /* ==========================================
    MOBILE MENU
 ========================================== */
 
 .mobile-menu {
-    display: none;
+  position: absolute;
 
-    position: absolute;
+  top: calc(100% + 8px);
+  right: 12px;
 
-    top: 100%;
-    right: 12px;
+  width: 230px;
 
-    width: 230px;
+  background: #ffffff;
 
-    background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
 
-    border: 1px solid #e2e8f0;
+  padding: 8px;
 
-    border-radius: 14px;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
 
-    padding: 8px;
+  z-index: 3000;
 
-    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
-
-    animation: mobileMenuOpen 0.2s ease;
-
-    z-index: 3000;
+  animation: mobileMenuOpen 0.2s ease;
 }
 
 @keyframes mobileMenuOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
 
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
 
 /* ==========================================
    MOBILE NAV LINKS
 ========================================== */
 
 .mobile-nav-link {
+  width: 100%;
 
-    width: 100%;
+  display: flex;
+  align-items: center;
 
-    display: flex;
-    align-items: center;
+  gap: 12px;
 
-    gap: 12px;
+  padding: 12px 14px;
 
-    padding: 12px 14px;
+  border: none;
+  border-radius: 9px;
 
-    border: none;
+  background: transparent;
 
-    border-radius: 9px;
+  color: #334155;
 
-    background: transparent;
+  text-decoration: none;
 
-    color: #334155;
+  font-size: 14px;
+  font-weight: 600;
 
-    text-decoration: none;
+  cursor: pointer;
 
-    font-size: 14px;
+  text-align: left;
 
-    font-weight: 600;
-
-    cursor: pointer;
-
-    text-align: left;
-
-    transition: 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .mobile-nav-link svg {
-    font-size: 17px;
-    color: #2563eb;
+  font-size: 17px;
+  color: #2563eb;
 }
 
 .mobile-nav-link:hover {
-    background: #eff6ff;
-    color: #2563eb;
+  background: #eff6ff;
+  color: #2563eb;
 }
-
-
-/* ==========================================
-   MOBILE ACTIVE
-========================================== */
 
 .mobile-nav-link.active {
-    background: #eff6ff;
-    color: #2563eb;
+  background: #eff6ff;
+  color: #2563eb;
 }
-
 
 /* ==========================================
    MOBILE DIVIDER
 ========================================== */
 
 .mobile-menu-divider {
+  height: 1px;
 
-    height: 1px;
+  background: #e2e8f0;
 
-    background: #e2e8f0;
-
-    margin: 7px 5px;
+  margin: 7px 5px;
 }
-
 
 /* ==========================================
    MOBILE LOGOUT
 ========================================== */
 
 .mobile-nav-link.mobile-logout {
-    color: #dc2626;
+  color: #dc2626;
 }
 
 .mobile-nav-link.mobile-logout svg {
-    color: #dc2626;
+  color: #dc2626;
 }
 
 .mobile-nav-link.mobile-logout:hover {
-    background: #fef2f2;
-    color: #dc2626;
+  background: #fef2f2;
+  color: #dc2626;
 }
-
 
 /* ==========================================
    MOBILE
@@ -166,47 +145,40 @@
 
 @media (max-width: 768px) {
 
-    .navbar {
-        height: 70px;
+  .navbar {
+    height: 70px;
+    padding: 0 16px;
+  }
 
-        padding: 0 16px;
-    }
+  .desktop-nav {
+    display: none;
+  }
 
-    .desktop-nav {
-        display: none;
-    }
+  .desktop-profile {
+    display: none;
+  }
 
-    .desktop-profile {
-        display: none;
-    }
+  .mobile-menu-btn {
+    display: flex;
 
-    .mobile-menu-btn {
-        display: flex;
+    align-items: center;
+    justify-content: center;
 
-        align-items: center;
-        justify-content: center;
+    margin-left: auto;
+  }
 
-        margin-left: auto;
-    }
+  .navbar-logo > svg {
+    font-size: 27px;
+  }
 
-    .mobile-menu {
-        display: block;
-    }
+  .navbar-logo h2 {
+    font-size: 21px;
+  }
 
-    .navbar-logo > svg {
-        font-size: 27px;
-    }
-
-    .navbar-logo h2 {
-        font-size: 21px;
-    }
-
-    .navbar-logo p {
-        display: none;
-    }
-
+  .navbar-logo p {
+    display: none;
+  }
 }
-
 
 /* ==========================================
    SMALL MOBILE
@@ -214,28 +186,25 @@
 
 @media (max-width: 480px) {
 
-    .navbar {
-        height: 65px;
+  .navbar {
+    height: 65px;
+    padding: 0 12px;
+  }
 
-        padding: 0 12px;
-    }
+  .navbar-logo > svg {
+    font-size: 24px;
+  }
 
-    .navbar-logo > svg {
-        font-size: 24px;
-    }
+  .navbar-logo h2 {
+    font-size: 19px;
+  }
 
-    .navbar-logo h2 {
-        font-size: 19px;
-    }
+  .mobile-menu-btn {
+    font-size: 23px;
+  }
 
-    .mobile-menu-btn {
-        font-size: 23px;
-    }
-
-    .mobile-menu {
-        right: 10px;
-
-        width: 215px;
-    }
-
+  .mobile-menu {
+    right: 10px;
+    width: 215px;
+  }
 }

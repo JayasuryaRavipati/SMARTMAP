@@ -5,24 +5,11 @@
 }
 
 html {
-  scroll-behavior: smooth;
-}
-
-html,
-body,
-#root {
   width: 100%;
   min-height: 100%;
-}
+  scroll-behavior: smooth;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f8fafc;
-  overflow-x: hidden;
-}
-
-/* Hide scrollbar but keep scrolling */
-html {
+  /* Hide scrollbar */
   scrollbar-width: none;
 }
 
@@ -31,6 +18,16 @@ html::-webkit-scrollbar {
 }
 
 body {
+  width: 100%;
+  min-height: 100vh;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  background: #f8fafc;
+
+  overflow-x: hidden;
+
+  /* Hide scrollbar */
   scrollbar-width: none;
 }
 
@@ -38,7 +35,9 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* Keep scrolling working */
 #root {
+  width: 100%;
   min-height: 100vh;
+
+  overflow-x: hidden;
 }

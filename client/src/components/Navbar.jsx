@@ -20,7 +20,7 @@ function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -111,16 +111,15 @@ function Navbar() {
       </div>
 
       {/* Mobile Hamburger */}
-      <button
-        className="mobile-menu-btn"
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        aria-label="Toggle navigation menu"
-      >
-        {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-      </button>
+    <button
+  className="mobile-menu-btn"
+  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+>
+  <FaBars />
+</button>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
+     {isMobileMenuOpen && (
         <div className="mobile-menu">
 
           <NavLink
