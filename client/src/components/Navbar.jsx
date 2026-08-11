@@ -39,6 +39,7 @@ function Navbar() {
   return (
     <header className="navbar">
 
+      {/* Logo */}
       <div
         className="navbar-left"
         onClick={() => navigate("/dashboard")}
@@ -53,6 +54,7 @@ function Navbar() {
         </div>
       </div>
 
+      {/* Desktop Navigation */}
       <nav className="desktop-nav">
 
         <NavLink
@@ -93,41 +95,44 @@ function Navbar() {
 
       </nav>
 
-     <div className="desktop-profile">
+      {/* Desktop Profile + Logout */}
+      <div className="desktop-profile">
 
-    <button
-        className="navbar-profile"
-        onClick={handleProfile}
-        type="button"
-    >
-        <FaUser className="profile-icon" />
+        <button
+          className="navbar-profile"
+          onClick={handleProfile}
+          type="button"
+        >
+          <FaUser className="profile-icon" />
 
-        <div className="driver-info">
+          <div className="driver-info">
             <h4>{user?.name || "Surya"}</h4>
             <span>Driver</span>
-        </div>
-    </button>
+          </div>
+        </button>
 
-    <button
-        className="desktop-logout"
-        onClick={handleLogout}
+        <button
+          className="desktop-logout"
+          onClick={handleLogout}
+          type="button"
+        >
+          <FaSignOutAlt />
+          <span>Logout</span>
+        </button>
+
+      </div>
+
+      {/* Mobile Hamburger */}
+      <button
+        className="mobile-menu-btn"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         type="button"
-    >
-        <FaSignOutAlt />
-        <span>Logout</span>
-    </button>
+        aria-label="Open menu"
+      >
+        <FaBars />
+      </button>
 
-</div>
-
-     <button
-  className="mobile-menu-btn"
-  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-  type="button"
-  aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
->
-  <FaBars />
-</button>
-
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="mobile-menu">
 

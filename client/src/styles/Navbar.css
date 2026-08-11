@@ -11,7 +11,7 @@
     display: flex;
     align-items: center;
 
-    padding: 0 28px;
+    padding: 0 30px;
 
     background: #ffffff;
 
@@ -26,23 +26,23 @@
 
 
 /* =====================================================
-   NAVBAR LEFT / LOGO
+   LOGO
 ===================================================== */
 
 .navbar-left {
     display: flex;
     align-items: center;
 
-    cursor: pointer;
-
     flex-shrink: 0;
+
+    cursor: pointer;
 }
 
 .navbar-logo {
     display: flex;
     align-items: center;
 
-    gap: 11px;
+    gap: 10px;
 }
 
 .navbar-logo > svg {
@@ -85,6 +85,8 @@
 
 /* =====================================================
    DESKTOP NAVIGATION
+   IMPORTANT:
+   margin-left creates the GAP after SMARTMAP
 ===================================================== */
 
 .desktop-nav {
@@ -93,7 +95,7 @@
 
     gap: 8px;
 
-    margin-left: 45px;
+    margin-left: 55px;
 }
 
 .nav-link {
@@ -133,7 +135,7 @@
 
 
 /* =====================================================
-   DESKTOP PROFILE AREA
+   DESKTOP PROFILE
 ===================================================== */
 
 .desktop-profile {
@@ -142,7 +144,9 @@
 
     gap: 12px;
 
-    margin-left: auto;
+    margin-left: 25px;
+
+    flex-shrink: 0;
 }
 
 
@@ -156,7 +160,7 @@
 
     gap: 9px;
 
-    padding: 6px 9px;
+    padding: 6px 8px;
 
     border: none;
 
@@ -188,7 +192,7 @@
 
     align-items: flex-start;
 
-    min-width: 80px;
+    min-width: 90px;
 }
 
 .driver-info h4 {
@@ -317,6 +321,7 @@
     position: absolute;
 
     top: calc(100% + 8px);
+
     right: 12px;
 
     width: 230px;
@@ -331,8 +336,7 @@
 
     border-radius: 14px;
 
-    box-shadow:
-        0 15px 35px rgba(15, 23, 42, 0.15);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
 
     z-index: 3000;
 
@@ -474,23 +478,25 @@
     }
 
     .desktop-nav {
-        margin-left: 25px;
+        margin-left: 30px;
 
         gap: 4px;
     }
 
     .nav-link {
-        padding: 0 11px;
+        padding: 0 10px;
 
         font-size: 13px;
     }
 
     .desktop-profile {
-        gap: 7px;
+        margin-left: 15px;
+
+        gap: 6px;
     }
 
     .driver-info {
-        min-width: 70px;
+        min-width: 75px;
     }
 
     .driver-info h4 {
@@ -517,17 +523,14 @@
         padding: 0 16px;
     }
 
-    /* Hide desktop navigation */
     .desktop-nav {
         display: none;
     }
 
-    /* Hide desktop profile and logout */
     .desktop-profile {
         display: none;
     }
 
-    /* Show hamburger */
     .mobile-menu-btn {
         display: flex;
     }
