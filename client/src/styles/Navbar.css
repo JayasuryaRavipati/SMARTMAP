@@ -1,114 +1,154 @@
-/* ==========================================
+/* =====================================================
    NAVBAR
-========================================== */
+===================================================== */
 
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: relative;
 
+    width: 100%;
     height: 72px;
-
-    background: #ffffff;
 
     display: flex;
     align-items: center;
 
-    padding: 0 30px;
+    padding: 0 28px;
 
-    border-bottom: 1px solid #e2e8f0;
+    background: #ffffff;
 
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+    border-bottom: 1px solid #e5e7eb;
+
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
 
     z-index: 2000;
+
+    box-sizing: border-box;
 }
 
-/* ==========================================
-   LOGO
-========================================== */
+
+/* =====================================================
+   NAVBAR LEFT / LOGO
+===================================================== */
 
 .navbar-left {
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+
     cursor: pointer;
+
+    flex-shrink: 0;
 }
 
 .navbar-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+
+    gap: 11px;
 }
 
 .navbar-logo > svg {
-    font-size: 28px;
+    width: 31px;
+    height: 31px;
+
     color: #2563eb;
+
+    flex-shrink: 0;
+}
+
+.navbar-logo > div {
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar-logo h2 {
     margin: 0;
 
-    color: #2563eb;
+    color: #0f172a;
 
-    font-size: 23px;
+    font-size: 22px;
     font-weight: 800;
 
-    letter-spacing: 1px;
+    line-height: 1.1;
+
+    letter-spacing: 0.3px;
 }
 
 .navbar-logo p {
-    margin: 2px 0 0;
+    margin: 3px 0 0;
 
     color: #64748b;
 
     font-size: 11px;
+
+    line-height: 1.2;
 }
 
-/* ==========================================
+
+/* =====================================================
    DESKTOP NAVIGATION
-========================================== */
+===================================================== */
 
 .desktop-nav {
     display: flex;
     align-items: center;
 
-    gap: 5px;
+    gap: 8px;
 
-    margin-left: auto;
-    margin-right: 30px;
+    margin-left: 45px;
 }
 
 .nav-link {
-    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 40px;
+
+    padding: 0 15px;
+
+    border-radius: 9px;
 
     color: #475569;
+
+    text-decoration: none;
 
     font-size: 14px;
     font-weight: 600;
 
-    padding: 10px 13px;
+    white-space: nowrap;
 
-    border-radius: 9px;
-
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 .nav-link:hover {
-    color: #2563eb;
     background: #eff6ff;
+
+    color: #2563eb;
 }
 
 .nav-link.active {
-    color: #2563eb;
     background: #eff6ff;
+
+    color: #2563eb;
 }
 
-/* ==========================================
-   DESKTOP PROFILE
-========================================== */
+
+/* =====================================================
+   DESKTOP PROFILE AREA
+===================================================== */
 
 .desktop-profile {
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-left: auto;
 }
+
+
+/* =====================================================
+   PROFILE BUTTON
+===================================================== */
 
 .navbar-profile {
     display: flex;
@@ -116,35 +156,39 @@
 
     gap: 9px;
 
+    padding: 6px 9px;
+
     border: none;
 
     background: transparent;
 
-    cursor: pointer;
-
-    padding: 6px 8px;
-
     border-radius: 10px;
 
-    transition: all 0.25s ease;
+    cursor: pointer;
+
+    transition: background 0.2s ease;
 }
 
 .navbar-profile:hover {
-    background: #f8fafc;
+    background: #f1f5f9;
 }
 
 .profile-icon {
-    font-size: 34px;
+    width: 31px;
+    height: 31px;
 
     color: #2563eb;
+
+    flex-shrink: 0;
 }
 
 .driver-info {
     display: flex;
-
     flex-direction: column;
 
     align-items: flex-start;
+
+    min-width: 80px;
 }
 
 .driver-info h4 {
@@ -152,20 +196,79 @@
 
     color: #1e293b;
 
-    font-size: 14px;
-
+    font-size: 13px;
     font-weight: 700;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
 }
 
 .driver-info span {
+    margin-top: 2px;
+
     color: #64748b;
 
     font-size: 11px;
+
+    line-height: 1.2;
 }
 
-/* ==========================================
+
+/* =====================================================
+   DESKTOP LOGOUT
+===================================================== */
+
+.desktop-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    height: 40px;
+
+    padding: 0 13px;
+
+    border: 1px solid #fecaca;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #dc2626;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: all 0.2s ease;
+}
+
+.desktop-logout svg {
+    width: 14px;
+    height: 14px;
+}
+
+.desktop-logout:hover {
+    background: #fef2f2;
+
+    border-color: #fca5a5;
+
+    color: #b91c1c;
+}
+
+.desktop-logout:active {
+    transform: scale(0.97);
+}
+
+
+/* =====================================================
    MOBILE MENU BUTTON
-========================================== */
+===================================================== */
 
 .mobile-menu-btn {
     display: none;
@@ -178,6 +281,8 @@
 
     margin-left: auto;
 
+    padding: 8px;
+
     border: none;
 
     background: transparent;
@@ -188,9 +293,7 @@
 
     cursor: pointer;
 
-    padding: 8px;
-
-    border-radius: 8px;
+    border-radius: 9px;
 
     transition: all 0.2s ease;
 }
@@ -205,20 +308,22 @@
     outline: none;
 }
 
-/* ==========================================
+
+/* =====================================================
    MOBILE MENU
-========================================== */
+===================================================== */
 
 .mobile-menu {
     position: absolute;
 
     top: calc(100% + 8px);
-
     right: 12px;
 
     width: 230px;
 
     padding: 8px;
+
+    box-sizing: border-box;
 
     background: #ffffff;
 
@@ -226,7 +331,8 @@
 
     border-radius: 14px;
 
-    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.15);
 
     z-index: 3000;
 
@@ -247,20 +353,24 @@
     }
 }
 
-/* ==========================================
+
+/* =====================================================
    MOBILE NAV LINKS
-========================================== */
+===================================================== */
 
 .mobile-nav-link {
     width: 100%;
 
-    display: flex;
+    min-height: 44px;
 
+    display: flex;
     align-items: center;
 
     gap: 12px;
 
-    padding: 12px 14px;
+    padding: 11px 14px;
+
+    box-sizing: border-box;
 
     border: none;
 
@@ -275,7 +385,6 @@
     font-family: inherit;
 
     font-size: 14px;
-
     font-weight: 600;
 
     cursor: pointer;
@@ -287,12 +396,15 @@
 
 .mobile-nav-link svg {
     width: 17px;
-
     height: 17px;
 
     color: #2563eb;
 
     flex-shrink: 0;
+}
+
+.mobile-nav-link span {
+    white-space: nowrap;
 }
 
 .mobile-nav-link:hover {
@@ -307,21 +419,21 @@
     color: #2563eb;
 }
 
-/* ==========================================
+
+/* =====================================================
    MOBILE PROFILE
-========================================== */
+===================================================== */
 
 .mobile-profile {
     appearance: none;
+
+    font-family: inherit;
 }
 
-.mobile-profile svg {
-    color: #2563eb;
-}
 
-/* ==========================================
+/* =====================================================
    MOBILE DIVIDER
-========================================== */
+===================================================== */
 
 .mobile-menu-divider {
     height: 1px;
@@ -331,9 +443,10 @@
     margin: 7px 5px;
 }
 
-/* ==========================================
+
+/* =====================================================
    MOBILE LOGOUT
-========================================== */
+===================================================== */
 
 .mobile-nav-link.mobile-logout {
     color: #dc2626;
@@ -349,100 +462,52 @@
     color: #dc2626;
 }
 
-/* ==========================================
-   LARGE DESKTOP
-========================================== */
 
-@media (min-width: 1920px) {
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1100px) {
 
     .navbar {
-        height: 78px;
-
-        padding: 0 45px;
-    }
-
-    .navbar-logo > svg {
-        font-size: 32px;
-    }
-
-    .navbar-logo h2 {
-        font-size: 27px;
+        padding: 0 20px;
     }
 
     .desktop-nav {
-        gap: 8px;
+        margin-left: 25px;
+
+        gap: 4px;
     }
 
     .nav-link {
-        font-size: 15px;
-
-        padding: 11px 15px;
-    }
-
-    .profile-icon {
-        font-size: 40px;
-    }
-}
-
-/* ==========================================
-   LAPTOP
-========================================== */
-
-@media (max-width: 1440px) {
-
-    .navbar {
-        padding: 0 22px;
-    }
-
-    .desktop-nav {
-        margin-right: 20px;
-    }
-
-    .nav-link {
-        padding: 9px 10px;
+        padding: 0 11px;
 
         font-size: 13px;
     }
-}
 
-/* ==========================================
-   TABLET
-========================================== */
-
-@media (max-width: 1050px) {
-
-    .navbar {
-        padding: 0 18px;
-    }
-
-    .navbar-logo p {
-        display: none;
-    }
-
-    .desktop-nav {
-        gap: 2px;
-
-        margin-right: 12px;
-    }
-
-    .nav-link {
-        padding: 8px;
-
-        font-size: 12px;
+    .desktop-profile {
+        gap: 7px;
     }
 
     .driver-info {
-        display: none;
+        min-width: 70px;
     }
 
-    .profile-icon {
-        font-size: 32px;
+    .driver-info h4 {
+        font-size: 12px;
+    }
+
+    .desktop-logout {
+        padding: 0 10px;
+
+        font-size: 12px;
     }
 }
 
-/* ==========================================
+
+/* =====================================================
    MOBILE
-========================================== */
+===================================================== */
 
 @media (max-width: 768px) {
 
@@ -453,25 +518,23 @@
     }
 
     /* Hide desktop navigation */
-
     .desktop-nav {
         display: none;
     }
 
-    /* Hide desktop profile */
-
+    /* Hide desktop profile and logout */
     .desktop-profile {
         display: none;
     }
 
     /* Show hamburger */
-
     .mobile-menu-btn {
         display: flex;
     }
 
     .navbar-logo > svg {
-        font-size: 27px;
+        width: 27px;
+        height: 27px;
     }
 
     .navbar-logo h2 {
@@ -483,9 +546,10 @@
     }
 }
 
-/* ==========================================
+
+/* =====================================================
    SMALL MOBILE
-========================================== */
+===================================================== */
 
 @media (max-width: 480px) {
 
@@ -495,8 +559,13 @@
         padding: 0 12px;
     }
 
+    .navbar-logo {
+        gap: 8px;
+    }
+
     .navbar-logo > svg {
-        font-size: 24px;
+        width: 24px;
+        height: 24px;
     }
 
     .navbar-logo h2 {
@@ -505,7 +574,6 @@
 
     .mobile-menu-btn {
         width: 40px;
-
         height: 40px;
 
         font-size: 23px;
@@ -518,9 +586,10 @@
     }
 }
 
-/* ==========================================
+
+/* =====================================================
    EXTRA SMALL MOBILE
-========================================== */
+===================================================== */
 
 @media (max-width: 360px) {
 
@@ -536,5 +605,11 @@
         right: 8px;
 
         width: 205px;
+    }
+
+    .mobile-nav-link {
+        font-size: 13px;
+
+        padding: 10px 12px;
     }
 }
