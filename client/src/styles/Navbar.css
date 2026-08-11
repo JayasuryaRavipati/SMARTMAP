@@ -3,13 +3,12 @@
 ===================================================== */
 
 .navbar {
-    position: relative;
-
     width: 100%;
     height: 72px;
 
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     padding: 0 30px;
 
@@ -17,16 +16,18 @@
 
     border-bottom: 1px solid #e5e7eb;
 
-    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+
+    position: fixed;
+    top: 0;
+    left: 0;
 
     z-index: 2000;
-
-    box-sizing: border-box;
 }
 
 
 /* =====================================================
-   LOGO
+   LEFT DIV
 ===================================================== */
 
 .navbar-left {
@@ -42,19 +43,15 @@
     display: flex;
     align-items: center;
 
-    gap: 10px;
+    gap: 11px;
 }
 
-.navbar-logo > svg {
-    width: 31px;
-    height: 31px;
-
+.logo-icon {
+    font-size: 30px;
     color: #2563eb;
-
-    flex-shrink: 0;
 }
 
-.navbar-logo > div {
+.logo-text {
     display: flex;
     flex-direction: column;
 }
@@ -78,36 +75,52 @@
     color: #64748b;
 
     font-size: 11px;
+    font-weight: 500;
 
-    line-height: 1.2;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   RIGHT DIV
+===================================================== */
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+
+    gap: 24px;
+
+    margin-left: auto;
+
+    flex-shrink: 0;
+
+    white-space: nowrap;
 }
 
 
 /* =====================================================
    DESKTOP NAVIGATION
-   IMPORTANT:
-   margin-left creates the GAP after SMARTMAP
 ===================================================== */
 
 .desktop-nav {
     display: flex;
     align-items: center;
 
-    gap: 8px;
+    gap: 26px;
 
-    margin-left: 55px;
+    white-space: nowrap;
 }
 
 .nav-link {
+    position: relative;
+
     display: flex;
     align-items: center;
-    justify-content: center;
 
-    height: 40px;
+    height: 72px;
 
-    padding: 0 15px;
-
-    border-radius: 9px;
+    padding: 0 2px;
 
     color: #475569;
 
@@ -116,42 +129,36 @@
     font-size: 14px;
     font-weight: 600;
 
-    white-space: nowrap;
-
-    transition: all 0.2s ease;
+    transition: color 0.2s ease;
 }
 
 .nav-link:hover {
-    background: #eff6ff;
-
     color: #2563eb;
 }
 
 .nav-link.active {
-    background: #eff6ff;
-
     color: #2563eb;
+}
+
+.nav-link.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 3px;
+
+    background: #2563eb;
+
+    border-radius: 3px 3px 0 0;
 }
 
 
 /* =====================================================
    DESKTOP PROFILE
-===================================================== */
-
-.desktop-profile {
-    display: flex;
-    align-items: center;
-
-    gap: 12px;
-
-    margin-left: 25px;
-
-    flex-shrink: 0;
-}
-
-
-/* =====================================================
-   PROFILE BUTTON
 ===================================================== */
 
 .navbar-profile {
@@ -160,15 +167,15 @@
 
     gap: 9px;
 
-    padding: 6px 8px;
+    padding: 7px 10px;
 
     border: none;
 
     background: transparent;
 
-    border-radius: 10px;
-
     cursor: pointer;
+
+    border-radius: 10px;
 
     transition: background 0.2s ease;
 }
@@ -181,9 +188,13 @@
     width: 31px;
     height: 31px;
 
-    color: #2563eb;
+    padding: 7px;
 
-    flex-shrink: 0;
+    border-radius: 50%;
+
+    background: #eff6ff;
+
+    color: #2563eb;
 }
 
 .driver-info {
@@ -192,20 +203,16 @@
 
     align-items: flex-start;
 
-    min-width: 90px;
+    line-height: 1.2;
 }
 
 .driver-info h4 {
     margin: 0;
 
-    color: #1e293b;
+    color: #0f172a;
 
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
-
-    line-height: 1.3;
-
-    white-space: nowrap;
 }
 
 .driver-info span {
@@ -214,8 +221,6 @@
     color: #64748b;
 
     font-size: 11px;
-
-    line-height: 1.2;
 }
 
 
@@ -232,13 +237,13 @@
 
     height: 40px;
 
-    padding: 0 13px;
+    padding: 0 15px;
 
     border: 1px solid #fecaca;
 
     border-radius: 9px;
 
-    background: #ffffff;
+    background: #fff;
 
     color: #dc2626;
 
@@ -253,8 +258,7 @@
 }
 
 .desktop-logout svg {
-    width: 14px;
-    height: 14px;
+    font-size: 14px;
 }
 
 .desktop-logout:hover {
@@ -263,10 +267,6 @@
     border-color: #fca5a5;
 
     color: #b91c1c;
-}
-
-.desktop-logout:active {
-    transform: scale(0.97);
 }
 
 
@@ -283,11 +283,13 @@
     width: 42px;
     height: 42px;
 
-    margin-left: auto;
+    padding: 0;
 
-    padding: 8px;
+    margin-left: 0;
 
     border: none;
+
+    border-radius: 9px;
 
     background: transparent;
 
@@ -296,8 +298,6 @@
     font-size: 24px;
 
     cursor: pointer;
-
-    border-radius: 9px;
 
     transition: all 0.2s ease;
 }
@@ -328,15 +328,14 @@
 
     padding: 8px;
 
-    box-sizing: border-box;
-
     background: #ffffff;
 
     border: 1px solid #e2e8f0;
 
     border-radius: 14px;
 
-    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.15);
 
     z-index: 3000;
 
@@ -344,6 +343,7 @@
 }
 
 @keyframes mobileMenuOpen {
+
     from {
         opacity: 0;
 
@@ -365,16 +365,12 @@
 .mobile-nav-link {
     width: 100%;
 
-    min-height: 44px;
-
     display: flex;
     align-items: center;
 
     gap: 12px;
 
-    padding: 11px 14px;
-
-    box-sizing: border-box;
+    padding: 12px 14px;
 
     border: none;
 
@@ -385,8 +381,6 @@
     color: #334155;
 
     text-decoration: none;
-
-    font-family: inherit;
 
     font-size: 14px;
     font-weight: 600;
@@ -400,15 +394,12 @@
 
 .mobile-nav-link svg {
     width: 17px;
-    height: 17px;
+
+    font-size: 17px;
 
     color: #2563eb;
 
     flex-shrink: 0;
-}
-
-.mobile-nav-link span {
-    white-space: nowrap;
 }
 
 .mobile-nav-link:hover {
@@ -421,17 +412,6 @@
     background: #eff6ff;
 
     color: #2563eb;
-}
-
-
-/* =====================================================
-   MOBILE PROFILE
-===================================================== */
-
-.mobile-profile {
-    appearance: none;
-
-    font-family: inherit;
 }
 
 
@@ -477,37 +457,26 @@
         padding: 0 20px;
     }
 
-    .desktop-nav {
-        margin-left: 30px;
+    .navbar-right {
+        gap: 15px;
+    }
 
-        gap: 4px;
+    .desktop-nav {
+        gap: 17px;
     }
 
     .nav-link {
-        padding: 0 10px;
-
         font-size: 13px;
     }
 
-    .desktop-profile {
-        margin-left: 15px;
-
-        gap: 6px;
-    }
-
     .driver-info {
-        min-width: 75px;
+        display: none;
     }
 
-    .driver-info h4 {
-        font-size: 12px;
+    .navbar-profile {
+        padding: 5px;
     }
 
-    .desktop-logout {
-        padding: 0 10px;
-
-        font-size: 12px;
-    }
 }
 
 
@@ -523,11 +492,17 @@
         padding: 0 16px;
     }
 
+    /* Keep only logo + hamburger */
+
     .desktop-nav {
         display: none;
     }
 
-    .desktop-profile {
+    .navbar-profile {
+        display: none;
+    }
+
+    .desktop-logout {
         display: none;
     }
 
@@ -535,9 +510,8 @@
         display: flex;
     }
 
-    .navbar-logo > svg {
-        width: 27px;
-        height: 27px;
+    .navbar-right {
+        gap: 0;
     }
 
     .navbar-logo h2 {
@@ -546,6 +520,10 @@
 
     .navbar-logo p {
         display: none;
+    }
+
+    .logo-icon {
+        font-size: 27px;
     }
 }
 
@@ -562,13 +540,8 @@
         padding: 0 12px;
     }
 
-    .navbar-logo {
-        gap: 8px;
-    }
-
-    .navbar-logo > svg {
-        width: 24px;
-        height: 24px;
+    .logo-icon {
+        font-size: 24px;
     }
 
     .navbar-logo h2 {
@@ -608,11 +581,5 @@
         right: 8px;
 
         width: 205px;
-    }
-
-    .mobile-nav-link {
-        font-size: 13px;
-
-        padding: 10px 12px;
     }
 }
