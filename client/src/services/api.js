@@ -1,10 +1,70 @@
+// import axios from "axios";
+
+// const api = axios.create({
+//   baseURL: "https://smartmap-backend-evnb.onrender.com/api"
+// });
+
+// // Add JWT token automatically to every request
+// API.interceptors.request.use((config) => {
+//   const token = localStorage.getItem("token");
+
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+
+//   return config;
+// });
+
+// export default API;
+
+// // ==============================
+// // DELIVERY APIs
+// // ==============================
+
+// // Create Delivery
+// export const createDelivery = async (deliveryData) => {
+//   const response = await API.post("/deliveries", deliveryData);
+//   return response.data;
+// };
+
+// export const getDeliveries = async () => {
+//   const response = await API.get("/deliveries");
+//   return response.data;
+// };
+
+// export const getDelivery = async (id) => {
+//   const response = await API.get(`/deliveries/${id}`);
+//   return response.data;
+// };
+
+// export const updateDelivery = async (id, data) => {
+//   const response = await API.put(`/deliveries/${id}`, data);
+//   return response.data;
+// };
+
+// export const deleteDelivery = async (id) => {
+//   const response = await API.delete(`/deliveries/${id}`);
+//   return response.data;
+// };
+
+// export const getProfile = async () => {
+//   const res = await API.get("/auth/profile");
+//   return res.data;
+// };
+
+// export const updateProfile = async (profile) => {
+//   const res = await API.put("/auth/profile", profile);
+//   return res.data;
+// };
+
+
+
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: "https://smartmap-backend-evnb.onrender.com/api"
+const API = axios.create({
+  baseURL: "https://smartmap-backend-evnb.onrender.com/api",
 });
 
-// Add JWT token automatically to every request
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
@@ -15,13 +75,10 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-export default API;
-
 // ==============================
 // DELIVERY APIs
 // ==============================
 
-// Create Delivery
 export const createDelivery = async (deliveryData) => {
   const response = await API.post("/deliveries", deliveryData);
   return response.data;
@@ -47,12 +104,19 @@ export const deleteDelivery = async (id) => {
   return response.data;
 };
 
+// ==============================
+// AUTH / PROFILE APIs
+// ==============================
+
 export const getProfile = async () => {
-  const res = await API.get("/auth/profile");
-  return res.data;
+  const response = await API.get("/auth/profile");
+  return response.data;
 };
 
 export const updateProfile = async (profile) => {
-  const res = await API.put("/auth/profile", profile);
-  return res.data;
+  const response = await API.put("/auth/profile", profile);
+  return response.data;
 };
+
+export default API;
+```
