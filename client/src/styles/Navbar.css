@@ -1,41 +1,208 @@
 /* ==========================================
+   NAVBAR
+========================================== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 72px;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 30px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+
+    z-index: 2000;
+}
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.navbar-left {
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-logo > svg {
+    font-size: 28px;
+    color: #2563eb;
+}
+
+.navbar-logo h2 {
+    margin: 0;
+
+    color: #2563eb;
+
+    font-size: 23px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.navbar-logo p {
+    margin: 2px 0 0;
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+/* ==========================================
+   DESKTOP NAVIGATION
+========================================== */
+
+.desktop-nav {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+
+    color: #475569;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    padding: 10px 13px;
+
+    border-radius: 9px;
+
+    transition: all 0.25s ease;
+}
+
+.nav-link:hover {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.nav-link.active {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+/* ==========================================
+   DESKTOP PROFILE
+========================================== */
+
+.desktop-profile {
+    flex-shrink: 0;
+}
+
+.navbar-profile {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    padding: 6px 8px;
+
+    border-radius: 10px;
+
+    transition: all 0.25s ease;
+}
+
+.navbar-profile:hover {
+    background: #f8fafc;
+}
+
+.profile-icon {
+    font-size: 34px;
+
+    color: #2563eb;
+}
+
+.driver-info {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+.driver-info h4 {
+    margin: 0;
+
+    color: #1e293b;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+.driver-info span {
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+/* ==========================================
    MOBILE MENU BUTTON
 ========================================== */
 
 .mobile-menu-btn {
-  display: none;
+    display: none;
 
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
 
-  width: 42px;
-  height: 42px;
+    width: 42px;
+    height: 42px;
 
-  margin-left: auto;
+    margin-left: auto;
 
-  border: none;
-  background: transparent;
+    border: none;
 
-  color: #1e293b;
+    background: transparent;
 
-  font-size: 24px;
+    color: #1e293b;
 
-  cursor: pointer;
+    font-size: 24px;
 
-  padding: 8px;
+    cursor: pointer;
 
-  border-radius: 8px;
+    padding: 8px;
 
-  transition: all 0.2s ease;
+    border-radius: 8px;
+
+    transition: all 0.2s ease;
 }
 
 .mobile-menu-btn:hover {
-  background: #eff6ff;
-  color: #2563eb;
+    background: #eff6ff;
+
+    color: #2563eb;
 }
 
 .mobile-menu-btn:focus {
-  outline: none;
+    outline: none;
 }
 
 /* ==========================================
@@ -43,38 +210,41 @@
 ========================================== */
 
 .mobile-menu {
-  position: absolute;
+    position: absolute;
 
-  top: calc(100% + 8px);
-  right: 12px;
+    top: calc(100% + 8px);
 
-  width: 230px;
+    right: 12px;
 
-  padding: 8px;
+    width: 230px;
 
-  background: #ffffff;
+    padding: 8px;
 
-  border: 1px solid #e2e8f0;
+    background: #ffffff;
 
-  border-radius: 14px;
+    border: 1px solid #e2e8f0;
 
-  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+    border-radius: 14px;
 
-  z-index: 3000;
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
 
-  animation: mobileMenuOpen 0.2s ease;
+    z-index: 3000;
+
+    animation: mobileMenuOpen 0.2s ease;
 }
 
 @keyframes mobileMenuOpen {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
+    from {
+        opacity: 0;
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
 }
 
 /* ==========================================
@@ -82,51 +252,71 @@
 ========================================== */
 
 .mobile-nav-link {
-  width: 100%;
+    width: 100%;
 
-  display: flex;
-  align-items: center;
+    display: flex;
 
-  gap: 12px;
+    align-items: center;
 
-  padding: 12px 14px;
+    gap: 12px;
 
-  border: none;
-  border-radius: 9px;
+    padding: 12px 14px;
 
-  background: transparent;
+    border: none;
 
-  color: #334155;
+    border-radius: 9px;
 
-  text-decoration: none;
+    background: transparent;
 
-  font-size: 14px;
-  font-weight: 600;
+    color: #334155;
 
-  cursor: pointer;
+    text-decoration: none;
 
-  text-align: left;
+    font-family: inherit;
 
-  transition: all 0.2s ease;
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: all 0.2s ease;
 }
 
 .mobile-nav-link svg {
-  width: 17px;
-  font-size: 17px;
+    width: 17px;
 
-  color: #2563eb;
+    height: 17px;
 
-  flex-shrink: 0;
+    color: #2563eb;
+
+    flex-shrink: 0;
 }
 
 .mobile-nav-link:hover {
-  background: #eff6ff;
-  color: #2563eb;
+    background: #eff6ff;
+
+    color: #2563eb;
 }
 
 .mobile-nav-link.active {
-  background: #eff6ff;
-  color: #2563eb;
+    background: #eff6ff;
+
+    color: #2563eb;
+}
+
+/* ==========================================
+   MOBILE PROFILE
+========================================== */
+
+.mobile-profile {
+    appearance: none;
+}
+
+.mobile-profile svg {
+    color: #2563eb;
 }
 
 /* ==========================================
@@ -134,11 +324,11 @@
 ========================================== */
 
 .mobile-menu-divider {
-  height: 1px;
+    height: 1px;
 
-  background: #e2e8f0;
+    background: #e2e8f0;
 
-  margin: 7px 5px;
+    margin: 7px 5px;
 }
 
 /* ==========================================
@@ -146,16 +336,108 @@
 ========================================== */
 
 .mobile-nav-link.mobile-logout {
-  color: #dc2626;
+    color: #dc2626;
 }
 
 .mobile-nav-link.mobile-logout svg {
-  color: #dc2626;
+    color: #dc2626;
 }
 
 .mobile-nav-link.mobile-logout:hover {
-  background: #fef2f2;
-  color: #dc2626;
+    background: #fef2f2;
+
+    color: #dc2626;
+}
+
+/* ==========================================
+   LARGE DESKTOP
+========================================== */
+
+@media (min-width: 1920px) {
+
+    .navbar {
+        height: 78px;
+
+        padding: 0 45px;
+    }
+
+    .navbar-logo > svg {
+        font-size: 32px;
+    }
+
+    .navbar-logo h2 {
+        font-size: 27px;
+    }
+
+    .desktop-nav {
+        gap: 8px;
+    }
+
+    .nav-link {
+        font-size: 15px;
+
+        padding: 11px 15px;
+    }
+
+    .profile-icon {
+        font-size: 40px;
+    }
+}
+
+/* ==========================================
+   LAPTOP
+========================================== */
+
+@media (max-width: 1440px) {
+
+    .navbar {
+        padding: 0 22px;
+    }
+
+    .desktop-nav {
+        margin-right: 20px;
+    }
+
+    .nav-link {
+        padding: 9px 10px;
+
+        font-size: 13px;
+    }
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1050px) {
+
+    .navbar {
+        padding: 0 18px;
+    }
+
+    .navbar-logo p {
+        display: none;
+    }
+
+    .desktop-nav {
+        gap: 2px;
+
+        margin-right: 12px;
+    }
+
+    .nav-link {
+        padding: 8px;
+
+        font-size: 12px;
+    }
+
+    .driver-info {
+        display: none;
+    }
+
+    .profile-icon {
+        font-size: 32px;
+    }
 }
 
 /* ==========================================
@@ -164,37 +446,41 @@
 
 @media (max-width: 768px) {
 
-  .navbar {
-    height: 70px;
-    padding: 0 16px;
-  }
+    .navbar {
+        height: 70px;
 
-  /* Hide desktop navigation */
-  .desktop-nav {
-    display: none;
-  }
+        padding: 0 16px;
+    }
 
-  /* Hide desktop profile */
-  .desktop-profile {
-    display: none;
-  }
+    /* Hide desktop navigation */
 
-  /* Show hamburger */
-  .mobile-menu-btn {
-    display: flex;
-  }
+    .desktop-nav {
+        display: none;
+    }
 
-  .navbar-logo > svg {
-    font-size: 27px;
-  }
+    /* Hide desktop profile */
 
-  .navbar-logo h2 {
-    font-size: 21px;
-  }
+    .desktop-profile {
+        display: none;
+    }
 
-  .navbar-logo p {
-    display: none;
-  }
+    /* Show hamburger */
+
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .navbar-logo > svg {
+        font-size: 27px;
+    }
+
+    .navbar-logo h2 {
+        font-size: 21px;
+    }
+
+    .navbar-logo p {
+        display: none;
+    }
 }
 
 /* ==========================================
@@ -203,30 +489,33 @@
 
 @media (max-width: 480px) {
 
-  .navbar {
-    height: 65px;
-    padding: 0 12px;
-  }
+    .navbar {
+        height: 65px;
 
-  .navbar-logo > svg {
-    font-size: 24px;
-  }
+        padding: 0 12px;
+    }
 
-  .navbar-logo h2 {
-    font-size: 19px;
-  }
+    .navbar-logo > svg {
+        font-size: 24px;
+    }
 
-  .mobile-menu-btn {
-    width: 40px;
-    height: 40px;
+    .navbar-logo h2 {
+        font-size: 19px;
+    }
 
-    font-size: 23px;
-  }
+    .mobile-menu-btn {
+        width: 40px;
 
-  .mobile-menu {
-    right: 10px;
-    width: 215px;
-  }
+        height: 40px;
+
+        font-size: 23px;
+    }
+
+    .mobile-menu {
+        right: 10px;
+
+        width: 215px;
+    }
 }
 
 /* ==========================================
@@ -235,16 +524,17 @@
 
 @media (max-width: 360px) {
 
-  .navbar {
-    padding: 0 10px;
-  }
+    .navbar {
+        padding: 0 10px;
+    }
 
-  .navbar-logo h2 {
-    font-size: 18px;
-  }
+    .navbar-logo h2 {
+        font-size: 18px;
+    }
 
-  .mobile-menu {
-    right: 8px;
-    width: 205px;
-  }
+    .mobile-menu {
+        right: 8px;
+
+        width: 205px;
+    }
 }

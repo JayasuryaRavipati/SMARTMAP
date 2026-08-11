@@ -23,29 +23,29 @@ function Navbar() {
 
   const handleLogout = () => {
     logout();
-    setMobileMenuOpen(false);
+    setIsMobileMenuOpen(false);
     navigate("/login");
   };
 
   const handleProfile = () => {
-    setMobileMenuOpen(false);
+    setIsMobileMenuOpen(false);
     navigate("/profile");
   };
 
   const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
+    setIsMobileMenuOpen(false);
   };
 
   return (
     <header className="navbar">
 
-      {/* Logo */}
       <div
         className="navbar-left"
         onClick={() => navigate("/dashboard")}
       >
         <div className="navbar-logo">
           <FaTruck />
+
           <div>
             <h2>SMARTMAP</h2>
             <p>Smart Delivery Management</p>
@@ -53,7 +53,6 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Desktop Navigation */}
       <nav className="desktop-nav">
 
         <NavLink
@@ -94,36 +93,42 @@ function Navbar() {
 
       </nav>
 
-      {/* Desktop Profile */}
       <div className="desktop-profile">
+
         <button
           className="navbar-profile"
           onClick={handleProfile}
+          type="button"
         >
-          <FaUserCircle className="profile-icon" />
+          <FaUser className="profile-icon" />
 
           <div className="driver-info">
             <h4>{user?.name || "Surya"}</h4>
             <span>Driver</span>
           </div>
         </button>
+
       </div>
 
-      {/* Mobile Hamburger */}
-    <button
-  className="mobile-menu-btn"
-  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
->
-  <FaBars />
-</button>
+      <button
+        className="mobile-menu-btn"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        type="button"
+        aria-label="Open menu"
+      >
+        <FaBars />
+      </button>
 
-      {/* Mobile Menu */}
-     {isMobileMenuOpen && (
+      {isMobileMenuOpen && (
         <div className="mobile-menu">
 
           <NavLink
             to="/dashboard"
-            className="mobile-nav-link"
+            className={({ isActive }) =>
+              isActive
+                ? "mobile-nav-link active"
+                : "mobile-nav-link"
+            }
             onClick={closeMobileMenu}
           >
             <FaHome />
@@ -132,7 +137,11 @@ function Navbar() {
 
           <NavLink
             to="/deliveries"
-            className="mobile-nav-link"
+            className={({ isActive }) =>
+              isActive
+                ? "mobile-nav-link active"
+                : "mobile-nav-link"
+            }
             onClick={closeMobileMenu}
           >
             <FaBox />
@@ -141,7 +150,11 @@ function Navbar() {
 
           <NavLink
             to="/deliveries/add"
-            className="mobile-nav-link"
+            className={({ isActive }) =>
+              isActive
+                ? "mobile-nav-link active"
+                : "mobile-nav-link"
+            }
             onClick={closeMobileMenu}
           >
             <FaPlusCircle />
@@ -150,7 +163,11 @@ function Navbar() {
 
           <NavLink
             to="/optimize"
-            className="mobile-nav-link"
+            className={({ isActive }) =>
+              isActive
+                ? "mobile-nav-link active"
+                : "mobile-nav-link"
+            }
             onClick={closeMobileMenu}
           >
             <FaRoute />
@@ -160,8 +177,9 @@ function Navbar() {
           <button
             className="mobile-nav-link mobile-profile"
             onClick={handleProfile}
+            type="button"
           >
-            <FaUserCircle />
+            <FaUser />
             <span>Profile</span>
           </button>
 
@@ -170,6 +188,7 @@ function Navbar() {
           <button
             className="mobile-nav-link mobile-logout"
             onClick={handleLogout}
+            type="button"
           >
             <FaSignOutAlt />
             <span>Logout</span>
