@@ -1,14 +1,13 @@
 import { useState } from "react";
 import {
   FaTruck,
-  FaUserCircle,
-  FaSignOutAlt,
   FaBars,
-  FaTimes,
   FaHome,
   FaBox,
   FaPlusCircle,
   FaRoute,
+  FaUser,
+  FaSignOutAlt,
 } from "react-icons/fa";
 
 import { NavLink, useNavigate } from "react-router-dom";
