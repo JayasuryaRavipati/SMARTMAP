@@ -39,7 +39,7 @@ function Navbar() {
   return (
     <header className="navbar">
 
-      {/* Logo */}
+      {/* LEFT - LOGO */}
       <div
         className="navbar-left"
         onClick={() => navigate("/dashboard")}
@@ -54,50 +54,51 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Desktop Navigation */}
-      <nav className="desktop-nav">
+      {/* RIGHT CONTENT */}
+      <div className="navbar-content">
 
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            isActive ? "nav-link active" : "nav-link"
-          }
-        >
-          Dashboard
-        </NavLink>
+        {/* DESKTOP NAVIGATION */}
+        <nav className="desktop-nav">
 
-        <NavLink
-          to="/deliveries"
-          className={({ isActive }) =>
-            isActive ? "nav-link active" : "nav-link"
-          }
-        >
-          Deliveries
-        </NavLink>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            Dashboard
+          </NavLink>
 
-        <NavLink
-          to="/deliveries/add"
-          className={({ isActive }) =>
-            isActive ? "nav-link active" : "nav-link"
-          }
-        >
-          Add Delivery
-        </NavLink>
+          <NavLink
+            to="/deliveries"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            Deliveries
+          </NavLink>
 
-        <NavLink
-          to="/optimize"
-          className={({ isActive }) =>
-            isActive ? "nav-link active" : "nav-link"
-          }
-        >
-          Optimize Route
-        </NavLink>
+          <NavLink
+            to="/deliveries/add"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            Add Delivery
+          </NavLink>
 
-      </nav>
+          <NavLink
+            to="/optimize"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            Optimize Route
+          </NavLink>
 
-      {/* Desktop Profile + Logout */}
-      <div className="desktop-profile">
+        </nav>
 
+        {/* DESKTOP PROFILE */}
         <button
           className="navbar-profile"
           onClick={handleProfile}
@@ -111,8 +112,9 @@ function Navbar() {
           </div>
         </button>
 
+        {/* DESKTOP LOGOUT */}
         <button
-          className="desktop-logout"
+          className="navbar-logout"
           onClick={handleLogout}
           type="button"
         >
@@ -122,7 +124,7 @@ function Navbar() {
 
       </div>
 
-      {/* Mobile Hamburger */}
+      {/* MOBILE MENU BUTTON */}
       <button
         className="mobile-menu-btn"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -132,7 +134,7 @@ function Navbar() {
         <FaBars />
       </button>
 
-      {/* Mobile Menu */}
+      {/* MOBILE MENU */}
       {isMobileMenuOpen && (
         <div className="mobile-menu">
 
