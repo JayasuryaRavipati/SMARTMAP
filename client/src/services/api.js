@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: "https://smartmap-backend-evnb.onrender.com/",
+const api = axios.create({
+  baseURL: "https://smartmap-backend-evnb.onrender.com/api"
 });
 
 // Add JWT token automatically to every request
