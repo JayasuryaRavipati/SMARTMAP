@@ -93,22 +93,31 @@ function Navbar() {
 
       </nav>
 
-      <div className="desktop-profile">
+     <div className="desktop-profile">
 
-        <button
-          className="navbar-profile"
-          onClick={handleProfile}
-          type="button"
-        >
-          <FaUser className="profile-icon" />
+    <button
+        className="navbar-profile"
+        onClick={handleProfile}
+        type="button"
+    >
+        <FaUser className="profile-icon" />
 
-          <div className="driver-info">
+        <div className="driver-info">
             <h4>{user?.name || "Surya"}</h4>
             <span>Driver</span>
-          </div>
-        </button>
+        </div>
+    </button>
 
-      </div>
+    <button
+        className="desktop-logout"
+        onClick={handleLogout}
+        type="button"
+    >
+        <FaSignOutAlt />
+        <span>Logout</span>
+    </button>
+
+</div>
 
      <button
   className="mobile-menu-btn"
