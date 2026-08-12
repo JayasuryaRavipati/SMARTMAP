@@ -1,40 +1,41 @@
-/* =====================================================
+/* =========================================================
    QUICK ACTIONS CONTAINER
-===================================================== */
+   ========================================================= */
 
 .quick-actions {
+    width: 100%;
+    box-sizing: border-box;
     background: #ffffff;
     margin-top: 25px;
     padding: 25px;
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    box-sizing: border-box;
 }
 
 
-/* =====================================================
+/* =========================================================
    HEADER
-===================================================== */
+   ========================================================= */
 
-.quick-header h2 {
+.quick-actions .quick-header h2 {
     margin: 0;
     font-size: 28px;
     font-weight: 700;
     color: #1f2937;
 }
 
-.quick-header p {
+.quick-actions .quick-header p {
     margin: 8px 0 0;
     color: #6b7280;
     font-size: 15px;
 }
 
 
-/* =====================================================
+/* =========================================================
    BUTTON CONTAINER
-===================================================== */
+   ========================================================= */
 
-.action-buttons {
+.quick-actions .action-buttons {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -43,11 +44,14 @@
 }
 
 
-/* =====================================================
+/* =========================================================
    COMMON BUTTON
-===================================================== */
+   IMPORTANT:
+   Everything is scoped under .quick-actions
+   so Navbar buttons won't be affected.
+   ========================================================= */
 
-.action-buttons .action-btn {
+.quick-actions .action-btn {
     box-sizing: border-box;
 
     display: flex;
@@ -57,7 +61,7 @@
     gap: 12px;
 
     width: 240px;
-    min-width: 220px;
+    min-width: 240px;
     height: 60px;
 
     padding: 0 24px;
@@ -71,85 +75,78 @@
     font-size: 16px;
     font-weight: 600;
 
-    line-height: 1;
-
     cursor: pointer;
 
-    appearance: none;
-    -webkit-appearance: none;
-
     transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        background 0.3s ease;
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
 }
 
 
-/* =====================================================
+/* =========================================================
    ICON
-===================================================== */
+   ========================================================= */
 
-.action-buttons .action-btn .action-icon,
-.action-buttons .action-btn svg {
+.quick-actions .action-icon,
+.quick-actions .action-btn svg {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
     font-size: 20px;
 }
 
 
-/* =====================================================
+/* =========================================================
    ADD DELIVERY
-===================================================== */
+   ========================================================= */
 
-.action-buttons .action-btn.add-btn {
+.quick-actions .add-btn {
     background: linear-gradient(
         135deg,
         #2563eb,
         #1d4ed8
     );
+}
 
-    height: 60px;
+.quick-actions .add-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 22px rgba(37, 99, 235, 0.35);
 }
 
 
-/* =====================================================
+/* =========================================================
    OPTIMIZE ROUTE
-===================================================== */
+   ========================================================= */
 
-.action-buttons .action-btn.optimize-btn {
+.quick-actions .optimize-btn {
     background: linear-gradient(
         135deg,
         #2563eb,
         #1d4ed8
     );
+}
 
-    height: 60px;
+.quick-actions .optimize-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 22px rgba(37, 99, 235, 0.35);
 }
 
 
-/* =====================================================
-   HOVER
-===================================================== */
-
-.action-buttons .action-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.35);
-}
-
-
-/* =====================================================
+/* =========================================================
    ACTIVE
-===================================================== */
+   ========================================================= */
 
-.action-buttons .action-btn:active {
+.quick-actions .action-btn:active {
     transform: scale(0.97);
 }
 
 
-/* =====================================================
+/* =========================================================
    LARGE DESKTOP
-===================================================== */
+   ========================================================= */
 
 @media (min-width: 1920px) {
 
@@ -157,35 +154,30 @@
         padding: 30px;
     }
 
-    .quick-header h2 {
+    .quick-actions .quick-header h2 {
         font-size: 32px;
     }
 
-    .quick-header p {
+    .quick-actions .quick-header p {
         font-size: 16px;
     }
 
-    .action-buttons {
+    .quick-actions .action-buttons {
         gap: 24px;
     }
 
-    .action-buttons .action-btn {
+    .quick-actions .action-btn {
         width: 250px;
         min-width: 250px;
         height: 65px;
         font-size: 17px;
     }
-
-    .action-buttons .action-btn.add-btn,
-    .action-buttons .action-btn.optimize-btn {
-        height: 65px;
-    }
 }
 
 
-/* =====================================================
+/* =========================================================
    LAPTOP
-===================================================== */
+   ========================================================= */
 
 @media (max-width: 1440px) {
 
@@ -193,22 +185,21 @@
         padding: 22px;
     }
 
-    .action-buttons .action-btn {
-        width: 220px;
-        min-width: 210px;
-        height: 58px;
+    .quick-actions .action-buttons {
+        gap: 20px;
     }
 
-    .action-buttons .action-btn.add-btn,
-    .action-buttons .action-btn.optimize-btn {
+    .quick-actions .action-btn {
+        width: 240px;
+        min-width: 240px;
         height: 58px;
     }
 }
 
 
-/* =====================================================
+/* =========================================================
    TABLET
-===================================================== */
+   ========================================================= */
 
 @media (max-width: 1024px) {
 
@@ -216,35 +207,29 @@
         padding: 20px;
     }
 
-    .quick-header h2 {
+    .quick-actions .quick-header h2 {
         font-size: 24px;
     }
 
-    .quick-header p {
+    .quick-actions .quick-header p {
         font-size: 14px;
     }
 
-    .action-buttons {
+    .quick-actions .action-buttons {
         gap: 16px;
     }
 
-    .action-buttons .action-btn {
+    .quick-actions .action-btn {
         flex: 1;
         width: auto;
-        min-width: 220px;
-        height: 56px;
-    }
-
-    .action-buttons .action-btn.add-btn,
-    .action-buttons .action-btn.optimize-btn {
-        height: 56px;
+        min-width: 200px;
     }
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE
-===================================================== */
+   ========================================================= */
 
 @media (max-width: 768px) {
 
@@ -256,120 +241,67 @@
         box-sizing: border-box;
     }
 
-    .quick-header h2 {
+    .quick-actions .quick-header h2 {
         font-size: 22px;
     }
 
-    .quick-header p {
+    .quick-actions .quick-header p {
         font-size: 14px;
-        margin-top: 8px;
     }
 
-    .action-buttons {
+    .quick-actions .action-buttons {
         width: 100%;
-
         display: flex;
         flex-direction: column;
-
-        align-items: stretch;
-
         gap: 14px;
-
-        margin-top: 22px;
     }
 
-    /* IMPORTANT:
-       Both buttons get EXACTLY the same size */
-    .action-buttons .action-btn,
-    .action-buttons .action-btn.add-btn,
-    .action-buttons .action-btn.optimize-btn {
-
-        display: flex;
-
+    .quick-actions .action-btn {
         width: 100%;
-        min-width: 100%;
-        max-width: 100%;
-
+        min-width: 0;
         height: 54px;
-        min-height: 54px;
-        max-height: 54px;
 
         padding: 0 20px;
 
-        margin: 0;
-
         border-radius: 14px;
 
-        font-size: 16px;
-        font-weight: 600;
-
-        line-height: 1;
-
-        box-sizing: border-box;
+        font-size: 15px;
     }
 
-    .action-buttons .action-btn .action-icon,
-    .action-buttons .action-btn svg {
-        width: 20px;
-        height: 20px;
-        min-width: 20px;
-        font-size: 20px;
-    }
-
-    .action-buttons .action-btn.add-btn {
-        background: linear-gradient(
-            135deg,
-            #2563eb,
-            #1d4ed8
-        );
-    }
-
-    .action-buttons .action-btn.optimize-btn {
-        background: linear-gradient(
-            135deg,
-            #2563eb,
-            #1d4ed8
-        );
+    .quick-actions .action-icon,
+    .quick-actions .action-btn svg {
+        font-size: 18px;
     }
 }
 
 
-/* =====================================================
+/* =========================================================
    SMALL MOBILE
-===================================================== */
+   ========================================================= */
 
 @media (max-width: 480px) {
 
     .quick-actions {
-        width: 100%;
         padding: 15px;
         border-radius: 12px;
     }
 
-    .quick-header h2 {
+    .quick-actions .quick-header h2 {
         font-size: 20px;
     }
 
-    .quick-header p {
+    .quick-actions .quick-header p {
         font-size: 13px;
     }
 
-    .action-buttons {
+    .quick-actions .action-buttons {
         gap: 12px;
-        margin-top: 20px;
     }
 
-    .action-buttons .action-btn,
-    .action-buttons .action-btn.add-btn,
-    .action-buttons .action-btn.optimize-btn {
-
+    .quick-actions .action-btn {
         width: 100%;
-        min-width: 100%;
-        max-width: 100%;
-
-        height: 52px;
-        min-height: 52px;
-        max-height: 52px;
+        min-width: 0;
+        height: 54px;
 
         padding: 0 16px;
 
@@ -378,11 +310,8 @@
         font-size: 15px;
     }
 
-    .action-buttons .action-btn .action-icon,
-    .action-buttons .action-btn svg {
-        width: 19px;
-        height: 19px;
-        min-width: 19px;
-        font-size: 19px;
+    .quick-actions .action-icon,
+    .quick-actions .action-btn svg {
+        font-size: 18px;
     }
 }
