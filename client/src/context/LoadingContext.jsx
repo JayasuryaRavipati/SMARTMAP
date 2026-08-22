@@ -1,4 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
+
+import { setLoadingHandlers } from "../services/api";
 
 const LoadingContext = createContext();
 
@@ -12,6 +19,10 @@ export const LoadingProvider = ({ children }) => {
     const stopLoading = () => {
         setLoading(false);
     };
+
+    useEffect(() => {
+        setLoadingHandlers(startLoading, stopLoading);
+    }, []);
 
     return (
         <LoadingContext.Provider
